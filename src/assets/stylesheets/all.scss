@@ -1,0 +1,19 @@
+// 字型 
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Viga&display=swap');
+
+// functions
+@import "~bootstrap/scss/functions";
+// 自訂變數 variables
+@import "./helpers/variables"; // 在 scss 檔中無法使用 @
+// bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+@import "./base";
+@import "./components/navbar";
+@import "./components/banner";
+@import "./components/card";
+@import "./components/btn";
+@import "./components/front";
+
+@import "./pages/frontProducts.scss"

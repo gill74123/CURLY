@@ -1,0 +1,22 @@
+.category{
+    a{
+        display: block;
+        &.active{
+            background-color: $primary;
+            color: $white;
+        }
+    }
+    @media (max-width: 767px){
+        a{
+            border: 1px solid $primary;
+            border-radius: $border-radius;
+        }
+    }
+}
+.scrollbar{
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y:hidden;
+    white-space: nowrap;
+}

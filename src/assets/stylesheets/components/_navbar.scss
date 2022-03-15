@@ -1,0 +1,35 @@
+.front{
+    .navbar-light{
+        background-color: $secondary;
+    }
+    .navbar-light .navbar-nav .nav-link{
+        color: $primary;
+        border-bottom: 3px solid transparent;
+        &:hover{
+            border-bottom: 2px solid $primary;
+            font-weight: bold;
+        }
+        &.active{
+            border-bottom: 2px solid $primary;
+            font-weight: bold;
+        }   
+    }
+    @media (max-width: 992px){
+        .navbar-light .navbar-nav .nav-link{
+            &:hover{
+                background-color: $primary;
+                color: $secondary;
+                font-weight: bold;
+            }
+            &.active{
+                background-color: $primary;
+                color: $secondary;
+                font-weight: bold;
+            }   
+        }
+    }
+    .navbar-light .navbar-toggler{
+        color: transparent;
+        border: 0px transparent;
+    }
+}
