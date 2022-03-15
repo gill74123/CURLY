@@ -2,16 +2,18 @@
   <div class="front min-vh-100">
     <FrontNavbar></FrontNavbar>
     <router-view></router-view>
+    <FrontFooter></FrontFooter>
   </div>
-  <!-- header/footer -->
 </template>
 
 <script>
 import FrontNavbar from '@/components/FrontNavbar.vue'
+import FrontFooter from '@/components/FrontFooter.vue'
 
 export default {
   components: {
-    FrontNavbar
+    FrontNavbar,
+    FrontFooter
   }
 }
 </script>

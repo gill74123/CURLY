@@ -4,7 +4,7 @@
     <h2
       class="text-white position-absolute top-50 start-50 translate-middle m-0"
     >
-      找到專屬你的滋味
+      療癒你味蕾的味道
     </h2>
   </section>
 
