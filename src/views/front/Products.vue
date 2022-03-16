@@ -52,7 +52,7 @@
                 <h5 class="card-title text-primary">{{ product.title }}</h5>
                 <p class="card-text">
                   <span class="text-danger">$ {{ product.price }} 元</span>
-                  <del v-if="product.origin_price !== product.price" class="text-dark ms-2">$ {{ product.origin_price }} 元</del>
+                  <del v-if="product.origin_price !== product.price" class="text-light ms-2">$ {{ product.origin_price }} 元</del>
                 </p>
                 <button type="button" class="btn btn-outline-primary">加入購物車</button>
               </div>

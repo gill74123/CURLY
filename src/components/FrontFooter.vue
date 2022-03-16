@@ -7,7 +7,7 @@
             <span class="material-icons-outlined fs-7 me-4 me-md-0 me-lg-4 mb-md-2 mb-lg-0">local_shipping </span>
             <div class="text-md-center text-lg-start">
               <h4>免運費</h4>
-              <small class="text-light">消費滿 $1000 免運費</small>
+              <small>消費滿 $1000 免運費</small>
             </div>
           </div>
         </li>
@@ -16,7 +16,7 @@
             <span class="material-icons-outlined fs-7 me-4 me-md-0 me-lg-4 mb-md-2 mb-lg-0">card_giftcard</span>
             <div class="text-md-center text-lg-start">
               <h4>加碼送</h4>
-              <small class="text-light">凡購買皆送特製濾掛式咖啡一包</small>
+              <small>凡購買皆送特製濾掛式咖啡一包</small>
             </div>
           </div>
         </li>
@@ -25,7 +25,7 @@
             <span class="material-icons-outlined fs-7 me-4 me-md-0 me-lg-4 mb-md-2 mb-lg-0">monetization_on</span>
             <div class="text-md-center text-lg-start">
               <h4>付款方式</h4>
-              <small class="text-light">信用卡、ApplePay、LinePay</small>
+              <small>信用卡、ApplePay、LinePay</small>
             </div>
           </div>
         </li>
