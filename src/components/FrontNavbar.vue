@@ -27,6 +27,9 @@
           <li class="nav-item">
             <router-link to="/pay" class="nav-link text-center">結帳</router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/product" class="nav-link text-center">單一產品</router-link>
+          </li>
         </ul>
       </div>
     </div>

@@ -445,6 +445,7 @@ $utilities: map-merge(
       values: (monospace: var(--#{$variable-prefix}font-monospace))
     ),
     "font-size": (
+      responsive: true, // NEW 讓他可以產生 RWD
       rfs: true,
       property: font-size,
       class: fs,

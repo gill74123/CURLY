@@ -24,6 +24,10 @@ const routes = [
       {
         path: 'pay',
         component: () => import('../views/front/Pay.vue')
+      },
+      {
+        path: 'product',
+        component: () => import('../views/front/ProductItem.vue')
       }
     ]
   },

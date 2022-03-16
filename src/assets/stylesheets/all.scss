@@ -6,6 +6,8 @@
 @import "~bootstrap/scss/functions";
 // 自訂變數 variables
 @import "./helpers/variables"; // 在 scss 檔中無法使用 @
+// 自訂 utilities
+@import "./helpers/utilities";
 // bootstrap
 @import "~bootstrap/scss/bootstrap";
 
@@ -14,6 +16,8 @@
 @import "./components/banner";
 @import "./components/card";
 @import "./components/btn";
+@import "./components/pagination";
 @import "./components/front";
 
-@import "./pages/frontProducts.scss"
+@import "./pages/frontProducts.scss";
+@import "./pages/frontProductItem.scss";
