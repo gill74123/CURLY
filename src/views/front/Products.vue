@@ -43,18 +43,18 @@
         <div class="row g-3 g-md-2">
           <div class="col-lg-4 col-sm-6" v-for="product in products" :key="product.id">
             <div class="card">
-              <div class="card-img-box">
-                <a href="" class="img-hover-scale">
+              <div class="card-img-box" @click.prevent="seeProduct(product.id)">
+                <a href="" class="img-hover-scale" >
                   <img :src="product.imageUrl" class="card-img" alt="" />
                 </a>
               </div>
               <div class="card-body text-center">
                 <h5 class="card-title text-primary">{{ product.title }}</h5>
-                <p class="card-text">
-                  <span class="text-danger">$ {{ product.price }} 元</span>
+                <p class="card-text mb-4">
+                  <span class="text-danger fs-4 fw-bold">$ {{ product.price }} 元</span>
                   <del v-if="product.origin_price !== product.price" class="text-light ms-2">$ {{ product.origin_price }} 元</del>
                 </p>
-                <button type="button" class="btn btn-outline-primary">加入購物車</button>
+                <button type="button" class="btn btn-outline-primary px-5" @click="addCart(product.id)">加入購物車</button>
               </div>
             </div>
           </div>
@@ -86,7 +86,6 @@ export default {
       this.$http
         .get(url)
         .then((res) => {
-          console.log(res)
           this.products = res.data.products
           this.pagination = res.data.pagination
           // this.isLoading = false
@@ -94,6 +93,27 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    addCart (productId, qty = 1) {
+      // this.spinnerOn = id
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/cart`
+      const data = {
+        product_id: productId,
+        qty: qty
+      }
+      this.$http.post(url, { data })
+        .then((res) => {
+          // this.spinnerOn = ''
+
+          // 跨元件去呼叫 getCart
+          this.$emitter.emit('get-cart')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    seeProduct (productId) {
+      this.$router.push(`/product/${productId}`)
     }
   },
   mounted () {

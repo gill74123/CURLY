@@ -55,3 +55,15 @@
         }
     }
 }
+
+// Cart
+.offcanvas{
+    .card{
+        border: 0px;
+        // background-color: pink;
+        .card-img{
+            height: 100px;
+            object-fit: cover;
+        }
+    }
+}

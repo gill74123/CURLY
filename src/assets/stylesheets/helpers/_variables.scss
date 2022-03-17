@@ -72,11 +72,11 @@ $secondary:     #F0EFE3; // $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
-$danger:        $red !default;
+$danger:        #E07B74; // $red !default;
 $light:         $gray-600; // $gray-100 !default;
 $dark:          $gray-900 !default;
 $third:         #eee4d3; // #DFD6C8;
-//  #CA9D76; #F0EFE3 #dfd6c8 #eee4d3 #EFE3D8 #707070
+//  #CA9D76; #F0EFE3 #dfd6c8 #eee4d3 #EFE3D8 #707070 #E07B74 #7C382D
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -595,6 +595,7 @@ $font-size-lg:                $font-size-base * 1.25 !default;
 $font-weight-lighter:         lighter !default;
 $font-weight-light:           300 !default;
 $font-weight-normal:          400 !default;
+$font-weight-medium:          500; // NEW
 $font-weight-bold:            700 !default;
 $font-weight-bolder:          bolder !default;
 
