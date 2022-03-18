@@ -73,7 +73,7 @@
           <hr />
           <div class="d-flex justify-content-start mb-4">
             <input
-              type="number" min="1" class="form-control bg-secondary border-1 border-primary rounded-2 text-light text-center w-25 p-3 me-3"
+              type="number" min="1" class="form-control border-1 border-primary rounded-2 text-center w-25 p-3 me-3"
               v-model="productQty"
             />
             <button type="button" class="btn btn-primary text-white w-50 fw-4 py-3"

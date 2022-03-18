@@ -60,7 +60,17 @@
 .offcanvas{
     .card{
         border: 0px;
-        // background-color: pink;
+        .card-img{
+            height: 100px;
+            object-fit: cover;
+        }
+    }
+}
+
+// Order
+.order{
+    .card{
+        border: 0px;
         .card-img{
             height: 100px;
             object-fit: cover;

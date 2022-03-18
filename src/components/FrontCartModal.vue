@@ -1,5 +1,5 @@
 <template>
-  <div class="offcanvas offcanvas-end  bg-secondary" style="width: 450px" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas offcanvas-end  bg-secondary" style="width: 450px" ref="cartOffcanvas" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header border-bottom border-primary">
       <h5 class="text-primary" id="offcanvasRightLabel">購物車</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -14,35 +14,36 @@
           <div class="col-6 text-dark">
             <div class="card-body d-flex flex-column justify-content-between h-100 py-0">
               <h5 class="card-title text-primary fw-medium m-0">{{ cartItem.product.title }}</h5>
-              <p class="card-text ">$ {{ cartItem.product.price }}</p>
+              <p class="card-text ">NT$ {{ cartItem.product.price }}</p>
               <button type="button" class="btn border-0 text-start w-25 p-0" @click="deleteItemCart(cartItem.id)">
                 <span class="material-icons-outlined text-light align-bottom">delete_outline</span>
               </button>
             </div>
           </div>
           <div class="col-3 align-self-center">
-            <input type="number" min="1" class="form-control bg-secondary border-1 border-light rounded-2 text-light text-center"
+            <input type="number" min="1" class="form-control border-1 border-light rounded-2 text-center"
             v-model="cartItem.qty" @change="updateCart(cartItem)">
           </div>
         </div>
       </div>
       <hr>
-      <div class="d-flex justify-content-between mb-6">
+      <div class="d-flex justify-content-between mb-4">
         <button type="button" class="btn btn-sm btn-outline-light px-2" @click="deleteCarts">清空全部購物車</button>
-        <p class="text-end">總金額：$ {{ total }} 元</p>
+        <p class="text-end">總金額：NT$ {{ total }} 元</p>
       </div>
-      <button type="button" class="btn btn-primary text-white w-100">確認結帳</button>
+      <router-link to="/order" class="btn btn-primary w-100" @click="closeOffcanvas">確認結帳</router-link>
     </div>
     <div v-else class="offcanvas-body text-light text-center p-6">
       <span class="material-icons-outlined fs-6">fmd_bad</span>
       <p class="fs-4 mb-4">購物車內沒有商品</p>
-      <router-link to="/products" class="btn btn-primary text-white px-5">前往購物</router-link>
+      <router-link to="/products" class="btn btn-primary px-5" @click="closeOffcanvas">前往購物</router-link>
     </div>
   </div>
 </template>
 
 <script>
-// import Offcanvas from 'bootstrap/js/dist/offcanvas'
+// import Offcanvas from 'bootstrap/js/dist/offcanvas' 這個不行?
+import { Offcanvas } from 'bootstrap'
 
 export default {
   data () {
@@ -63,8 +64,11 @@ export default {
           this.cartData = res.data.data
           this.total = res.data.data.total
 
-          // 每當觸發 getCart 方法時，傳遞購物車數量到 FrontNavbar.vue
+          // 每當觸發 getCart 方法時，傳遞購物車數量到 FrontNavbar.vue (內傳外)
           this.$emit('cart-qty', this.cartData.carts.length)
+
+          // 每當觸發 getCart 方法時，傳遞 this.carData 資料到 Order.vue
+          this.$emitter.emit('get-cart-data', this.cartData)
         })
         .catch((err) => {
           console.log(err.response)
@@ -108,17 +112,21 @@ export default {
         .catch((err) => {
           console.log(err.response)
         })
+    },
+    closeOffcanvas () {
+      this.cartOffcanvas.hide()
     }
   },
   mounted () {
     this.getCart()
 
-    // 監聽加入購物車事件
+    // 跨元件監聽加入購物車事件
     this.$emitter.on('get-cart', () => {
       this.getCart()
     })
 
-    // this.cartOffcanvas = new Offcanvas(this.$refs.cartOffcanvas, { backdrop: true })
+    // 指向 DOM
+    this.cartOffcanvas = new Offcanvas(this.$refs.cartOffcanvas)
   }
 }
 </script>
