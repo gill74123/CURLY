@@ -29,14 +29,20 @@
       <hr>
       <div class="d-flex justify-content-between mb-4">
         <button type="button" class="btn btn-sm btn-outline-light px-2" @click="deleteCarts">清空全部購物車</button>
-        <p class="text-end">總金額：NT$ {{ total }} 元</p>
+        <p v-if="total === final_total" class="text-end">總金額：NT$ {{ total }} 元</p>
+        <div v-else class="text-end">
+          <del class="fs-2 text-light">總金額：NT$ {{ total }} 元</del>
+          <p>折價後金額：NT$ {{ final_total }} 元</p>
+        </div>
       </div>
       <router-link to="/order" class="btn btn-primary w-100" @click="closeOffcanvas">確認結帳</router-link>
     </div>
+
+    <!-- 購物車沒有商品 -->
     <div v-else class="offcanvas-body text-light text-center p-6">
       <span class="material-icons-outlined fs-6">fmd_bad</span>
       <p class="fs-4 mb-4">購物車內沒有商品</p>
-      <router-link to="/products" class="btn btn-primary px-5" @click="closeOffcanvas">前往購物</router-link>
+      <router-link to="/products" class="btn btn-primary px-5" @click="closeOffcanvas">前往選購</router-link>
     </div>
   </div>
 </template>
@@ -52,7 +58,8 @@ export default {
         carts: []
       },
       cartOffcanvas: '',
-      total: ''
+      total: '',
+      final_total: ''
     }
   },
   methods: {
@@ -63,6 +70,7 @@ export default {
         .then((res) => {
           this.cartData = res.data.data
           this.total = res.data.data.total
+          this.final_total = res.data.data.final_total
 
           // 每當觸發 getCart 方法時，傳遞購物車數量到 FrontNavbar.vue (內傳外)
           this.$emit('cart-qty', this.cartData.carts.length)

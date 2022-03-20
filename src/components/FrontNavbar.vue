@@ -21,12 +21,12 @@
           <!-- <li class="nav-item">
             <router-link to="/carts" class="nav-link text-center">購物車</router-link>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/order" class="nav-link text-center">確認訂單</router-link>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <router-link to="/pay" class="nav-link text-center">結帳</router-link>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <router-link to="/product" class="nav-link text-center">單一產品</router-link>
           </li> -->

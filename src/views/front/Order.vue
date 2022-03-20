@@ -1,12 +1,13 @@
 <template>
     <div class="order container py-6">
         <!-- timeline -->
-        <ul class="timeline d-flex justify-content-center list-unstyled mb-6">
+        <Timeline></Timeline>
+        <!-- <ul class="timeline d-flex justify-content-center list-unstyled mb-6">
             <li class="timeline-item active">
                 <p class="timeline-pointer">1</p>
                 訂單確認
             </li>
-            <li class="timeline-item active">
+            <li class="timeline-item">
                 <p class="timeline-pointer">2</p>
                 訂單建立
             </li>
@@ -14,11 +15,11 @@
                 <p class="timeline-pointer">3</p>
                 完成訂單
             </li>
-        </ul>
+        </ul> -->
         <div class="row g-5">
             <!-- 購物車詳情 -->
-            <div class="col-md-6">
-                <h5 class="border-bottom text-dark fw-normal pb-2 mb-5">購物車詳情</h5>
+            <div class="col-md-6 mb-4">
+                <h5 class="border-bottom text-primary fw-bold pb-2 mb-5">購物車詳情</h5>
                 <div class="card mb-3" v-for="cartItem in cartData.carts" :key="cartItem.id">
                     <div class="row g-0">
                       <div class="col-3">
@@ -41,7 +42,8 @@
                     <input type="text" class="form-control" placeholder="輸入優惠代碼" v-model.trim="couponCode">
                     <button class="btn btn-outline-primary" type="button" @click="addCoupon(couponCode)">套用優惠券</button>
                 </div>
-                <div v-if="is_Discount">
+                <!-- `cartData.total !== cartData.final_total` 避免使用者重新整理 -->
+                <div v-if="is_Discount || cartData.total !== cartData.final_total">
                   <p class="d-flex justify-content-between text-light mb-2">
                     折抵購物金
                     <span>-NT$ {{ cartData.total - cartData.final_total }}</span>
@@ -59,7 +61,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h5 class="border-bottom text-dark fw-normal pb-2 mb-2">訂購人資訊</h5>
+                <h5 class="border-bottom text-primary fw-bold pb-2 mb-2">訂購人資訊</h5>
                 <form class="py-3" ref="resetForm">
                     <div class="mb-3">
                         <label for="Email1" class="form-label"><span class="text-danger">*</span> Email</label>
@@ -87,7 +89,7 @@
                         v-model="formData.message"></textarea>
                     </div>
                     <div class="text-end">
-                        <button type="button" class="btn btn-primary px-4" @click="addOrder">送出訂單</button>
+                        <button type="button" class="btn btn-primary w-100 w-lg-25 p-2" @click="addOrder">送出訂單</button>
                     </div>
                 </form>
             </div>
@@ -96,6 +98,8 @@
 </template>
 
 <script>
+import Timeline from '@/components/Timeline.vue'
+
 export default {
   data () {
     return {
@@ -111,6 +115,9 @@ export default {
         user: {}
       }
     }
+  },
+  components: {
+    Timeline
   },
   methods: {
     addCoupon (couponCode) {
@@ -136,17 +143,32 @@ export default {
         .post(url, { data })
         .then((res) => {
           console.log(res)
-
+          this.is_Discount = true
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
+          // 清空列表
           this.formData = {
             user: {}
           }
           // this.$refs.resetForm.resetForm()
+          // 換頁
+          const orderId = res.data.orderId
+          this.$router.push(`/pay/${orderId}`)
         })
         .catch((err) => {
           console.log(err)
         })
+    }
+  },
+  watch: {
+    is_Discount () {
+      // 跨元件去呼叫 getCart
+      this.$emitter.emit('get-cart')
+
+      // 跨元件取得購物車的資訊
+      this.$emitter.on('get-cart-data', (cartData) => {
+        this.cartData = cartData
+      })
     }
   },
   mounted () {
