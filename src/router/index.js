@@ -10,6 +10,10 @@ const routes = [
         component: () => import('../views/front/Index.vue')
       },
       {
+        path: 'about',
+        component: () => import('../views/front/Index.vue')
+      },
+      {
         path: 'products',
         component: () => import('../views/front/Products.vue')
       },
@@ -28,6 +32,14 @@ const routes = [
       {
         path: 'product/:id',
         component: () => import('../views/front/ProductItem.vue')
+      },
+      {
+        path: 'articles',
+        component: () => import('../views/front/Articles.vue')
+      },
+      {
+        path: 'article/:id',
+        component: () => import('../views/front/ArticleItem.vue')
       }
     ]
   },

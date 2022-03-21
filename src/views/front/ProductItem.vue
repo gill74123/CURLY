@@ -157,7 +157,7 @@ export default {
         .then((res) => {
           this.product = res.data.product
 
-          this.isLoading = false
+          // this.isLoading = false
         })
     },
     addCart (productId) {

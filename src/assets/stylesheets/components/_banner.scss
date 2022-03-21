@@ -1,12 +1,34 @@
 // 背景圖片
-.bg{
-    &-banner{
-        width: 100%;
-        height: 250px;
-        background-image: url(https://media.istockphoto.com/photos/cinnamon-sticks-and-powder-in-wooden-scoop-picture-id469820215?k=20&m=469820215&s=612x612&w=0&h=8dmh7vHvIX2cAtQTyUaVsQJt-oY2nDMGNYpg4OkayZc=);
-        background-size: cover;
-        background-position: center center;
-        background-attachment: initial;
-        background-attachment: fixed; // 讓它有視覺差的效果
+// Products
+.products{
+    &.bg{
+        &-banner{
+            width: 100%;
+            height: 250px;
+            background-image: url(https://media.istockphoto.com/photos/cinnamon-sticks-and-powder-in-wooden-scoop-picture-id469820215?k=20&m=469820215&s=612x612&w=0&h=8dmh7vHvIX2cAtQTyUaVsQJt-oY2nDMGNYpg4OkayZc=);
+            background-size: cover;
+            background-position: center center;
+            background-attachment: initial;
+            background-attachment: fixed; // 讓它有視覺差的效果
+        }
     }
 }
+
+// Article
+.articles{
+    &.bg{
+        &-banner{
+            width: 100%;
+            height: 250px;
+            background-image: url(https://images.unsplash.com/photo-1603021330160-419c85530546?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=867&q=80);
+            background-size: cover;
+            background-position: center center;
+            background-attachment: initial;
+            background-attachment: fixed; // 讓它有視覺差的效果
+        }
+    }
+}
+// https://images.unsplash.com/photo-1603021330160-419c85530546?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=867&q=80
+// https://images.unsplash.com/photo-1512388810659-4685f86d5f45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80
+// https://images.unsplash.com/photo-1589395595311-d932730f9dec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80
+// https://images.unsplash.com/photo-1626703601457-23530af8c8e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80

@@ -1,15 +1,15 @@
 <template>
   <!-- banner -->
-  <section class="bg-banner position-relative">
+  <section class="products bg-banner position-relative">
     <h2
-      class="text-white position-absolute top-50 start-50 translate-middle m-0"
+      class="position-absolute bg-light bg-opacity-25 text-white text-center top-50 start-50 translate-middle p-3 px-4"
     >
-      暖胃又暖心的好味道
+      <p>暖胃又暖心的好味道</p>
     </h2>
   </section>
 
   <!-- 產品列表 -->
-  <section class="container my-6">
+  <section class="container py-6">
     <div class="row mb-4">
       <div class="col-md-3">
         <ul
@@ -23,19 +23,24 @@
           "
         >
           <li>
-            <a href="" class="border-bottom border-primary p-2">所有產品</a>
+            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === ''}"
+            @click.prevent="getProducts('')">所有產品</a>
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2">不敗經典</a>
+            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '不敗經典'}"
+            @click.prevent="getProducts('不敗經典')">不敗經典</a>
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2">就要醬吃</a>
+            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '就要醬吃'}"
+            @click.prevent="getProducts('就要醬吃')">就要醬吃</a>
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2">加料萬歲</a>
+            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '加料萬歲'}"
+            @click.prevent="getProducts('加料萬歲')">加料萬歲</a>
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2">微醺微醺</a>
+            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '微醺微醺'}"
+            @click.prevent="getProducts('微醺微醺')">微醺微醺</a>
           </li>
         </ul>
       </div>
@@ -81,8 +86,8 @@ export default {
     Pagination
   },
   methods: {
-    getProducts (page = 1) {
-      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}`
+    getProducts (category, page = 1) {
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}&category=${category}`
       this.$http
         .get(url)
         .then((res) => {
@@ -117,7 +122,7 @@ export default {
     }
   },
   mounted () {
-    this.getProducts()
+    this.getProducts('') // 傳入空字串代表 所有商品
   }
 }
 </script>

@@ -7,7 +7,7 @@
           </a>
         </li>
         <li class="page-item" v-for="page in pages.total_pages" :key="page + 'page'" :class="{active: page === pages.current_page}">
-          <a class="page-link" href="#" @click.prevent="updatePage(page)">{{ page }}</a>
+          <a class="page-link" href="#" @click.prevent="updatePage(pages.category, page)">{{ page }}</a>
         </li>
         <li class="page-item" :class="{disabled: !pages.has_next}">
           <a class="page-link" href="#" aria-label="Next" @click.prevent="updatePage(pages.current_page + 1)">
@@ -22,8 +22,8 @@
 export default {
   props: ['pages'],
   methods: {
-    updatePage (page) {
-      this.$emit('emit-pages', page)
+    updatePage (category, page) {
+      this.$emit('emit-pages', category, page)
     }
   }
 }
