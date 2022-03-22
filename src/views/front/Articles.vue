@@ -21,21 +21,31 @@
   <section class="articles container py-6">
     <div class="row">
       <div class="col-md-3">
-        <ul class="list-unstyled">
-          <li class="border-bottom border-primary p-2">
-            <a href="" class="d-flex align-items-center">
+        <ul class="category list-unstyled">
+          <li>
+            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === 'all'}"
+            @click.prevent="filterArticles('all')">
+              <span class="material-icons-outlined me-2">campaign</span>
+              所有消息
+            </a>
+          </li>
+          <li>
+            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '公告'}"
+            @click.prevent="filterArticles('公告')">
               <span class="material-icons-outlined me-2">campaign</span>
               公告
             </a>
           </li>
-          <li class="border-bottom border-primary p-2">
-            <a href="" class="d-flex align-items-center">
+          <li>
+            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '活動'}"
+            @click.prevent="filterArticles('活動')">
               <span class="material-icons-outlined me-2">local_florist</span>
               活動
             </a>
           </li>
-          <li class="border-bottom border-primary p-2">
-            <a href="" class="d-flex align-items-center">
+          <li>
+            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '小知識'}"
+            @click.prevent="filterArticles('小知識')">
               <span class="material-icons-outlined me-2">school</span>
               小知識
             </a>
@@ -44,7 +54,7 @@
       </div>
       <div class="col-md-9">
         <ul class="list-unstyled text-light">
-          <li class="card border-0" v-for="article in articles" :key="article.id" @click.prevent="seeArticle(article.id)">
+          <li class="card border-0" v-for="article in categoryArticles" :key="article.id" @click.prevent="seeArticle(article.id)">
             <div class="card-body p-0">
               <template v-for="tag in article.tag" :key="tag + 1">
                 <span class="text-muted me-2">#{{ tag }}</span>
@@ -60,6 +70,23 @@
             <hr>
           </li>
         </ul>
+        <!-- <ul class="list-unstyled text-light">
+          <li class="card border-0" v-for="article in articles" :key="article.id" @click.prevent="seeArticle(article.id)">
+            <div class="card-body p-0">
+              <template v-for="tag in article.tag" :key="tag + 1">
+                <span class="text-muted me-2">#{{ tag }}</span>
+              </template>
+              <div class="card-title d-flex justify-content-between align-items-center my-2">
+                <h3 class="text-primary fw-bold fs-5">{{ article.title }}</h3>
+                <p>{{ article.create_at }}</p>
+              </div>
+              <img :src="article.image" class="card-img mb-3" alt="article.image">
+              <p class="mb-3">{{ article.description }}</p>
+              <a href="" class="d-block stretched-link text-end fw-medium">MORE</a>
+            </div>
+            <hr>
+          </li>
+        </ul> -->
       </div>
     </div>
 
@@ -74,7 +101,9 @@ import Pagination from '@/components/Pagination.vue'
 export default {
   data () {
     return {
-      articles: {},
+      articles: [],
+      categoryArticles: [],
+      categoryType: '',
       pagination: {}
     }
   },
@@ -94,10 +123,27 @@ export default {
             // 將時間格式改為 YYYY-MM-DD
             item.create_at = new Date(item.create_at * 1000).toISOString().split('T')[0]
           })
+
+          this.filterArticles('all')
         })
         .catch((err) => {
           console.log(err.response)
         })
+    },
+    filterArticles (category) {
+      this.categoryArticles = []
+      this.categoryType = category
+
+      if (category === 'all') {
+        this.categoryArticles = this.articles
+      } else {
+        this.articles.forEach(item => {
+          const isIncludes = item?.tag?.includes(category)
+          if (isIncludes) {
+            this.categoryArticles.push(item)
+          }
+        })
+      }
     },
     seeArticle (articleId) {
       this.$router.push(`/article/${articleId}`)

@@ -65,6 +65,11 @@ const routes = [
         component: () => import('../views/admin/Articles.vue')
       }
     ]
+  },
+  // 登入
+  {
+    path: '/login',
+    component: () => import('../views/front/Login.vue')
   }
 ]
 

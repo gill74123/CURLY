@@ -33,3 +33,39 @@
         border: 0px transparent;
     }
 }
+
+.admin{
+    .navbar-light{
+        background-color: $primary;
+    }
+    .navbar-light .navbar-nav .nav-link{
+        color: $secondary;
+        border-bottom: 3px solid transparent;
+        &:hover{
+            border-bottom: 2px solid $secondary;
+            font-weight: 500;
+        }
+        &.active{
+            border-bottom: 2px solid $secondary;
+            font-weight: 500;
+        }   
+    }
+    @media (max-width: 991px){
+        .navbar-light .navbar-nav .nav-link{
+            &:hover{
+                background-color: $secondary;
+                color: $primary;
+                font-weight: 500;
+            }
+            &.active{
+                background-color: $secondary;
+                color: $primary;
+                font-weight: 500;
+            }   
+        }
+    }
+    .navbar-light .navbar-toggler{
+        color: transparent;
+        border: 0px transparent;
+    }
+}

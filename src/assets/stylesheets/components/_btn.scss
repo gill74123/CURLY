@@ -1,3 +1,5 @@
+// 所有可以按的東西都放在這
+
 .btn{
     &-primary{
         color: $white !important; 
@@ -9,6 +11,22 @@
     }
     &-outline-light{
         &:hover{
+            color: $white;
+        }
+    }
+    &-outline-secondary{
+        &:hover{
+            color: $primary;
+        }
+    }
+}
+
+// Products, Articles
+.category{
+    a{
+        display: block;
+        &.active{
+            background-color: $primary;
             color: $white;
         }
     }

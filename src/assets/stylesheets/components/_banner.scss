@@ -5,6 +5,7 @@
         &-banner{
             width: 100%;
             height: 250px;
+            // background-image: url('./assets/images/banner.jpg');
             background-image: url(https://media.istockphoto.com/photos/cinnamon-sticks-and-powder-in-wooden-scoop-picture-id469820215?k=20&m=469820215&s=612x612&w=0&h=8dmh7vHvIX2cAtQTyUaVsQJt-oY2nDMGNYpg4OkayZc=);
             background-size: cover;
             background-position: center center;
@@ -20,7 +21,8 @@
         &-banner{
             width: 100%;
             height: 250px;
-            background-image: url(https://images.unsplash.com/photo-1603021330160-419c85530546?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=867&q=80);
+            background-image: url('./assets/images/banner.jpg');
+            // background-image: url(https://images.unsplash.com/photo-1603021330160-419c85530546?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=867&q=80);
             background-size: cover;
             background-position: center center;
             background-attachment: initial;
