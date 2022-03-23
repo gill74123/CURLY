@@ -86,7 +86,7 @@ export default {
     Pagination
   },
   methods: {
-    getProducts (category, page = 1) {
+    getProducts (category = '', page = 1) { // category 傳入空字串代表 所有商品
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}&category=${category}`
       this.$http
         .get(url)
@@ -122,7 +122,7 @@ export default {
     }
   },
   mounted () {
-    this.getProducts('') // 傳入空字串代表 所有商品
+    this.getProducts()
   }
 }
 </script>

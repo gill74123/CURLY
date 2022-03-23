@@ -4,6 +4,9 @@
     &-primary{
         color: $white !important; 
     }
+    &-danger{
+        color: $white !important; 
+    }
     &-outline-primary{
         &:hover{
             color: $white;
@@ -17,6 +20,11 @@
     &-outline-secondary{
         &:hover{
             color: $primary;
+        }
+    }
+    &-outline-danger{
+        &:hover{
+            color: $white;
         }
     }
 }

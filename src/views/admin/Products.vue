@@ -1,18 +1,17 @@
 <template>
   <div class="px-6 py-3">
-    <!-- <h2>產品列表</h2> -->
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
-        class="btn btn-primary d-flex align-items-center text-end px-4"
+        class="btn btn-primary d-flex align-items-center px-3 py-2"
         @click="openModal('new')"
       >
         <span class="material-icons-outlined me-2">add_circle_outline</span>
         <span>新增產品</span>
       </button>
     </div>
-    <table class="table table-borderless">
+    <table class="table table-borderless mb-4">
       <thead class="border-bottom border-primary text-light">
-        <tr class="">
+        <tr>
           <th scope="col" width="150" class="fw-medium">分類</th>
           <th scope="col"  class="text-start fw-medium">商品名稱</th>
           <th scope="col" class="fw-medium">原價</th>
@@ -83,24 +82,47 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- AdminProductModal -->
+    <AdminProductModal ref="productModal" :temp-product="tempProduct" :is_new="isNew"
+    @get-products="getProducts"></AdminProductModal>
+    <!-- AdminDelModal -->
+    <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-product="tempProduct"
+    @get-products="getProducts"></AdminDelModal>
+    <!-- Pagination -->
+    <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
   </div>
 </template>
 
 <script>
+import Pagination from '@/components/Pagination.vue'
+import AdminProductModal from '@/components/AdminProductModal.vue'
+import AdminDelModal from '@/components/AdminDelModal.vue'
+
 export default {
   data () {
     return {
       products: [],
-      pagination: {}
+      pagination: {},
+      tempProduct: {
+        imagesUrl: []
+        // is_recommend: ''
+      },
+      isNew: true,
+      delModalStatus: ''
     }
   },
+  components: {
+    Pagination,
+    AdminProductModal,
+    AdminDelModal
+  },
   methods: {
-    getProducts (page = 1) {
-      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/products?${page}`
+    getProducts (category = '', page = 1) {
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}&category=${category}`
       this.$http
         .get(url)
         .then((res) => {
-          console.log(res)
           this.products = res.data.products
           this.pagination = res.data.pagination
           // this.isLoading = false
@@ -108,6 +130,43 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    updateProduct (item) {
+      this.isNew = false
+      this.tempProduct = { ...item }
+      // 判斷是否有 imagesUrl 陣列，沒有得先加上
+      if (this.tempProduct.imagesUrl === undefined) {
+        this.tempProduct.imagesUrl = []
+      }
+      this.$refs.productModal.updateProduct(item.id)
+    },
+    openModal (modalStatus, item) {
+      if (modalStatus === 'new') {
+        // 新增 - 清空選取產品內資料
+        this.tempProduct = {
+          imagesUrl: []
+          // is_recommend: ''
+        }
+
+        this.$refs.productModal.openProductModal()
+        this.isNew = true
+      } else if (modalStatus === 'edit') {
+        // 編輯 - 拷貝點選的產品
+        this.tempProduct = { ...item }
+
+        // 先判斷是否有 imagesUrl 陣列，沒有得先加上
+        if (this.tempProduct.imagesUrl === undefined) {
+          this.tempProduct.imagesUrl = []
+        }
+        this.$refs.productModal.openProductModal()
+        this.isNew = false
+      } else if (modalStatus === 'productDelete') {
+        // 刪除 - 拷貝點選的產品
+        this.tempProduct = { ...item }
+
+        this.delModalStatus = modalStatus
+        this.$refs.delModal.openDelModal()
+      }
     }
   },
   mounted () {
