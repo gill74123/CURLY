@@ -2,7 +2,7 @@
   <nav class="d-flex justify-content-end align-items-center" aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" :class="{disabled: !pages.has_pre}">
-          <a class="page-link" href="#" aria-label="Previous" @click.prevent="updatePage(pages.current_page - 1)">
+          <a class="page-link" href="#" aria-label="Previous" @click.prevent="updatePage(pages.category, pages.current_page - 1)">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
@@ -10,7 +10,7 @@
           <a class="page-link" href="#" @click.prevent="updatePage(pages.category, page)">{{ page }}</a>
         </li>
         <li class="page-item" :class="{disabled: !pages.has_next}">
-          <a class="page-link" href="#" aria-label="Next" @click.prevent="updatePage(pages.current_page + 1)">
+          <a class="page-link" href="#" aria-label="Next" @click.prevent="updatePage(pages.category, pages.current_page + 1)">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

@@ -9,7 +9,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header bg-primary">
-          <h5 class="modal-title text-white">新增產品</h5>
+          <h5 class="modal-title text-white">{{ is_new ? '新增產品' : '編輯產品' }}</h5>
           <button
             type="button"
             class="btn-close btn-close-white"
@@ -172,7 +172,9 @@ export default {
   },
   methods: {
     updateProduct (productId) {
-      this.$nextTick(() => { // 使用 nextTick() 當 DOM 更新後才執行
+      // Vue 在更新 DOM 的時候是非同步的，導致 ProductModal 拿到的 props 資料與父元件不一致
+      // 使用 nextTick() 當 DOM 更新後才執行
+      this.$nextTick(() => {
         let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/product/${productId}`
         let httpMethod = 'put'
         // let page = '' // 控制新增/編輯時刷新會到哪一頁

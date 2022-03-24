@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         <tr class="border-bottom" v-for="order in orders" :key="order.id">
-          <td>1</td>
+          <td>{{ order.create_at }}</td>
           <td class="text-start">{{ order.id }}</td>
           <td>{{ order.user.email }}</td>
           <td>
@@ -63,6 +63,7 @@
             <button
               type="button"
               class="btn btn-outline-danger"
+              :disabled="order.is_paid"
               @click="openModal('orderDelete', order)"
             >
               刪除
@@ -74,7 +75,10 @@
     </table>
 
     <!-- AdminOrderModal -->
-    <AdminOrderModal ref="orderModal" :temp-order="tempOrder"></AdminOrderModal>
+    <AdminOrderModal ref="orderModal" :orders="orders" :temp-order="tempOrder" @get-orders="getOrders"></AdminOrderModal>
+    <!-- AdminDelModal -->
+    <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-order="tempOrder"
+    @get-orders="getOrders"></AdminDelModal>
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getOrders"></Pagination>
   </div>
@@ -83,18 +87,23 @@
 <script>
 import Pagination from '@/components/Pagination.vue'
 import AdminOrderModal from '@/components/AdminOrderModal.vue'
+import AdminDelModal from '@/components/AdminDelModal.vue'
 
 export default {
   data () {
     return {
       orders: {},
       pagination: {},
-      tempOrder: {}
+      tempOrder: {
+        user: {}
+      },
+      delModalStatus: ''
     }
   },
   components: {
     Pagination,
-    AdminOrderModal
+    AdminOrderModal,
+    AdminDelModal
   },
   methods: {
     getOrders (category, page = 1) {
@@ -103,23 +112,40 @@ export default {
       this.$http.get(url)
         .then((res) => {
           this.orders = res.data.orders
-          this.pagination = res.data.pagination// 取得分頁資訊
+          this.pagination = res.data.pagination
         })
         .catch((err) => {
           console.log(err.response)
         })
+    },
+    updateOrder (item) {
+      // console.log(item)
+      this.tempOrder = { ...item }
+      // console.log(this.tempOrder)
+      this.$refs.orderModal.updateOrder(item.id)
     },
     openModal (modalStatus, item) {
       if (modalStatus === 'orderModal') {
         // OrderModal
         this.tempOrder = { ...item }
         this.$refs.orderModal.openOrderModal()
-      } else if (modalStatus === 'orderDelete' || modalStatus === 'orderAllDelete') {
-        // AlertModal
+      } else if (modalStatus === 'orderDelete') {
+        // 刪除 - 單一訂單
         this.tempOrder = { ...item }
-        this.$refs.delAlertModal.openDelAlertModal()
-        this.alertModalStatus = modalStatus
+        this.delModalStatus = modalStatus
+        this.$refs.delModal.openDelModal()
+      } else if (modalStatus === 'orderAllDelete') {
+        // 刪除 - 全部訂單
+        this.delModalStatus = modalStatus
+        this.$refs.delModal.openDelModal()
       }
+    }
+  },
+  watch: {
+    orders () {
+      this.orders.forEach(item => {
+        item.create_at = new Date(item.create_at * 1000).toISOString().split('T')[0]
+      })
     }
   },
   mounted () {

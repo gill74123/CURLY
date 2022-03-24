@@ -12,13 +12,13 @@
     <table class="table table-borderless mb-4">
       <thead class="border-bottom border-primary text-light">
         <tr>
-          <th scope="col" width="150" class="fw-medium">分類</th>
-          <th scope="col"  class="text-start fw-medium">商品名稱</th>
-          <th scope="col" class="fw-medium">原價</th>
-          <th scope="col" class="fw-medium">售價</th>
-          <th scope="col" width="180" class="fw-medium">是否推薦</th>
-          <th scope="col" width="180" class="fw-medium">啟用狀態</th>
-          <th scope="col" width="150" class="fw-medium">編輯 / 刪除</th>
+          <th scope="col" width="150">分類</th>
+          <th scope="col">商品名稱</th>
+          <th scope="col">原價</th>
+          <th scope="col">售價</th>
+          <th scope="col" width="180">是否推薦</th>
+          <th scope="col" width="180">啟用狀態</th>
+          <th scope="col" width="150">編輯 / 刪除</th>
         </tr>
       </thead>
       <tbody>
@@ -69,7 +69,7 @@
                   'text-success': product.is_enabled,
                   'text-danger': !product.is_enabled,
                 }"
-                >{{ product.is_enabled ? "上架" : "未上架" }}</label
+                >{{ product.is_enabled ? "上架" : "下架" }}</label
               >
             </div>
           </td>
