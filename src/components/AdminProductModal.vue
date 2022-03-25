@@ -215,7 +215,8 @@ export default {
         formData.append('file-to-upload', file)
 
         const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/upload`
-        this.$http.post(url, formData)
+        this.$http
+          .post(url, formData)
           .then((res) => {
             this.productImage.push(res.data.imageUrl)
 

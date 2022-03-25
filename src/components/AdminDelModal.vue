@@ -14,7 +14,7 @@
             <span v-if="delModalStatus === 'productDelete'">刪除產品</span>
             <span v-else-if="delModalStatus === 'orderDelete' || delModalStatus === 'orderAllDelete'">刪除訂單</span>
             <span v-if="delModalStatus === 'couponDelete'">刪除優惠券</span>
-            <!-- <span v-if="delModalStatus === 'articleDelete'">刪除貼文</span> -->
+            <span v-if="delModalStatus === 'articleDelete'">刪除貼文</span>
           </h5>
           <button
             type="button"
@@ -44,10 +44,10 @@
           <strong class="text-danger">{{ tempCoupon.title }}</strong> 優惠券(刪除後將無法恢復)。
         </div>
         <!-- 貼文 -->
-        <!-- <div class="modal-body text-start" v-else-if="delModalStatus === 'articleDelete'">
+        <div class="modal-body text-start" v-else-if="delModalStatus === 'articleDelete'">
           是否刪除
           <strong class="text-danger">{{ tempArticle.title }}</strong> 貼文(刪除後將無法恢復)。
-        </div> -->
+        </div>
         <div class="modal-footer">
           <button
             type="button"
@@ -80,14 +80,14 @@
           >
             刪除優惠券
           </button>
-          <!-- <button
+          <button
             type="button"
             class="btn btn-danger"
-            v-if="alertModalStatus === 'articleDelete'"
+            v-if="delModalStatus === 'articleDelete'"
             @click="delArticle(tempArticle.id)"
           >
             刪除貼文
-          </button> -->
+          </button>
         </div>
       </div>
     </div>
@@ -98,7 +98,13 @@
 import Modal from 'bootstrap/js/dist/modal'
 
 export default {
-  props: ['del-modal-status', 'temp-product', 'temp-order', 'temp-coupon'],
+  props: [
+    'del-modal-status',
+    'temp-product',
+    'temp-order',
+    'temp-coupon',
+    'temp-article'
+  ],
   data () {
     return {
       delModal: ''
@@ -154,6 +160,21 @@ export default {
 
           // 執行 取得產品列表
           this.$emit('get-coupons') // 此方法在外層所以要用 emit
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    delArticle (articleId) {
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/article/${articleId}`
+
+      this.$http.delete(url)
+        .then((res) => {
+          // 關閉 Modal
+          this.closeDelModal()
+
+          // 執行 取得產品列表
+          this.$emit('get-articles') // 此方法在外層所以要用 emit
         })
         .catch((err) => {
           console.log(err.response)

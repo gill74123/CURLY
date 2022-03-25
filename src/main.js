@@ -8,6 +8,9 @@ import 'material-icons/iconfont/material-icons.css'
 // emitter
 import emitter from '@/methods/emitter'
 
+// CKEditor
+import CKEditor from '@ckeditor/ckeditor5-vue'
+
 // axios / VueAxios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -20,5 +23,6 @@ const app = createApp(App)
 app.config.globalProperties.$emitter = emitter
 
 app.use(VueAxios, axios)
+app.use(CKEditor)
 app.use(router)
 app.mount('#app')

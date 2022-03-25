@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     updateCoupon (couponId) {
-      // Vue 在更新 DOM 的時候是非同步的，導致 ProductModal 拿到的 props 資料與父元件不一致
+      // Vue 在更新 DOM 的時候是非同步的，導致 CouponModal 拿到的 props 資料與父元件不一致
       // 所以使用 nextTick() 當 DOM 更新後才執行
       this.$nextTick(() => {
         let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupon/${couponId}`
@@ -119,9 +119,11 @@ export default {
       })
     },
     openCouponModal () {
-      if (this.is_new) {
-        this.due_date = ''
-      }
+      this.$nextTick(() => {
+        if (this.is_new) {
+          this.due_date = ''
+        }
+      })
       this.couponModal.show()
     },
     closeCouponModal () {

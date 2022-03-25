@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     updateOrder (orderId) {
-      // Vue 在更新 DOM 的時候是非同步的，導致 ProductModal 拿到的 props 資料與父元件不一致
+      // Vue 在更新 DOM 的時候是非同步的，導致 OrderModal 拿到的 props 資料與父元件不一致
       // 使用 nextTick() 當 DOM 更新後才執行
       this.$nextTick(() => {
         // 將時間格式從 YYYY-MM-DD 轉換成 Unix 格式

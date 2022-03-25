@@ -12,16 +12,16 @@
     <table class="table table-borderless mb-4">
       <thead class="border-bottom border-primary text-light">
         <tr class="fw-medium">
-          <th scope="col" width="500">優惠券標題</th>
-          <th scope="col" width="500">優惠碼</th>
+          <th scope="col" width="300">優惠券標題</th>
+          <th scope="col" width="300">優惠碼</th>
           <th scope="col" width="150">折扣</th>
-          <th scope="col" >截止日</th>
-          <th scope="col" width="200" >啟用狀態</th>
-          <th scope="col" width="200" >編輯 / 刪除</th>
+          <th scope="col" width="200">截止日</th>
+          <th scope="col" width="200">啟用狀態</th>
+          <th scope="col" width="200">編輯 / 刪除</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="border-bottom" v-for="coupon in coupons" :key="coupon.id">
+        <tr class="border-bottom align-middle" v-for="coupon in coupons" :key="coupon.id">
           <td>{{ coupon.title }}</td>
           <td>{{ coupon.code }}</td>
           <td>{{ coupon.percent }} %</td>
@@ -94,7 +94,8 @@ export default {
     getCoupons (category, page = 1) {
       // query 參數用?帶入網址
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`
-      this.$http.get(url)
+      this.$http
+        .get(url)
         .then((res) => {
           this.coupons = res.data.coupons
           this.pagination = res.data.pagination

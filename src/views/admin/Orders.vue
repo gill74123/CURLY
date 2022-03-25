@@ -11,17 +11,17 @@
     <table class="table table-borderless mb-4">
       <thead class="border-bottom border-primary text-light">
         <tr>
-          <th scope="col" width="200">購買時間</th>
-          <th scope="col" class="text-start">訂單編號</th>
-          <th scope="col">Email</th>
+          <th scope="col" width="130">購買時間</th>
+          <th scope="col" class="text-start" width="250">訂單編號</th>
+          <th scope="col" width="300">Email</th>
           <th scope="col" width="300">購買品項</th>
-          <th scope="col" width="200">應付金額</th>
-          <th scope="col" width="200">訂單狀態</th>
-          <th scope="col" width="150">編輯 / 刪除</th>
+          <th scope="col" width="150">應付金額</th>
+          <th scope="col" width="150">訂單狀態</th>
+          <th scope="col" width="200">編輯 / 刪除</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="border-bottom" v-for="order in orders" :key="order.id">
+        <tr class="border-bottom align-middle" v-for="order in orders" :key="order.id">
           <td>{{ order.create_at }}</td>
           <td class="text-start">{{ order.id }}</td>
           <td>{{ order.user.email }}</td>
