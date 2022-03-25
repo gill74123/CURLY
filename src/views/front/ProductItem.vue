@@ -27,24 +27,6 @@
                     <img class="secImg" :src="secImage" alt=""/>
                   </a>
                 </div>
-                <!-- <div class="secImg-box">
-                  <a href="">
-                    <img
-                      class="secImg"
-                      src="https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2021/11/28/1/14646610.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=800"
-                      alt=""
-                    />
-                  </a>
-                </div> -->
-                <!-- <div class="secImg-box">
-                  <a href="">
-                    <img
-                      class="secImg"
-                      src="https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2021/11/28/1/14646609.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=800"
-                      alt=""
-                    />
-                  </a>
-                </div> -->
               </div>
             </div>
           </div>
@@ -94,11 +76,11 @@
           <tbody>
             <tr>
               <td width="120">單次購買</td>
-              <td>單顆</td>
+              <td>單{{ product.unit }}</td>
             </tr>
             <tr>
               <td width="120">內容量</td>
-              <td>85g/顆</td>
+              <td>{{ product.grams }}/{{ product.unit }}</td>
             </tr>
             <tr>
               <td width="120">商品成分</td>
@@ -106,7 +88,7 @@
             </tr>
             <tr>
               <td width="120">過敏原</td>
-              <td>孕婦不宜</td>
+              <td>{{ product.notice }}</td>
             </tr>
           </tbody>
         </table>
@@ -118,7 +100,9 @@
           <tbody>
             <tr>
               <td width="120">享用方式</td>
-              <td>於冷凍取出退冰半小時，噴灑些許開水，180 度烤 3-5 分鐘，或覆蓋濕紙巾微波 600w 一分鐘 (還是需要依照自己烤箱來做調整) 才可以吃到外酥內軟的口感唷！冷凍請先退回常溫再烤</td>
+              <td>於冷凍取出退冰半小時，噴灑些許開水，180 度烤 3-5 分鐘，或覆蓋濕紙巾微波 600w 一分鐘 (依照自己烤箱做調整)才可以吃到外酥內軟的口感唷！
+                <br>P.S.冷凍請先退回常溫再烤
+              </td>
             </tr>
             <tr>
               <td width="120">賞味期限</td>

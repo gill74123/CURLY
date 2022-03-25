@@ -10,6 +10,17 @@
         object-fit: cover;
         transition-duration: .4s;
     }
+    .card-tag{
+        position: absolute;
+        top: 100;
+        right: 0;
+        padding: 0.25rem;
+        font-weight: $font-weight-medium;
+        color: $primary;
+        background-color: $secondary;
+        border: 1px solid $gray;
+        z-index: 20;
+    }
     .img-hover-scale{
         &::before{
             content: "";
@@ -31,14 +42,10 @@
             text-align: center;
             color: $white;
             background-color: $primary;
-            // border: 1px solid $primary;
             opacity: 0;
             right: 0;
             bottom: 0;
             left: 0;
-            // top: 50%;
-            // left: 50%;
-            // transform: translate(-50%, -50%);
             z-index: 15;
             transition-duration: .4s;
         }
@@ -47,7 +54,7 @@
                 transform: scale(1.1);
             }
             &::before{
-                opacity: 0.2;
+                opacity: 0.3;
             }
             &::after{
                 opacity: 1;

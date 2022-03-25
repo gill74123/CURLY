@@ -106,7 +106,6 @@ export default {
       pagination: {},
       tempProduct: {
         imagesUrl: []
-        // is_recommend: ''
       },
       isNew: true,
       delModalStatus: ''
@@ -145,7 +144,6 @@ export default {
         // 新增 - 清空選取產品內資料
         this.tempProduct = {
           imagesUrl: []
-          // is_recommend: ''
         }
 
         this.$refs.productModal.openProductModal()

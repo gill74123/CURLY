@@ -188,7 +188,6 @@ export default {
         this.$http[httpMethod](url, { data: this.tempProduct })
           .then((res) => {
             // 關閉 Modal
-            console.log(res)
             this.closeProductModal()
 
             // 執行 取得產品列表，此方法在外層所以要用 emit

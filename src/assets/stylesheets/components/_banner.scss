@@ -1,12 +1,27 @@
 // 背景圖片
+.about{
+    &.bg{
+        &-banner{
+            width: 100%;
+            height: 250px;
+            background-image: url('./assets/images/about-banner.jpg');
+            // background-image: url(https://images.unsplash.com/photo-1613082529437-2ff7925dee3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzQ1fHxjaW5uYW1vbiUyMHJvbGxzfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=600&q=60);
+            // background-image: url(https://images.unsplash.com/photo-1509709364473-36085e4f84ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODZ8fGNpbm5hbW9uJTIwcm9sbHN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60);
+            background-size: cover;
+            background-position: center center;
+            background-attachment: initial;
+            background-attachment: fixed; // 讓它有視覺差的效果
+        }
+    }
+}
 // Products
 .products{
     &.bg{
         &-banner{
             width: 100%;
             height: 250px;
-            // background-image: url('./assets/images/banner.jpg');
-            background-image: url(https://media.istockphoto.com/photos/cinnamon-sticks-and-powder-in-wooden-scoop-picture-id469820215?k=20&m=469820215&s=612x612&w=0&h=8dmh7vHvIX2cAtQTyUaVsQJt-oY2nDMGNYpg4OkayZc=);
+            background-image: url('./assets/images/products-banner.jpg');
+            // background-image: url(https://media.istockphoto.com/photos/cinnamon-sticks-and-powder-in-wooden-scoop-picture-id469820215?k=20&m=469820215&s=612x612&w=0&h=8dmh7vHvIX2cAtQTyUaVsQJt-oY2nDMGNYpg4OkayZc=);
             background-size: cover;
             background-position: center center;
             background-attachment: initial;

@@ -16,26 +16,14 @@
       <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link to="/products" class="nav-link text-center mx-2">產品列表</router-link>
+            <router-link to="/about" class="nav-link text-center mx-2">關於我們</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/about" class="nav-link text-center mx-2">關於我們</router-link>
+            <router-link to="/products" class="nav-link text-center mx-2">產品列表</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/articles" class="nav-link text-center mx-2">最新消息</router-link>
           </li>
-          <!-- <li class="nav-item">
-            <router-link to="/carts" class="nav-link text-center">購物車</router-link>
-          </li> -->
-          <!-- <li class="nav-item">
-            <router-link to="/order" class="nav-link text-center">確認訂單</router-link>
-          </li> -->
-          <!-- <li class="nav-item">
-            <router-link to="/pay" class="nav-link text-center">結帳</router-link>
-          </li> -->
-          <!-- <li class="nav-item">
-            <router-link to="/product" class="nav-link text-center">單一產品</router-link>
-          </li> -->
         </ul>
       </div>
 

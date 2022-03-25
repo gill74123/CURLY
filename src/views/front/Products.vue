@@ -2,7 +2,16 @@
   <!-- banner -->
   <section class="products bg-banner position-relative">
     <h2
-      class="position-absolute bg-light bg-opacity-25 text-white text-center top-50 start-50 translate-middle p-3 px-4"
+      class="
+        position-absolute
+        bg-light bg-opacity-25
+        text-white text-center
+        top-50
+        start-50
+        translate-middle
+        p-3
+        px-4
+      "
     >
       <p>暖胃又暖心的好味道</p>
     </h2>
@@ -23,43 +32,104 @@
           "
         >
           <li>
-            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === ''}"
-            @click.prevent="getProducts('')">所有產品</a>
+            <a
+              href="#"
+              class="border-bottom border-primary p-2"
+              :class="{ active: pagination.category === '' }"
+              @click.prevent="getProducts('')"
+              >所有產品</a
+            >
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '不敗經典'}"
-            @click.prevent="getProducts('不敗經典')">不敗經典</a>
+            <a
+              href="#"
+              class="border-bottom border-primary p-2"
+              :class="{ active: pagination.category === '不敗經典' }"
+              @click.prevent="getProducts('不敗經典')"
+              >不敗經典</a
+            >
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '就要醬吃'}"
-            @click.prevent="getProducts('就要醬吃')">就要醬吃</a>
+            <a
+              href="#"
+              class="border-bottom border-primary p-2"
+              :class="{ active: pagination.category === '就要醬吃' }"
+              @click.prevent="getProducts('就要醬吃')"
+              >就要醬吃</a
+            >
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '加料萬歲'}"
-            @click.prevent="getProducts('加料萬歲')">加料萬歲</a>
+            <a
+              href="#"
+              class="border-bottom border-primary p-2"
+              :class="{ active: pagination.category === '加料萬歲' }"
+              @click.prevent="getProducts('加料萬歲')"
+              >加料萬歲</a
+            >
           </li>
           <li>
-            <a href="#" class="border-bottom border-primary p-2" :class="{active: pagination.category === '微醺微醺'}"
-            @click.prevent="getProducts('微醺微醺')">微醺微醺</a>
+            <a
+              href="#"
+              class="border-bottom border-primary p-2"
+              :class="{ active: pagination.category === '微醺微醺' }"
+              @click.prevent="getProducts('微醺微醺')"
+              >微醺微醺</a
+            >
           </li>
         </ul>
       </div>
       <div class="col-md-9">
         <div class="row g-3 g-md-2">
-          <div class="col-lg-4 col-sm-6" v-for="product in products" :key="product.id">
+          <div
+            class="col-lg-4 col-sm-6"
+            v-for="product in products"
+            :key="product.id"
+          >
             <div class="card">
               <div class="card-img-box" @click.prevent="seeProduct(product.id)">
-                <a href="" class="img-hover-scale" >
+                <span
+                  v-if="product.origin_price !== product.price"
+                  class="card-tag"
+                  >On Sale</span
+                >
+                <a href="" class="img-hover-scale">
                   <img :src="product.imageUrl" class="card-img" alt="" />
                 </a>
               </div>
               <div class="card-body text-center">
-                <h5 class="card-title text-primary">{{ product.title }}</h5>
+                <div
+                  class="
+                    card-title
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    text-primary
+                  "
+                >
+                  <span
+                    v-if="product.is_recommend"
+                    class="material-icons-outlined me-2"
+                    >thumb_up_alt</span
+                  >
+                  <h5>{{ product.title }}</h5>
+                </div>
                 <p class="card-text mb-4">
-                  <span class="text-danger fs-4 fw-bold">$ {{ product.price }} 元</span>
-                  <del v-if="product.origin_price !== product.price" class="text-light ms-2">$ {{ product.origin_price }} 元</del>
+                  <span class="text-danger fs-4 fw-bold"
+                    >$ {{ product.price }} 元</span
+                  >
+                  <del
+                    v-if="product.origin_price !== product.price"
+                    class="text-light ms-2"
+                    >$ {{ product.origin_price }} 元</del
+                  >
                 </p>
-                <button type="button" class="btn btn-outline-primary px-5" @click="addCart(product.id)">加入購物車</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary px-5"
+                  @click="addCart(product.id)"
+                >
+                  加入購物車
+                </button>
               </div>
             </div>
           </div>
@@ -86,7 +156,8 @@ export default {
     Pagination
   },
   methods: {
-    getProducts (category = '', page = 1) { // category 傳入空字串代表 所有商品
+    getProducts (category = '', page = 1) {
+      // category 傳入空字串代表 所有商品
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}&category=${category}`
       this.$http
         .get(url)
@@ -106,7 +177,8 @@ export default {
         product_id: productId,
         qty: qty
       }
-      this.$http.post(url, { data })
+      this.$http
+        .post(url, { data })
         .then((res) => {
           // this.spinnerOn = ''
 
