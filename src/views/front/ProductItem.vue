@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="container">
     <!-- 商品主要內容 -->
     <section class="mb-6">
@@ -127,13 +130,15 @@ export default {
     return {
       product: {},
       productId: '',
-      isLoading: false,
       productQty: 1,
+      isLoading: false,
       spinnerOn: false
     }
   },
   methods: {
     getProduct () {
+      this.isLoading = true
+
       const { id } = this.$route.params
       this.productId = id
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/product/${id}`
@@ -141,7 +146,7 @@ export default {
         .then((res) => {
           this.product = res.data.product
 
-          // this.isLoading = false
+          this.isLoading = false
         })
     },
     addCart (productId) {

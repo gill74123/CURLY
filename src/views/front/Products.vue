@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <!-- banner -->
   <section class="products bg-banner position-relative">
     <h2
@@ -20,7 +23,7 @@
   <!-- 產品列表 -->
   <section class="container py-6">
     <div class="row mb-4">
-      <div class="col-md-3">
+      <div class="col-md-3 ">
         <ul
           class="
             category
@@ -29,6 +32,7 @@
             flex-row flex-md-column
             justify-content-between
             scrollbar
+            sticky-top
           "
         >
           <li>
@@ -109,7 +113,7 @@
                   <span
                     v-if="product.is_recommend"
                     class="material-icons-outlined me-2"
-                    >thumb_up_alt</span
+                    >recommend</span
                   >
                   <h5>{{ product.title }}</h5>
                 </div>
@@ -123,13 +127,22 @@
                     >$ {{ product.origin_price }} 元</del
                   >
                 </p>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary px-5"
-                  @click="addCart(product.id)"
-                >
-                  加入購物車
-                </button>
+                <div class="btn-group d-flex justify-content-center">
+                  <!-- 收藏按鈕 -->
+                  <button class="btn btn-outline-danger px-1" :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                    <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
+                    <span v-else class="material-icons-outlined align-middle">favorite_border</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary px-5" :disabled="isSpinner"
+                    @click="addCart(product.id)">
+                    <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    加入購物車
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -144,19 +157,26 @@
 
 <script>
 import Pagination from '@/components/Pagination.vue'
+import localStorageFavorite from '@/mixins/localStorageFavorite.js'
 
 export default {
   data () {
     return {
       products: [],
-      pagination: {}
+      pagination: {},
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      isLoading: false,
+      isSpinner: false
     }
   },
   components: {
     Pagination
   },
+  mixins: [localStorageFavorite],
   methods: {
     getProducts (category = '', page = 1) {
+      this.isLoading = true
+
       // category 傳入空字串代表 所有商品
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}&category=${category}`
       this.$http
@@ -164,14 +184,15 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.pagination = res.data.pagination
-          // this.isLoading = false
+
+          this.isLoading = false
         })
         .catch((err) => {
           console.log(err)
         })
     },
     addCart (productId, qty = 1) {
-      // this.spinnerOn = id
+      this.isSpinner = productId
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/cart`
       const data = {
         product_id: productId,
@@ -180,7 +201,7 @@ export default {
       this.$http
         .post(url, { data })
         .then((res) => {
-          // this.spinnerOn = ''
+          this.isSpinner = false
 
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')

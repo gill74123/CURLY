@@ -158,8 +158,8 @@
 </template>
 
 <script>
-// import Modal from 'bootstrap/js/dist/modal'
-import { Modal } from 'bootstrap'
+import Modal from 'bootstrap/js/dist/modal'
+// import { Modal } from 'bootstrap'
 
 export default {
   props: ['temp-product', 'is_new'],

@@ -1,21 +1,11 @@
 <template>
+    <!-- vue-loading-overlay -->
+    <Loading v-model:active="isLoading"></Loading>
+
     <div class="order container py-6">
         <!-- timeline -->
         <Timeline></Timeline>
-        <!-- <ul class="timeline d-flex justify-content-center list-unstyled mb-6">
-            <li class="timeline-item active">
-                <p class="timeline-pointer">1</p>
-                訂單確認
-            </li>
-            <li class="timeline-item">
-                <p class="timeline-pointer">2</p>
-                訂單建立
-            </li>
-            <li class="timeline-item">
-                <p class="timeline-pointer">3</p>
-                完成訂單
-            </li>
-        </ul> -->
+
         <div class="row g-5">
             <!-- 購物車詳情 -->
             <div class="col-md-6 mb-4">
@@ -40,7 +30,12 @@
                 <hr>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="輸入優惠代碼" v-model.trim="couponCode">
-                    <button class="btn btn-outline-primary" type="button" @click="addCoupon(couponCode)">套用優惠券</button>
+                    <button class="btn btn-outline-primary" type="button" :disabled="isSpinner" @click="addCoupon(couponCode)">
+                      <div v-if="isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      套用優惠券
+                    </button>
                 </div>
                 <!-- `cartData.total !== cartData.final_total` 避免使用者重新整理 -->
                 <div v-if="is_Discount || cartData.total !== cartData.final_total">
@@ -60,6 +55,7 @@
                   </p>
                 </div>
             </div>
+            <!-- 訂購人資訊 -->
             <div class="col-md-6">
                 <h5 class="border-bottom text-primary fw-bold pb-2 mb-2">訂購人資訊</h5>
                 <form class="py-3" ref="resetForm">
@@ -89,7 +85,7 @@
                         v-model="formData.message"></textarea>
                     </div>
                     <div class="text-end">
-                        <button type="button" class="btn btn-primary w-100 w-lg-25 p-2" @click="addOrder">送出訂單</button>
+                        <button type="button" class="btn btn-primary w-100 w-lg-25 p-2" :disabled="isSpinner" @click="addOrder">送出訂單</button>
                     </div>
                 </form>
             </div>
@@ -113,7 +109,9 @@ export default {
       is_Discount: false,
       formData: {
         user: {}
-      }
+      },
+      isLoading: false,
+      isSpinner: false
     }
   },
   components: {
@@ -121,6 +119,8 @@ export default {
   },
   methods: {
     addCoupon (couponCode) {
+      this.isSpinner = true
+
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/coupon`
       const data = {
         code: couponCode
@@ -131,6 +131,8 @@ export default {
           this.couponData = res.data
           this.is_Discount = true
           this.couponCode = ''
+
+          this.isSpinner = false
         })
         .catch((err) => {
           console.log(err)
@@ -142,7 +144,6 @@ export default {
       this.$http
         .post(url, { data })
         .then((res) => {
-          console.log(res)
           this.is_Discount = true
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
@@ -168,16 +169,20 @@ export default {
       // 跨元件取得購物車的資訊
       this.$emitter.on('get-cart-data', (cartData) => {
         this.cartData = cartData
+        this.isLoading = false
       })
     }
   },
   mounted () {
+    this.isLoading = true
+
     // 跨元件去呼叫 getCart
     this.$emitter.emit('get-cart')
 
     // 跨元件取得購物車的資訊
     this.$emitter.on('get-cart-data', (cartData) => {
       this.cartData = cartData
+      this.isLoading = false
     })
   }
 }

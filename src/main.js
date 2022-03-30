@@ -11,6 +11,9 @@ import emitter from '@/methods/emitter'
 // CKEditor
 import CKEditor from '@ckeditor/ckeditor5-vue'
 
+// PageLoading
+import Loading from '@/components/PageLoading.vue'
+
 // axios / VueAxios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -25,4 +28,5 @@ app.config.globalProperties.$emitter = emitter
 app.use(VueAxios, axios)
 app.use(CKEditor)
 app.use(router)
+app.component('Loading', Loading)
 app.mount('#app')

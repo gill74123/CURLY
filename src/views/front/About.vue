@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <!-- banner -->
   <section class="about bg-banner position-relative">
     <h2
@@ -48,3 +51,19 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  },
+  mounted () {
+    this.isLoading = true
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1000)
+  }
+}
+</script>

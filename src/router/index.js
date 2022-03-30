@@ -18,8 +18,12 @@ const routes = [
         component: () => import('../views/front/Products.vue')
       },
       {
-        path: 'carts',
-        component: () => import('../views/front/Carts.vue')
+        path: 'product/:id',
+        component: () => import('../views/front/ProductItem.vue')
+      },
+      {
+        path: 'favorite',
+        component: () => import('../views/front/Favorite.vue')
       },
       {
         path: 'order',
@@ -28,10 +32,6 @@ const routes = [
       {
         path: 'pay/:id',
         component: () => import('../views/front/Pay.vue')
-      },
-      {
-        path: 'product/:id',
-        component: () => import('../views/front/ProductItem.vue')
       },
       {
         path: 'articles',

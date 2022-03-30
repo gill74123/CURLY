@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="article container my-6">
     <div class="border py-4 mb-3">
       <div class="text-center text-light mb-5">
@@ -32,11 +35,14 @@
 export default {
   data () {
     return {
-      article: {}
+      article: {},
+      isLoading: false
     }
   },
   methods: {
     getArticle () {
+      this.isLoading = true
+
       const { id } = this.$route.params
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/article/${id}`
       this.$http
@@ -44,6 +50,8 @@ export default {
         .then((res) => {
           this.article = res.data.article
           this.article.create_at = new Date(this.article.create_at * 1000).toISOString().split('T')[0]
+
+          this.isLoading = false
         })
         .catch((err) => {
           console.log(err.response)

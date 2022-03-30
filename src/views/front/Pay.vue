@@ -1,25 +1,14 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="pay container py-6">
     <!-- timeline -->
     <Timeline :order="order"></Timeline>
-    <!-- <ul class="timeline d-flex justify-content-center list-unstyled mb-6">
-      <li class="timeline-item active">
-        <p class="timeline-pointer">1</p>
-        訂單確認
-      </li>
-      <li class="timeline-item active">
-        <p class="timeline-pointer">2</p>
-        訂單建立
-      </li>
-      <li class="timeline-item" :class="order.is_paid ? 'active' : ''">
-        <p class="timeline-pointer">3</p>
-        完成訂單
-      </li>
-    </ul> -->
 
     <!-- 訂單資訊 -->
     <div class="row justify-content-center">
-      <div class="col-9 bg-white p-4">
+      <div class="col-9 bg-white p-6">
         <template v-if="!order.is_paid">
           <h2 class="border-bottom text-center pb-3 mb-4">訂單資訊</h2>
         <!-- 商品資訊 -->
@@ -109,7 +98,8 @@ export default {
       order: {
         user: {}
       },
-      orderId: ''
+      orderId: '',
+      isLoading: false
     }
   },
   components: {
@@ -117,6 +107,7 @@ export default {
   },
   methods: {
     getOrder () {
+      this.isLoading = true
       const { id } = this.$route.params
       this.orderId = id
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/order/${id}`
@@ -124,6 +115,8 @@ export default {
         .get(url)
         .then((res) => {
           this.order = res.data.order
+
+          this.isLoading = false
         })
         .catch((err) => {
           console.log(err)

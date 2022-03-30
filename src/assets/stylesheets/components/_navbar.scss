@@ -1,4 +1,7 @@
 .front{
+    .navbar{
+        z-index: 100;
+    }
     .navbar-light{
         background-color: $secondary;
     }
