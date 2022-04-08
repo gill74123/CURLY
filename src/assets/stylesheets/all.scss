@@ -1,6 +1,7 @@
 // 字型 
 // @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Viga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
 
 // functions
 @import "~bootstrap/scss/functions";
@@ -11,7 +12,13 @@
 // bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-@import "./base";
+// mixin
+@import "./mixin/images";
+
+// config
+@import "./config/base";
+
+// components
 @import "./components/navbar";
 @import "./components/banner";
 @import "./components/card";
@@ -21,7 +28,7 @@
 @import "./components/image";
 @import "./components/ckeditor";
 @import "./components/pageLoading";
+@import "./components/swiper";
 
 
 @import "./pages/frontProducts.scss";
-@import "./pages/frontProductItem.scss";

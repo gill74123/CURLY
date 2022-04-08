@@ -113,7 +113,7 @@ export default {
       if (modalStatus === 'new') {
         // 新增 - 清空選取產品內資料
         this.tempCoupon = {
-          // is_enabled: 0
+          is_enabled: 0
         }
         this.isNew = true
         this.$refs.couponModal.openCouponModal()

@@ -1,23 +1,35 @@
 // 圖片的設定都放這
 
+// logo
+.img-logo{
+    @include img-replace-text(40px, 35px){
+        background-image: url(./assets/images/logo.png);
+    }
+}
 // ProductItem
 .image{
     .mainImg{
         width: 100%;
         height: 350px;
-        object-fit: cover;
+        background-size: cover;
+        background-position: center center;
+        @media (max-width: 767px) {
+            height: 100%;
+        }
     }
     .secImg-box{
-        width: 32%;
+        width: 100%;
         @media (max-width: 767px) {
             width: 100%;
-            height: 32%;
+            height: 33%;
         }
     }
     .secImg{
         width: 100%;
         height: 150px;
         object-fit: cover;
+        background-size: cover;
+        background-position: center center;
         @media (max-width: 767px) {
             height: 100%;
         }
@@ -27,15 +39,34 @@
 // AdminProductModal
 .image{
     &-box{
+        position: relative;
+        padding: 0;
         width: 24%;
         height: 180px;
         border: 2px dashed $gray;
         border-radius: 5%;
+        &:hover{
+            .image-main{
+                opacity: 0.8;
+            }
+        }
     }
     &-product{
         width: 100%;
-        height: 180px;
+        height: 182px;
         object-fit: cover;
         border-radius: 5%;
+    }
+    &-main{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 5%;
+        background-color: $secondary;
+        opacity: 0;
+        &.active{
+            opacity: 0.8;
+        }
     }
 }

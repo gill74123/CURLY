@@ -16,8 +16,8 @@
         px-4
       "
     >
-      <p>— 溫度·美味·感動 —</p>
-      <p>品味你的無可取代，CURLY 隨時暖心相伴</p>
+      <p class="fs-5 fw-bold mb-2">— 溫度·美味·感動 —</p>
+      <p class="d-none d-md-block fs-4">品味你的無可取代，CURLY 隨時暖心相伴</p>
     </h2>
   </section>
 
@@ -65,24 +65,14 @@
         <div class="bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <div class="row">
-        <div class="col-md-4 pt-6">
+        <div class="col-md-4 pt-md-6">
           <h4 class="text-dark text-center text-md-start mb-3">猶豫不決嗎?<br />來看看店長推薦吧！</h4>
-          <span class="d-none d-md-block text-light">想嘗試新口味卻不知從何下手？<br>快看捲捲店長在四種類別中分別推薦哪一款捲捲吧！</span>
+          <span class="d-none d-md-block text-light">想嘗試新口味卻不知從何下手？<br>快看捲捲店長在
+          四種類別中分別推薦哪一款捲捲吧！</span>
         </div>
         <div class="col-md-8">
-          <swiper :modules="modules" :slides-per-view="1" :space-between="30" :loop="true"
-            :autoplay="{delay: 3000, disableOnInteraction: false,}" :breakpoints="swiperOption">
-            <template v-for="product in filterProducts" :key="product.id">
-              <swiper-slide>
-                <a href="" class="recommend-img d-block d-flex justify-content-center align-items-center rounded-3 mb-4"
-                :style="{backgroundImage: `url(${product.imageUrl})`}" @click.prevent="seeProduct(product.id)">
-                  <div class="bg-light bg-opacity-25 text-center p-2">
-                    <span class="text-white fs-4 fw-medium">{{ product.title }}</span>
-                  </div>
-                </a>
-              </swiper-slide>
-            </template>
-          </swiper>
+          <!-- Swiper -->
+          <Swiper :filter-products='filterProducts'></Swiper>
         </div>
       </div>
     </section>
@@ -96,7 +86,7 @@
       <div class="bg-primary" style="width: 100px; height: 2px"></div>
     </div>
     <div class="row">
-      <div class="col-md-6" v-for="article in filterArticles" :key="article.id">
+      <div class="col-md-6 mb-3 mb-md-0" v-for="article in filterArticles" :key="article.id">
         <a href="" class="news-info-box d-block rounded-3" @click.prevent="seeArticle(article.id)"
         :style="{backgroundImage: `url(${article.image})`}">
             <div class="news-info d-flex flex-column justify-content-end align-items-start text-white h-100 p-3">
@@ -111,11 +101,7 @@
 </template>
 
 <script>
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue/swiper-vue'
-import { Autoplay } from 'swiper'
-// Import Swiper styles
-import 'swiper/swiper.scss'
+import Swiper from '@/components/Swiper.vue'
 
 export default {
   data () {
@@ -124,21 +110,11 @@ export default {
       filterProducts: [],
       articles: [],
       filterArticles: [],
-      modules: [Autoplay],
-      swiperOption: {
-        768: {
-          slidesPerView: 2
-        },
-        992: {
-          slidesPerView: 3
-        }
-      },
       isLoading: false
     }
   },
   components: {
-    Swiper,
-    SwiperSlide
+    Swiper
   },
   methods: {
     getProducts () {
@@ -161,9 +137,6 @@ export default {
       this.filterProducts = this.products.filter((item) => {
         return item.is_recommend === 1
       })
-    },
-    seeProduct (productId) {
-      this.$router.push(`/product/${productId}`)
     },
     getArticles (page = 1) {
       this.isLoading = true

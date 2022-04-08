@@ -22,6 +22,11 @@
 
   <!-- 產品列表 -->
   <section class="container py-6">
+    <div class="input-group w-100 w-md-50 w-lg-25 ms-auto mb-4">
+      <input type="search" class="form-control border-primary p-2" placeholder="請輸入商品名稱"
+        v-model.trim="this.searchValue"/>
+      <button type="button" class="btn btn-primary" @click="searchProduct">搜尋</button>
+    </div>
     <div class="row mb-4">
       <div class="col-md-3 ">
         <ul
@@ -147,6 +152,11 @@
             </div>
           </div>
         </div>
+        <!-- 查無此商品 -->
+        <div v-if="products.length === 0" class="text-light text-center p-6">
+          <span class="material-icons-outlined fs-6">fmd_bad</span>
+          <p class="fs-4">查無此商品！</p>
+        </div>
       </div>
       <div class="box"></div>
     </div>
@@ -165,6 +175,7 @@ export default {
       products: [],
       pagination: {},
       favorite: JSON.parse(localStorage.getItem('favorite')) || [],
+      searchValue: '',
       isLoading: false,
       isSpinner: false
     }
@@ -212,6 +223,28 @@ export default {
     },
     seeProduct (productId) {
       this.$router.push(`/product/${productId}`)
+    },
+    searchProduct () {
+      this.isLoading = true
+
+      // 先取得全部產品
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products/all`
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.products = res.data.products
+
+          // 關鍵字搜尋
+          this.products = this.products.filter((item) => {
+            return item.title.trim().match(this.searchValue)
+          })
+          this.searchValue = ''
+
+          this.isLoading = false
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   mounted () {

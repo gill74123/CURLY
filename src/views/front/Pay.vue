@@ -13,11 +13,13 @@
           <h2 class="border-bottom text-center pb-3 mb-4">訂單資訊</h2>
         <!-- 商品資訊 -->
         <div  class="d-flex flex-column align-items-center">
-          <a class="btn btn-outline-primary rounded-0 text-start w-100 w-lg-75" type="button" data-bs-toggle="collapse" data-bs-target="#productsCollapse" aria-expanded="false" aria-controls="collapseExample">
-          商品資訊
-          </a>
-          <div class="collapse w-100 w-lg-75" id="productsCollapse">
-          <div class="card border-primary rounded-0 mb-3" v-for="productItem in order.products" :key="productItem">
+          <button class="d-flex justify-content-between btn btn-primary rounded-0 text-start fw-medium w-100 w-lg-75" type="button"
+            @click="toggleCollapse">
+            商品資訊
+            <span class="material-icons-outlined">expand_more</span>
+          </button>
+          <div class="collapse show w-100 w-lg-75" ref="collapse">
+          <div class="card rounded-0" v-for="productItem in order.products" :key="productItem">
             <div class="row gx-3 align-items-center">
               <div class="col-3">
                 <img class="card-img img-fluid rounded-0" alt="cartItem.product.title"
@@ -40,7 +42,12 @@
             <tbody>
               <tr>
                 <td width="150">訂單編號</td>
-                <td>{{ order.id }}</td>
+                <td>
+                  <span id="orderId">{{ order.id }}</span>
+                  <a href="" @click.prevent="copyToClipBoard()">
+                    <span class="material-icons-outlined fs-3 ms-2">content_copy</span>
+                  </a>
+                </td>
               </tr>
               <tr>
                 <td width="150">姓名</td>
@@ -64,7 +71,8 @@
               </tr>
               <tr>
                 <td width="150">訂單金額</td>
-                <td class="text-danger fw-bold">NT$ {{ order.total }}</td>
+                <td v-if="order.total < 1000" class="text-danger fw-bold">NT$ {{ order.total }} ({{ order.is_paid ? '已付款' : '未付款'}})</td>
+                <td v-else class="text-danger fw-bold">NT$ {{ order.total }} ({{ order.is_paid ? '已付款' : '未付款'}})</td>
               </tr>
             </tbody>
           </table>
@@ -76,7 +84,7 @@
         <div v-else class="text-center">
           <h2 class="d-flex flex-column mb-3">
             <span class="material-icons-outlined text-success fs-6 mb-2">task_alt</span>
-            訂單完成
+            訂單支付完成
           </h2>
           <div class="fs-3 text-light mb-4">
             <h5 class="mb-2">— 感謝您的訂購 —</h5>
@@ -91,6 +99,7 @@
 
 <script>
 import Timeline from '@/components/Timeline.vue'
+import collapseToggle from '@/mixins/collapseToggle.js'
 
 export default {
   data () {
@@ -105,6 +114,7 @@ export default {
   components: {
     Timeline
   },
+  mixins: [collapseToggle],
   methods: {
     getOrder () {
       this.isLoading = true
@@ -116,6 +126,9 @@ export default {
         .then((res) => {
           this.order = res.data.order
 
+          if (this.order.total < 1000) {
+            this.order.total = this.order.total + 60
+          }
           this.isLoading = false
         })
         .catch((err) => {
@@ -132,6 +145,13 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    copyToClipBoard () {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.orderId)
+      }
+
+      alert('Copied')
     }
   },
   mounted () {

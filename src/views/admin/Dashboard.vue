@@ -1,7 +1,7 @@
 <template>
   <div class="admin min-vh-100">
     <AdminNavbar></AdminNavbar>
-    <router-view v-if="checkSuccess" class="routerView"></router-view>
+    <router-view v-if="checkSuccess"></router-view>
     <AdminFooter></AdminFooter>
   </div>
 </template>

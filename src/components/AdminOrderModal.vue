@@ -185,21 +185,6 @@ export default {
       this.orderModal.hide()
     }
   },
-  // watch: {
-  //   tempOrder () {
-  //     // console.log(1)
-  //     const productsArray = Object.keys(this.tempOrder.products)
-  //     // this.tempOrder.total = 0
-  //     productsArray.forEach(item => {
-  //       // this.productQty = this.tempOrder.products[item].qty
-  //       // console.log(this.tempOrder.products[item])
-  //       // console.log(this.tempOrder.products[item].final_total)
-  //       // this.tempOrder.products[item].final_total = this.tempOrder.products[item].product.price * this.tempOrder.products[item].qty * (this.tempOrder.products[item].coupon.percent * 0.01)
-  //       // console.log(console.log(this.tempOrder.products[item].final_total))
-  //       // this.tempOrder.total += this.tempOrder.products[item].final_total
-  //     })
-  //   }
-  // },
   mounted () {
     this.orderModal = new Modal(this.$refs.orderModal, { keyboard: false })
   }

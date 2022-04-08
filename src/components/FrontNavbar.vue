@@ -1,28 +1,29 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light sticky-top top-0 border-bottom">
-    <div class="container justify-content-end">
-      <router-link to="/" class="navbar-brand order-1 me-auto">CURLY</router-link>
-      <button
-        class="navbar-toggler order-3 order-lg-2"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+    <div class="container justify-content-end align-items-center">
+      <router-link to="/" class="navbar-brand order-1 me-auto pe-4">
+        <h1 class="d-flex  align-items-center text-primary">
+          <p class="img-logo me-2">Logo</p>
+          <p class="text-logo fs-4 fw-medium">CURLY</p>
+        </h1>
+      </router-link>
+      <button class="navbar-toggler order-3 order-lg-2"
+        type="button" @click="toggleCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse order-3 order-lg-2" ref="collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link to="/about" class="nav-link text-center mx-2">關於我們</router-link>
+            <router-link to="/about" class="nav-link text-center mx-2" @click="closeCollapse">關於我們</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/products" class="nav-link text-center mx-2">產品列表</router-link>
+            <router-link to="/products" class="nav-link text-center mx-2" @click="closeCollapse">產品列表</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/articles" class="nav-link text-center mx-2">最新消息</router-link>
+            <router-link to="/articles" class="nav-link text-center mx-2" @click="closeCollapse">最新消息</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/orderTrack" class="nav-link text-center mx-2" @click="closeCollapse">訂單查詢</router-link>
           </li>
         </ul>
       </div>
@@ -48,6 +49,7 @@
 
 <script>
 import FrontCartModal from '@/components/FrontCartModal.vue'
+import collapseToggle from '@/mixins/collapseToggle.js'
 
 export default {
   data () {
@@ -59,6 +61,7 @@ export default {
   components: {
     FrontCartModal
   },
+  mixins: [collapseToggle],
   methods: {
     // 接收 FrontCartModal.vue 傳來的購物車數量
     getCartQty (qty) {

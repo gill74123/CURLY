@@ -22,11 +22,11 @@
 
   <div class="container py-6">
     <!-- 產品列表 -->
-    <section class="mb-6">
-      <div v-if="filterProducts.length !== 0" class="row">
+    <section class="mb-6 py-3">
+      <div v-if="favoriteProducts.length !== 0" class="row">
         <div
           class="col-lg-3 col-sm-6"
-          v-for="product in filterProducts"
+          v-for="product in favoriteProducts"
           :key="product.id">
           <div class="card">
             <div class="card-img-box" @click.prevent="seeProduct(product.id)">
@@ -98,24 +98,34 @@
     </section>
 
     <!-- 推薦商品 -->
-    <section class="mb-6">
-      <h3 class="text-center">推薦商品</h3>
-      <div class="border text-center">放篩選過後的產品 (swiper)</div>
+    <section class="mb-6 py-3">
+      <div class="d-flex justify-content-center align-items-center mb-6">
+        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+        <h3 class="text-primary mx-4">捲捲 店長推薦</h3>
+        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+      </div>
+      <!-- Swiper -->
+      <Swiper :filter-products='recommendProducts'></Swiper>
     </section>
   </div>
 </template>
 
 <script>
 import localStorageFavorite from '@/mixins/localStorageFavorite.js'
+import Swiper from '@/components/Swiper.vue'
 
 export default {
   data () {
     return {
       products: [],
-      filterProducts: [],
+      favoriteProducts: [],
+      recommendProducts: [],
       isLoading: false,
       isSpinner: false
     }
+  },
+  components: {
+    Swiper
   },
   mixins: [localStorageFavorite],
   methods: {
@@ -128,6 +138,7 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.filterFavoriteProducts()
+          this.filterRecommendProducts()
 
           this.isLoading = false
         })
@@ -140,7 +151,7 @@ export default {
         const filterArray = this.products.filter((item) => {
           return item.id === id
         })
-        this.filterProducts.push(filterArray[0])
+        this.favoriteProducts.push(filterArray[0])
       })
     },
     addCart (productId, qty = 1) {
@@ -164,6 +175,11 @@ export default {
     },
     seeProduct (productId) {
       this.$router.push(`/product/${productId}`)
+    },
+    filterRecommendProducts () {
+      this.recommendProducts = this.products.filter((item) => {
+        return item.is_recommend === 1
+      })
     }
   },
   watch: {
@@ -172,7 +188,7 @@ export default {
     // this.favorite 一有變動舊重新篩選
     favorite: {
       handler () {
-        this.filterProducts = []
+        this.favoriteProducts = []
         this.filterFavoriteProducts()
       },
       deep: true

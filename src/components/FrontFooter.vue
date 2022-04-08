@@ -35,7 +35,7 @@
   <div class="text-primary text-center py-4">
     <small class="mb-2">
       本網站僅供個人作品使用，不提供商業用途 |
-      <router-link to="/admin">後台管理</router-link>
+      <router-link to="/admin/products">後台管理</router-link>
     </small>
     <br />
     <small>© 2022 CURLY All Rights Reserved.</small>

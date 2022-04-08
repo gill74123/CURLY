@@ -2,35 +2,32 @@
   <!-- vue-loading-overlay -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <div class="container">
+  <div class="container py-6">
     <!-- 商品主要內容 -->
-    <section class="mb-6">
+    <section class="mb-6 py-3">
       <div class="row g-5">
         <!-- 產品圖片 -->
         <div class="col-md-6">
-          <div class="row g-2 image justify-content-between">
-            <div class="col-9 col-md-12">
-              <img
-                class="mainImg"
-                :src="product.imageUrl"
-                alt=""
-              />
+          <div class="row g-2 image ">
+            <div class="col-9 col-md-12" >
+              <div class="mainImg" :style="{backgroundImage: `url(${enterImage})`}"></div>
             </div>
-            <div class="col-3 col-md-12">
-              <div
-                class="
-                  d-flex
-                  flex-column flex-md-row
-                  justify-content-between
-                  h-100
-                "
-              >
-                <div class="secImg-box" v-for="secImage in product.imagesUrl" :key="secImage">
-                  <a href="">
+            <!-- PC block -->
+            <div class="col-3 col-md-4 d-none d-md-block" v-for="secImage in product.imagesUrl" :key="secImage">
+                <div class="secImg-box" >
+                  <a href="" class="d-block secImg" :style="{backgroundImage: `url(${secImage})`}"
+                    @click.prevent="changeEnterImage(secImage)">
+                    <!-- <img class="secImg" :src="secImage" alt=""/> -->
+                  </a>
+                </div>
+            </div>
+            <!-- Mobile block -->
+            <div class="col-3 col-md-4 d-md-none d-flex flex-column" >
+                <div class="secImg-box mb-1" v-for="secImage in product.imagesUrl" :key="secImage">
+                  <a href="" @click.prevent="changeEnterImage(secImage)">
                     <img class="secImg" :src="secImage" alt=""/>
                   </a>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -59,10 +56,13 @@
           <div class="d-flex justify-content-start mb-4">
             <input
               type="number" min="1" class="form-control border-1 border-primary rounded-2 text-center w-25 p-3 me-3"
-              v-model="productQty"
+              v-model="productQty" :readonly="isSpinner"
             />
-            <button type="button" class="btn btn-primary text-white w-50 fw-4 py-3"
+            <button type="button" class="btn btn-primary text-white w-50 fw-4 py-3" :disabled="isSpinner"
               @click="addCart(product.id)">
+              <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
               加入購物車
             </button>
           </div>
@@ -71,9 +71,9 @@
     </section>
 
     <!-- 商品詳細資訊 -->
-    <section class="mb-6">
+    <section class="mb-6 py-3">
       <div class="mb-4">
-        <h5 class="text-dark">商品資訊</h5>
+        <h5 class="text-primary fw-medium">商品資訊</h5>
         <hr />
         <table class="table table-borderless text-light">
           <tbody>
@@ -97,7 +97,7 @@
         </table>
       </div>
       <div>
-        <h5 class="text-dark">食用說明</h5>
+        <h5 class="text-primary fw-medium">食用說明</h5>
         <hr />
         <table class="table table-borderless text-light">
           <tbody>
@@ -117,40 +117,62 @@
     </section>
 
     <!-- 相關商品 -->
-    <section class="mb-6">
-      <h3 class="text-center">相關商品</h3>
-      <div class="border text-center">放篩選過後的產品 (swiper)</div>
+    <section class="mb-6 py-3">
+      <div class="d-flex justify-content-center align-items-center mb-6">
+        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+        <h3 class="text-primary mx-4">你可能喜歡</h3>
+        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+      </div>
+      <!-- Swiper -->
+      <Swiper :filter-products='filterProducts' @get-product="getProduct"></Swiper>
     </section>
   </div>
 </template>
 
 <script>
+import Swiper from '@/components/Swiper.vue'
+
 export default {
   data () {
     return {
       product: {},
       productId: '',
       productQty: 1,
+      productCategory: '',
+      filterProducts: [],
+      enterImage: '',
       isLoading: false,
-      spinnerOn: false
+      isSpinner: false,
+      test: ''
     }
   },
+  components: {
+    Swiper
+  },
   methods: {
-    getProduct () {
+    getProduct (mayLikeProductId) { // mayLikeProductId 從 Swiper 元件傳來的
       this.isLoading = true
 
-      const { id } = this.$route.params
+      let { id } = this.$route.params
+      if (mayLikeProductId) {
+        id = mayLikeProductId
+      }
+
       this.productId = id
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/product/${id}`
       this.$http.get(url)
         .then((res) => {
           this.product = res.data.product
+          this.productCategory = this.product.category
+          this.enterImage = this.product.imageUrl
 
+          this.getProducts(this.product)
           this.isLoading = false
         })
     },
     addCart (productId) {
-      // this.spinnerOn = id
+      this.isSpinner = productId
+
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/cart`
       const data = {
         product_id: productId,
@@ -158,7 +180,7 @@ export default {
       }
       this.$http.post(url, { data })
         .then((res) => {
-          // this.spinnerOn = ''
+          this.isSpinner = false
 
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
@@ -166,10 +188,44 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    changeEnterImage (secImage) {
+      this.enterImage = secImage
+    },
+    getProducts (product) {
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products/all`
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.filterCategoryProducts(res.data.products, product)
+
+          this.isLoading = false
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    filterCategoryProducts (allProducts, product) {
+      this.filterProducts = allProducts.filter((item) => {
+        return item.category === product.category
+      })
+      const arrayIndex = this.filterProducts.findIndex((item) => {
+        return item.id === product.id
+      })
+      this.filterProducts.splice(arrayIndex, 1)
+    }
+  },
+  watch: {
+    // 監聽 最少數量要為 1
+    productQty () {
+      if (this.productQty <= 0) {
+        this.productQty = 1
+      }
     }
   },
   mounted () {
     this.getProduct()
+    // console.log(this.test)
   }
 }
 </script>

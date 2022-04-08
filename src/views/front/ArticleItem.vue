@@ -19,12 +19,14 @@
       </div>
     </div>
     <div class="d-flex justify-content-between">
-      <a href="" class="btn d-flex align-items-center text-primary">
+      <a href="" v-if="paginationData.has_pre" class="btn d-flex align-items-center text-primary px-0"
+        @click.prevent="changeArticlePage(paginationData.pre_info.id)">
         <span class="material-icons-outlined fs-5">chevron_left</span>
-        上一篇：
+        上一篇：{{ paginationData.pre_info?.title }}
       </a>
-      <a href="" class="btn d-flex align-items-center text-primary">
-        下一篇：
+      <a href="" v-if="paginationData.has_next" class="btn d-flex align-items-center text-primary px-0 ms-auto"
+        @click.prevent="changeArticlePage(paginationData.next_info.id)">
+        下一篇：{{ paginationData.next_info?.title }}
         <span class="material-icons-outlined fs-5">chevron_right</span>
       </a>
     </div>
@@ -36,6 +38,15 @@ export default {
   data () {
     return {
       article: {},
+      articlesData: [],
+      articleId: '',
+      paginationData: {
+        current_index: '',
+        has_pre: '',
+        has_next: '',
+        pre_info: {},
+        next_info: {}
+      },
       isLoading: false
     }
   },
@@ -43,19 +54,63 @@ export default {
     getArticle () {
       this.isLoading = true
 
-      const { id } = this.$route.params
+      let { id } = this.$route.params
+      if (this.articleId) {
+        id = this.articleId
+      }
+
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/article/${id}`
       this.$http
         .get(url)
         .then((res) => {
           this.article = res.data.article
           this.article.create_at = new Date(this.article.create_at * 1000).toISOString().split('T')[0]
+          this.getArticles()
 
           this.isLoading = false
         })
         .catch((err) => {
           console.log(err.response)
         })
+    },
+    getArticles () {
+      this.isLoading = true
+
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/articles`
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.articlesData = res.data.articles
+          this.articlePagination()
+
+          this.isLoading = false
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    articlePagination () {
+      const currentIndex = this.articlesData.findIndex(item => item.id === this.article.id)
+      const lastIndex = this.articlesData.length - 1
+      this.paginationData = {
+        current_index: currentIndex,
+        has_next: !(currentIndex === lastIndex),
+        has_pre: !(currentIndex === 0),
+        pre_info: {},
+        next_info: {}
+      }
+
+      if (this.paginationData.has_next) {
+        this.paginationData.next_info = this.articlesData[this.paginationData.current_index + 1]
+      }
+      if (this.paginationData.has_pre) {
+        this.paginationData.pre_info = this.articlesData[this.paginationData.current_index - 1]
+      }
+    },
+    changeArticlePage (articleId) {
+      this.$router.push(`/article/${articleId}`)
+      this.articleId = articleId
+      this.getArticle()
     }
   },
   mounted () {

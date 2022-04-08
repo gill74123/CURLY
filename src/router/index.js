@@ -40,6 +40,10 @@ const routes = [
       {
         path: 'article/:id',
         component: () => import('../views/front/ArticleItem.vue')
+      },
+      {
+        path: 'orderTrack',
+        component: () => import('../views/front/OrderTrack.vue')
       }
     ]
   },
@@ -76,7 +80,13 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  linkActiveClass: 'active' // Bootstrap
+  linkActiveClass: 'active', // Bootstrap
+  scrollBehavior (to, from, savedPosition) {
+    // 切換路由時滾動到最上方
+    return {
+      top: 0
+    }
+  }
 })
 
 export default router

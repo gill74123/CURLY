@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
@@ -105,10 +108,12 @@ export default {
       products: [],
       pagination: {},
       tempProduct: {
-        imagesUrl: []
+        imagesUrl: [],
+        productImage: []
       },
       isNew: true,
-      delModalStatus: ''
+      delModalStatus: '',
+      isLoading: false
     }
   },
   components: {
@@ -118,13 +123,16 @@ export default {
   },
   methods: {
     getProducts (category = '', page = 1) {
+      this.isLoading = true
+
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}&category=${category}`
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products
           this.pagination = res.data.pagination
-          // this.isLoading = false
+
+          this.isLoading = false
         })
         .catch((err) => {
           console.log(err)
@@ -143,27 +151,40 @@ export default {
       if (modalStatus === 'new') {
         // 新增 - 清空選取產品內資料
         this.tempProduct = {
-          imagesUrl: []
+          imagesUrl: [],
+          productImage: []
         }
 
-        this.$refs.productModal.openProductModal()
+        this.$refs.productModal.openModal()
         this.isNew = true
       } else if (modalStatus === 'edit') {
         // 編輯 - 拷貝點選的產品
         this.tempProduct = { ...item }
 
-        // 先判斷是否有 imagesUrl 陣列，沒有得先加上
+        // 先判斷是否有 imagesUrl, productImage 陣列，沒有得先加上
         if (this.tempProduct.imagesUrl === undefined) {
           this.tempProduct.imagesUrl = []
         }
-        this.$refs.productModal.openProductModal()
+        if (this.tempProduct.productImage === undefined) {
+          this.tempProduct.productImage = []
+        }
+
+        this.$refs.productModal.openModal()
         this.isNew = false
       } else if (modalStatus === 'productDelete') {
         // 刪除 - 拷貝點選的產品
         this.tempProduct = { ...item }
 
+        // 先判斷是否有 imagesUrl, productImage 陣列，沒有得先加上
+        if (this.tempProduct.imagesUrl === undefined) {
+          this.tempProduct.imagesUrl = []
+        }
+        if (this.tempProduct.productImage === undefined) {
+          this.tempProduct.productImage = []
+        }
+
         this.delModalStatus = modalStatus
-        this.$refs.delModal.openDelModal()
+        this.$refs.delModal.openModal()
       }
     }
   },

@@ -58,18 +58,19 @@
       </div>
       <div class="col-md-9">
         <ul class="list-unstyled text-light">
-          <li class="card border-0" v-for="article in categoryArticles" :key="article.id" @click.prevent="seeArticle(article.id)">
+          <li class="card border-0" v-for="article in categoryArticles" :key="article.id"
+            @click.prevent="seeArticle(article.id)">
             <div class="card-body p-0">
               <template v-for="tag in article.tag" :key="tag + 1">
                 <span class="text-muted me-2">#{{ tag }}</span>
               </template>
-              <div class="card-title d-flex justify-content-between align-items-center my-2">
-                <h3 class="text-primary fw-bold fs-5">{{ article.title }}</h3>
+              <div class="card-title d-flex justify-content-between align-items-center my-3">
+                <h3 class="text-primary fw-bold fs-5 w-75">{{ article.title }}</h3>
                 <p>{{ article.create_at }}</p>
               </div>
               <img :src="article.image" class="card-img mb-3" alt="article.image">
               <p class="mb-3">{{ article.description }}</p>
-              <a href="" class="d-block stretched-link text-end fw-medium">MORE</a>
+                <a href="" class="card-more d-block stretched-link text-end fs-4 fw-medium">MORE</a>
             </div>
             <hr>
           </li>

@@ -1,7 +1,7 @@
 <template>
   <div
     id="delModal"
-    ref="delModal"
+    ref="modal"
     class="modal fade"
     tabindex="-1"
     aria-labelledby="delModalLabel"
@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal'
+import modalMixin from '@/mixins/modalMixin'
 
 export default {
   props: [
@@ -105,11 +105,7 @@ export default {
     'temp-coupon',
     'temp-article'
   ],
-  data () {
-    return {
-      delModal: ''
-    }
-  },
+  mixins: [modalMixin],
   methods: {
     delProduct (productId) {
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/product/${productId}`
@@ -117,9 +113,8 @@ export default {
       this.$http
         .delete(url)
         .then((res) => {
-          console.log(res)
           // 關閉 Modal
-          this.closeDelModal()
+          this.hideModal()
 
           // 執行 取得產品列表，此方法在外層所以要用 emit
           this.$emit('get-products')
@@ -139,7 +134,7 @@ export default {
         .delete(url)
         .then((res) => {
           // 關閉 Modal
-          this.closeDelModal()
+          this.hideModal()
 
           // 執行 取得產品列表
           this.$emit('get-orders') // 此方法在外層所以要用 emit
@@ -156,7 +151,7 @@ export default {
         .then((res) => {
           console.log(res)
           // 關閉 Modal
-          this.closeDelModal()
+          this.hideModal()
 
           // 執行 取得產品列表
           this.$emit('get-coupons') // 此方法在外層所以要用 emit
@@ -171,7 +166,7 @@ export default {
       this.$http.delete(url)
         .then((res) => {
           // 關閉 Modal
-          this.closeDelModal()
+          this.hideModal()
 
           // 執行 取得產品列表
           this.$emit('get-articles') // 此方法在外層所以要用 emit
@@ -179,16 +174,7 @@ export default {
         .catch((err) => {
           console.log(err.response)
         })
-    },
-    openDelModal () {
-      this.delModal.show()
-    },
-    closeDelModal () {
-      this.delModal.hide()
     }
-  },
-  mounted () {
-    this.delModal = new Modal(this.$refs.delModal, { keyboard: false })
   }
 }
 </script>
