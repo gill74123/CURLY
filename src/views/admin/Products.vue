@@ -135,7 +135,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     updateProduct (item) {

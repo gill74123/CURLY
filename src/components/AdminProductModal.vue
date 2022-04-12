@@ -199,14 +199,17 @@ export default {
       this.$nextTick(() => {
         let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/product/${productId}`
         let httpMethod = 'put'
+        let messageStatus = '更新產品'
 
         if (this.is_new) {
           url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/product`
           httpMethod = 'post'
+          messageStatus = '新增產品'
         }
 
         this.$http[httpMethod](url, { data: this.tempProduct })
           .then((res) => {
+            this.$httpMessageState(res, messageStatus)
             // 關閉 Modal
             this.hideModal()
 
@@ -214,7 +217,7 @@ export default {
             this.$emit('get-products')
           })
           .catch((err) => {
-            console.dir(err.response)
+            this.$httpMessageState(err.response, messageStatus)
           })
       })
     },
@@ -238,13 +241,14 @@ export default {
           .post(url, formData)
           .then((res) => {
             this.tempProduct.productImage.push(res.data.imageUrl)
+            this.$httpMessageState(res, '圖片上傳')
 
             // 清空 input 欄位
             this.imageInput[1].value = ''
             this.addImageToTempProduct()
           })
           .catch((err) => {
-            console.log(err.response)
+            this.$httpMessageState(err.response, '圖片上傳')
           })
       }
     },

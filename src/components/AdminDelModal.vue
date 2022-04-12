@@ -113,6 +113,7 @@ export default {
       this.$http
         .delete(url)
         .then((res) => {
+          this.$httpMessageState(res, '刪除產品')
           // 關閉 Modal
           this.hideModal()
 
@@ -120,7 +121,7 @@ export default {
           this.$emit('get-products')
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '刪除產品')
         })
     },
     delOrder (modalStatus, orderId) {
@@ -133,6 +134,7 @@ export default {
       this.$http
         .delete(url)
         .then((res) => {
+          this.$httpMessageState(res, '刪除訂單')
           // 關閉 Modal
           this.hideModal()
 
@@ -140,7 +142,7 @@ export default {
           this.$emit('get-orders') // 此方法在外層所以要用 emit
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '刪除訂單')
         })
     },
     delCoupon (couponId) {
@@ -149,7 +151,7 @@ export default {
       this.$http
         .delete(url)
         .then((res) => {
-          console.log(res)
+          this.$httpMessageState(res, '刪除優惠券')
           // 關閉 Modal
           this.hideModal()
 
@@ -157,7 +159,7 @@ export default {
           this.$emit('get-coupons') // 此方法在外層所以要用 emit
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '刪除優惠券')
         })
     },
     delArticle (articleId) {
@@ -165,6 +167,7 @@ export default {
 
       this.$http.delete(url)
         .then((res) => {
+          this.$httpMessageState(res, '刪除貼文')
           // 關閉 Modal
           this.hideModal()
 
@@ -172,7 +175,7 @@ export default {
           this.$emit('get-articles') // 此方法在外層所以要用 emit
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '刪除貼文')
         })
     }
   }

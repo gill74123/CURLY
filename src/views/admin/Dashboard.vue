@@ -1,9 +1,9 @@
 <template>
-  <div class="admin min-vh-100">
+  <div class="admin min-vh-100 position-relative">
     <AdminNavbar></AdminNavbar>
     <router-view v-if="checkSuccess"></router-view>
-    <AdminFooter></AdminFooter>
   </div>
+  <AdminFooter></AdminFooter>
 </template>
 
 <script>
@@ -34,17 +34,17 @@ export default {
         this.$http
           .post(url)
           .then((res) => {
+            this.$httpMessageState(res, '登入')
             this.checkSuccess = true
           })
           .catch((err) => {
-            console.log(err.response)
-            alert(err.response.data.message)
+            this.$httpMessageState(err.response, '錯誤訊息')
 
             // 頁面跳轉
             this.$router.push('/login')
           })
       } else {
-        alert('您尚未登入，請登入！')
+        this.$httpMessageState(false, '錯誤訊息')
         // 頁面跳轉
         this.$router.push('/login')
       }

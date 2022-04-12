@@ -1,7 +1,7 @@
 <template>
   <div
     id="couponModal"
-    ref="couponModal"
+    ref="modal"
     class="modal fade"
     aria-labelledby="couponModalLabel"
     aria-hidden="true"
@@ -9,12 +9,10 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content border-0">
         <div class="modal-header bg-primary text-white">
-          <h5 id="couponModalLabel" class="modal-title">{{ is_new ? '新增優惠券' : '編輯優惠券' }}
-            <!-- <span>新增優惠券</span> -->
-          </h5>
+          <h5 id="couponModalLabel" class="modal-title">{{ is_new ? '新增優惠券' : '編輯優惠券' }}</h5>
           <button
             type="button"
-            class="btn-close"
+            class="btn-close btn-close-white"
             data-bs-dismiss="modal"
             aria-label="Close"
           ></button>
@@ -83,16 +81,16 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal'
+import modalMixin from '@/mixins/modalMixin'
 
 export default {
   props: ['temp-coupon', 'is_new'],
   data () {
     return {
-      couponModal: '',
       due_date: ''
     }
   },
+  mixins: [modalMixin],
   methods: {
     updateCoupon (couponId) {
       // Vue 在更新 DOM 的時候是非同步的，導致 CouponModal 拿到的 props 資料與父元件不一致
@@ -100,34 +98,26 @@ export default {
       this.$nextTick(() => {
         let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupon/${couponId}`
         let httpMethod = 'put'
+        let messageStatus = '更新優惠券'
 
         if (this.is_new) {
           url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupon`
           httpMethod = 'post'
+          messageStatus = '新增優惠券'
         }
         this.$http[httpMethod](url, { data: this.tempCoupon })
           .then((res) => {
+            this.$httpMessageState(res, messageStatus)
             // 關閉 Modal
-            this.closeCouponModal()
+            this.hideModal()
 
             // 執行 取得產品列表
             this.$emit('get-coupons')// 此方法在外層所以要用 emit
           })
           .catch((err) => {
-            console.dir(err.response)
+            this.$httpMessageState(err.response, messageStatus)
           })
       })
-    },
-    openCouponModal () {
-      this.$nextTick(() => {
-        if (this.is_new) {
-          this.due_date = ''
-        }
-      })
-      this.couponModal.show()
-    },
-    closeCouponModal () {
-      this.couponModal.hide()
     }
   },
   watch: {
@@ -144,7 +134,11 @@ export default {
     }
   },
   mounted () {
-    this.couponModal = new Modal(this.$refs.couponModal, { keyboard: false })
+    this.$nextTick(() => {
+      if (this.is_new) {
+        this.due_date = ''
+      }
+    })
   }
 }
 </script>

@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
@@ -82,7 +85,8 @@ export default {
       pagination: {},
       tempCoupon: {},
       isNew: true,
-      delModalStatus: ''
+      delModalStatus: '',
+      isLoading: false
     }
   },
   components: {
@@ -92,6 +96,8 @@ export default {
   },
   methods: {
     getCoupons (category, page = 1) {
+      this.isLoading = true
+
       // query 參數用?帶入網址
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`
       this.$http
@@ -99,9 +105,11 @@ export default {
         .then((res) => {
           this.coupons = res.data.coupons
           this.pagination = res.data.pagination
+
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     updateProduct (item) {
@@ -116,17 +124,17 @@ export default {
           is_enabled: 0
         }
         this.isNew = true
-        this.$refs.couponModal.openCouponModal()
+        this.$refs.couponModal.openModal()
       } else if (modalStatus === 'edit') {
         // 編輯 - 拷貝點選的優惠券
         this.tempCoupon = { ...item }
         this.isNew = false
-        this.$refs.couponModal.openCouponModal()
+        this.$refs.couponModal.openModal()
       } else if (modalStatus === 'couponDelete') {
         // 刪除
         this.tempCoupon = { ...item }
         this.delModalStatus = modalStatus
-        this.$refs.delModal.openDelModal()
+        this.$refs.delModal.openModal()
       }
     }
   },

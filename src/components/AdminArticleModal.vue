@@ -1,7 +1,7 @@
 <template>
     <div
     id="articleModal"
-    ref="articleModal"
+    ref="modal"
     class="modal fade"
     aria-labelledby="articleModalLabel"
     aria-hidden="true"
@@ -14,7 +14,7 @@
           </h5>
           <button
             type="button"
-            class="btn-close"
+            class="btn-close btn-close-white"
             data-bs-dismiss="modal"
             aria-label="Close"
           ></button>
@@ -102,9 +102,6 @@
           </div>
           <hr>
           <div class="mb-2">
-            <!-- <input id="content" type="text" class="form-control" placeholder="輸入content"
-                v-model="tempArticle.content"
-                /> -->
             <ckeditor :editor="editor" :config="editorConfig" v-model="tempArticle.content"></ckeditor>
           </div>
           <div class="form-check me-3">
@@ -143,22 +140,32 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal'
+import modalMixin from '@/mixins/modalMixin'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import MyUploadAdapter from '@/methods/uploadAdapter'
+
+// UploadAdapterPlugin
+function MyCustomUploadAdapterPlugin (editor) {
+  editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+    // Configure the URL to the upload script in your back-end here!
+    return new MyUploadAdapter(loader)
+  }
+}
 
 export default {
   props: ['temp-article', 'is_new'],
   data () {
     return {
-      articleModal: '',
       tagValue: '',
       imageInput: '',
       editor: ClassicEditor,
       editorConfig: {
-        toolbar: ['heading', 'bold', 'italic', 'blockquote', 'link', '|', 'numberedList', 'bulletedList', '|', 'undo', 'redo']
+        toolbar: ['heading', 'bold', 'italic', 'blockquote', 'link', '|', 'numberedList', 'bulletedList', '|', 'undo', 'redo'],
+        extraPlugins: [MyCustomUploadAdapterPlugin]
       }
     }
   },
+  mixins: [modalMixin],
   methods: {
     updateArticle (articleId) {
       // Vue 在更新 DOM 的時候是非同步的，導致 ArticleModal 拿到的 props 資料與父元件不一致
@@ -166,22 +173,25 @@ export default {
       this.$nextTick(() => {
         let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/article/${articleId}`
         let httpMethod = 'put'
+        let messageStatus = '更新貼文'
 
         if (this.is_new === true) { // 因為多了 'editPublic' 的狀態
           url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/article`
           httpMethod = 'post'
+          messageStatus = '新增貼文'
         }
 
         this.$http[httpMethod](url, { data: this.tempArticle })
           .then((res) => {
+            this.$httpMessageState(res, messageStatus)
             // 關閉 Modal
-            this.closeArticleModal()
+            this.hideModal()
 
             // 執行 取得產品列表
             this.$emit('get-articles')// 此方法在外層所以要用 emit
           })
           .catch((err) => {
-            console.dir(err.response)
+            this.$httpMessageState(err.response, messageStatus)
           })
       })
     },
@@ -213,20 +223,15 @@ export default {
           .post(url, formData)
           .then((res) => {
             this.tempArticle.image = (res.data.imageUrl)
+            this.$httpMessageState(res, '圖片上傳')
 
             // 清空 input 欄位
             this.imageInput[1].value = ''
           })
           .catch((err) => {
-            console.log(err.response)
+            this.$httpMessageState(err.response, '圖片上傳')
           })
       }
-    },
-    openArticleModal () {
-      this.articleModal.show()
-    },
-    closeArticleModal () {
-      this.articleModal.hide()
     }
   },
   watch: {
@@ -242,7 +247,6 @@ export default {
     }
   },
   mounted () {
-    this.articleModal = new Modal(this.$refs.articleModal, { keyboard: false, focus: false }) // focus 與ckeditor 的 link 功能衝突所以改成 false
     this.imageInput = [...document.querySelectorAll('.imageInput')] // 從類陣列變成陣列
   }
 }

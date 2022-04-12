@@ -18,6 +18,10 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 // PageLoading
 import Loading from '@/components/PageLoading.vue'
 
+// ToastMessages, httpMessageState
+import ToastMessages from '@/components/ToastMessages.vue'
+import httpMessageState from '@/methods/pushMessageState'
+
 // vee-validate
 import { Form, Field, ErrorMessage, defineRule, configure } from 'vee-validate'
 import AllRules from '@vee-validate/rules'
@@ -41,10 +45,12 @@ Object.keys(AllRules).forEach(rule => {
 const app = createApp(App)
 // 全域註冊
 app.config.globalProperties.$emitter = emitter
+app.config.globalProperties.$httpMessageState = httpMessageState
 
 app.use(VueAxios, axios)
 app.use(CKEditor)
 app.use(router)
+app.component('ToastMessages', ToastMessages)
 app.component('Loading', Loading)
 app.component('Form', Form)
 app.component('Field', Field)

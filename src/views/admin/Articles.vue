@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
@@ -105,7 +108,8 @@ export default {
       },
       pagination: {},
       isNew: true,
-      delModalStatus: ''
+      delModalStatus: '',
+      isLoading: false
     }
   },
   components: {
@@ -115,6 +119,8 @@ export default {
   },
   methods: {
     getArticles (category, page = 1) {
+      this.isLoading = true
+
       // query 參數用?帶入網址
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`
       this.$http
@@ -122,9 +128,11 @@ export default {
         .then((res) => {
           this.articles = res.data.articles
           this.pagination = res.data.pagination
+
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     getItemArticle (articleId, editPublic) {
@@ -140,7 +148,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     updateArticle (item, editPublic) {
@@ -157,17 +165,17 @@ export default {
           tag: []
         }
         this.isNew = true
-        this.$refs.articleModal.openArticleModal()
+        this.$refs.articleModal.openModal()
       } else if (modalStatus === 'edit') {
         // 編輯 - 要打另一個 API
         this.getItemArticle(item.id)
         this.isNew = false
-        this.$refs.articleModal.openArticleModal()
+        this.$refs.articleModal.openModal()
       } else if (modalStatus === 'articleDelete') {
         // 刪除
         this.tempArticle = { ...item }
         this.delModalStatus = modalStatus
-        this.$refs.delModal.openDelModal()
+        this.$refs.delModal.openModal()
       }
     }
   },

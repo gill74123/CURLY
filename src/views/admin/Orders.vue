@@ -1,4 +1,7 @@
 <template>
+  <!-- vue-loading-overlay -->
+  <Loading v-model:active="isLoading"></Loading>
+
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
@@ -17,7 +20,7 @@
           <th scope="col" width="300">購買品項</th>
           <th scope="col" width="150">應付金額</th>
           <th scope="col" width="150">訂單狀態</th>
-          <th scope="col" width="200">編輯 / 刪除</th>
+          <th scope="col" width="150">編輯 / 刪除</th>
         </tr>
       </thead>
       <tbody>
@@ -97,7 +100,8 @@ export default {
       tempOrder: {
         user: {}
       },
-      delModalStatus: ''
+      delModalStatus: '',
+      isLoading: false
     }
   },
   components: {
@@ -107,38 +111,49 @@ export default {
   },
   methods: {
     getOrders (category, page = 1) {
+      this.isLoading = true
+
       // query 參數用?帶入網址
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`
       this.$http.get(url)
         .then((res) => {
           this.orders = res.data.orders
           this.pagination = res.data.pagination
+
+          this.addFreight()
+
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     updateOrder (item) {
-      // console.log(item)
       this.tempOrder = { ...item }
-      // console.log(this.tempOrder)
       this.$refs.orderModal.updateOrder(item.id)
     },
     openModal (modalStatus, item) {
       if (modalStatus === 'orderModal') {
         // OrderModal
         this.tempOrder = { ...item }
-        this.$refs.orderModal.openOrderModal()
+        this.$refs.orderModal.openModal()
       } else if (modalStatus === 'orderDelete') {
         // 刪除 - 單一訂單
         this.tempOrder = { ...item }
         this.delModalStatus = modalStatus
-        this.$refs.delModal.openDelModal()
+        this.$refs.delModal.openModal()
       } else if (modalStatus === 'orderAllDelete') {
         // 刪除 - 全部訂單
         this.delModalStatus = modalStatus
-        this.$refs.delModal.openDelModal()
+        this.$refs.delModal.openModal()
       }
+    },
+    addFreight () {
+      this.orders.forEach((item) => {
+        if (item.total < 1000) {
+          item.total = item.total + 60
+        }
+      })
     }
   },
   watch: {
