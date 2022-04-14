@@ -29,15 +29,19 @@
       </div>
 
       <div class="order-2 order-lg-3">
-        <!-- 收藏按鈕 -->
         <router-link to="/favorite" class="btn position-relative">
           <span class="material-icons-outlined align-middle text-primary fs-5">favorite</span>
-          <span v-if="favoriteQty" class="position-absolute top-40 start-50 badge rounded-pill bg-danger text-white">{{ favoriteQty }}</span>
+          <span v-if="favoriteQty" class="position-absolute top-40 start-50 badge rounded-pill bg-danger text-white">
+            {{ favoriteQty }}
+          </span>
         </router-link >
-        <!-- 購物車按鈕 -->
-        <button class="btn position-relative border-0 p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+
+        <button class="btn position-relative border-0 p-0" type="button"
+          data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
           <span class="material-icons-outlined text-primary fs-5 py-2">shopping_bag</span>
-          <span v-if="cartQty" class="position-absolute top-40 start-50 badge rounded-pill bg-danger text-white">{{ cartQty }}</span>
+          <span v-if="cartQty" class="position-absolute top-40 start-50 badge rounded-pill bg-danger text-white">
+            {{ cartQty }}
+          </span>
         </button>
       </div>
     </div>
@@ -69,7 +73,7 @@ export default {
     }
   },
   mounted () {
-    // 初始化先取得 localStorage 的數量
+    // 取得 localStorage 的數量
     if (JSON.parse(localStorage.getItem('favorite'))) {
       this.favoriteQty = JSON.parse(localStorage.getItem('favorite')).length
     } else {

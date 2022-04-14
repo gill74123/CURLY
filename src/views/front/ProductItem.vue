@@ -1,37 +1,34 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
   <div class="container py-6">
-    <!-- 商品主要內容 -->
     <section class="mb-6 py-3">
       <div class="row g-5">
-        <!-- 產品圖片 -->
         <div class="col-md-6">
-          <div class="row g-2 image ">
-            <div class="col-9 col-md-12" >
+          <div class="row g-2 image">
+            <div class="col-9 col-md-12">
               <div class="mainImg" :style="{backgroundImage: `url(${enterImage})`}"></div>
             </div>
             <!-- PC block -->
             <div class="col-3 col-md-4 d-none d-md-block" v-for="secImage in product.imagesUrl" :key="secImage">
-                <div class="secImg-box" >
-                  <a href="" class="d-block secImg" :style="{backgroundImage: `url(${secImage})`}"
+                <div class="secImg-box">
+                  <a href="#" class="d-block secImg" :style="{backgroundImage: `url(${secImage})`}"
                     @click.prevent="changeEnterImage(secImage)">
-                    <!-- <img class="secImg" :src="secImage" alt=""/> -->
                   </a>
                 </div>
             </div>
             <!-- Mobile block -->
             <div class="col-3 col-md-4 d-md-none d-flex flex-column" >
                 <div class="secImg-box mb-1" v-for="secImage in product.imagesUrl" :key="secImage">
-                  <a href="" @click.prevent="changeEnterImage(secImage)">
-                    <img class="secImg" :src="secImage" alt=""/>
+                  <a href="#" @click.prevent="changeEnterImage(secImage)">
+                    <img class="secImg" :src="secImage" :alt="secImage">
                   </a>
                 </div>
             </div>
           </div>
         </div>
-        <!-- 產品內容 -->
+
         <div class="col-md-6 d-flex flex-column justify-content-between">
           <div>
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -56,8 +53,7 @@
           <div class="d-flex justify-content-start mb-4">
             <input
               type="number" min="1" class="form-control border-1 border-primary rounded-2 text-center w-25 p-3 me-3"
-              v-model="productQty" :readonly="isSpinner"
-            />
+                v-model="productQty" :readonly="isSpinner">
             <button type="button" class="btn btn-primary text-white w-50 fw-4 py-3" :disabled="isSpinner"
               @click="addCart(product.id)">
               <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
@@ -70,7 +66,6 @@
       </div>
     </section>
 
-    <!-- 商品詳細資訊 -->
     <section class="mb-6 py-3">
       <div class="mb-4">
         <h5 class="text-primary fw-medium">商品資訊</h5>
@@ -83,7 +78,7 @@
             </tr>
             <tr>
               <td width="120">內容量</td>
-              <td>{{ product.grams }}/{{ product.unit }}</td>
+              <td>{{ product.grams }} / {{ product.unit }}</td>
             </tr>
             <tr>
               <td width="120">商品成分</td>
@@ -104,7 +99,8 @@
             <tr>
               <td width="120">享用方式</td>
               <td>於冷凍取出退冰半小時，噴灑些許開水，180 度烤 3-5 分鐘，或覆蓋濕紙巾微波 600w 一分鐘 (依照自己烤箱做調整)才可以吃到外酥內軟的口感唷！
-                <br>P.S.冷凍請先退回常溫再烤
+                <br />
+                P.S.冷凍請先退回常溫再烤
               </td>
             </tr>
             <tr>
@@ -116,7 +112,6 @@
       </div>
     </section>
 
-    <!-- 相關商品 -->
     <section class="mb-6 py-3">
       <div class="d-flex justify-content-center align-items-center mb-6">
         <div class="bg-primary" style="width: 100px; height: 2px"></div>
@@ -142,8 +137,7 @@ export default {
       filterProducts: [],
       enterImage: '',
       isLoading: false,
-      isSpinner: false,
-      test: ''
+      isSpinner: false
     }
   },
   components: {
@@ -169,6 +163,9 @@ export default {
           this.getProducts(this.product)
           this.isLoading = false
         })
+        .catch((err) => {
+          this.$httpMessageState(err.response, '錯誤訊息')
+        })
     },
     addCart (productId) {
       this.isSpinner = productId
@@ -181,12 +178,13 @@ export default {
       this.$http.post(url, { data })
         .then((res) => {
           this.isSpinner = false
+          this.$httpMessageState(res, '加入購物車')
 
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '加入購物車')
         })
     },
     changeEnterImage (secImage) {
@@ -202,16 +200,12 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     filterCategoryProducts (allProducts, product) {
-      this.filterProducts = allProducts.filter((item) => {
-        return item.category === product.category
-      })
-      const arrayIndex = this.filterProducts.findIndex((item) => {
-        return item.id === product.id
-      })
+      this.filterProducts = allProducts.filter(item => item.category === product.category)
+      const arrayIndex = this.filterProducts.findIndex(item => item.id === product.id)
       this.filterProducts.splice(arrayIndex, 1)
     }
   },
@@ -225,7 +219,6 @@ export default {
   },
   mounted () {
     this.getProduct()
-    // console.log(this.test)
   }
 }
 </script>

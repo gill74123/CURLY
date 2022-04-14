@@ -6,6 +6,23 @@
         background-image: url(./assets/images/logo.png);
     }
 }
+
+// index
+.image-category{
+    &-1{
+        background-image: url(./assets/images/index-category-1.jpg);
+    }
+    &-2{
+        background-image: url(./assets/images/index-category-2.jpg);
+    }
+    &-3{
+        background-image: url(./assets/images/index-category-3.jpg);
+    }
+    &-4{
+        background-image: url(./assets/images/index-category-4.jpg);
+    }
+}
+
 // ProductItem
 .image{
     .mainImg{
@@ -68,5 +85,13 @@
         &.active{
             opacity: 0.8;
         }
+    }
+}
+
+.image{
+    &-cover{
+        height: 150px;
+        background-size: cover;
+        background-position: center center;
     }
 }

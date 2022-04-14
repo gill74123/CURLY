@@ -14,15 +14,27 @@
             type="button"
             class="btn-close btn-close-white"
             data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+            aria-label="Close">
+          </button>
         </div>
         <div class="modal-body">
           <nav class="mb-3">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-productInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-productInfo" type="button" role="tab" aria-controls="nav-productInfo" aria-selected="true">商品資訊</button>
-              <button class="nav-link" id="nav-productContent-tab" data-bs-toggle="tab" data-bs-target="#nav-productContent" type="button" role="tab" aria-controls="nav-productContent" aria-selected="false">商品內容</button>
-              <button class="nav-link" id="nav-productImage-tab" data-bs-toggle="tab" data-bs-target="#nav-productImage" type="button" role="tab" aria-controls="nav-productImage" aria-selected="false">商品圖片</button>
+              <button type="button" class="nav-link active" id="nav-productInfo-tab"
+                data-bs-toggle="tab" data-bs-target="#nav-productInfo" role="tab"
+                aria-controls="nav-productInfo" aria-selected="true">
+                商品資訊
+              </button>
+              <button type="button" class="nav-link" id="nav-productContent-tab"
+                data-bs-toggle="tab" data-bs-target="#nav-productContent" role="tab"
+                aria-controls="nav-productContent" aria-selected="false">
+                商品內容
+              </button>
+              <button type="button" class="nav-link" id="nav-productImage-tab"
+                data-bs-toggle="tab" data-bs-target="#nav-productImage" role="tab"
+                aria-controls="nav-productImage" aria-selected="false">
+                商品圖片
+              </button>
             </div>
           </nav>
           <div class="tab-content px-2" id="nav-tabContent">
@@ -31,44 +43,44 @@
                 <div class="col-12">
                   <label for="title" class="form-label"><span class="text-danger me-1">*</span>商品名稱</label>
                   <input id="title" type="text" class="form-control bg-white" placeholder="請輸入標題"
-                  v-model="tempProduct.title" required/>
+                    v-model="tempProduct.title" required>
                 </div>
                 <div class="col-4">
                   <label for="category" class="form-label"><span class="text-danger me-1">*</span>分類</label>
                   <input id="category" type="text" class="form-control bg-white" placeholder="請輸入分類"
-                    v-model="tempProduct.category"/>
+                    v-model="tempProduct.category">
                 </div>
                 <div class="col-4">
                   <label for="grams" class="form-label"><span class="text-danger me-1">*</span>內容量</label>
                   <input id="grams" type="text" class="form-control bg-white" placeholder="請輸入幾內容量"
-                    v-model="tempProduct.grams"/>
+                    v-model="tempProduct.grams">
                 </div>
                 <div class="col-4">
                   <label for="unit" class="form-label"><span class="text-danger me-1">*</span>單位</label>
                   <input id="unit" type="text" class="form-control bg-white" placeholder="請輸入單位"
-                    v-model="tempProduct.unit"/>
+                    v-model="tempProduct.unit">
                 </div>
                 <div class="col-6">
                   <label for="origin_price" class="form-label"><span class="text-danger me-1">*</span>原價</label>
                   <input id="origin_price" type="number" min="0" class="form-control bg-white" placeholder="請輸入原價"
-                    v-model="tempProduct.origin_price"/>
+                    v-model="tempProduct.origin_price">
                 </div>
                 <div class="col-6">
                   <label for="price" class="form-label"><span class="text-danger me-1">*</span>售價</label>
                   <input id="price" type="number" min="0" class="form-control bg-white" placeholder="請輸入售價"
-                    v-model="tempProduct.price"/>
+                    v-model="tempProduct.price">
                 </div>
               </div>
               <hr />
               <div class="d-flex">
                 <div class="form-check me-3">
                   <input id="is_enabled" class="form-check-input" type="checkbox"
-                  v-model="tempProduct.is_enabled" :true-value="1" :false-value="0"/>
+                    v-model="tempProduct.is_enabled" :true-value="1" :false-value="0">
                   <label class="form-check-label" for="is_enabled">是否啟用</label>
                 </div>
                 <div class="form-check">
                   <input id="is_recommend" class="form-check-input  text-dark" type="checkbox"
-                  v-model="tempProduct.is_recommend" :true-value="1" :false-value="0"/>
+                    v-model="tempProduct.is_recommend" :true-value="1" :false-value="0">
                   <label class="form-check-label" for="is_recommend">店長推薦</label>
                 </div>
               </div>
@@ -78,7 +90,7 @@
                 <div class="col-12">
                   <label for="description" class="form-label">商品描述</label>
                   <textarea id="description" type="text" class="form-control bg-white" placeholder="請輸入產品描述"
-                  v-model="tempProduct.description">
+                    v-model="tempProduct.description">
                   </textarea>
                 </div>
                 <div class="col-12">
@@ -100,11 +112,11 @@
                 <div class="col-4 image-box d-flex justify-content-center align-items-center">
                   <span v-if="tempProduct.productImage.length === 0" class="material-icons-outlined fs-6 text-gray">image</span>
                   <template v-else>
-                    <img :src="tempProduct.productImage[0]" alt="" class="image-product">
-                    <a href="" class="text-light" @click.prevent="delImage(0)">
+                    <img :src="tempProduct.productImage[0]" :alt="tempProduct.productImage[0]" class="image-product">
+                    <a href="#" class="text-light" @click.prevent="delImage(0)">
                       <span class="material-icons-outlined position-absolute top-0 start-100 translate-middle">remove_circle_outline</span>
                     </a>
-                    <a href="" class="image-main text-center p-1"
+                    <a href="#" class="image-main text-center p-1"
                       :class="tempProduct.imageUrl === tempProduct.productImage[0] ? 'active' : ''" @click.prevent="mainImage(0)">
                       設為主圖片
                     </a>
@@ -113,11 +125,11 @@
                 <div class="col-4 image-box d-flex justify-content-center align-items-center">
                   <span v-if="tempProduct.productImage.length < 2" class="material-icons-outlined fs-6 text-gray">image</span>
                   <template v-else>
-                    <img :src="tempProduct.productImage[1]" alt="" class="image-product">
-                    <a href="" class="text-light" @click.prevent="delImage(1)">
+                    <img :src="tempProduct.productImage[1]" :alt="tempProduct.productImage[1]" class="image-product">
+                    <a href="#" class="text-light" @click.prevent="delImage(1)">
                       <span class="material-icons-outlined position-absolute top-0 start-100 translate-middle">remove_circle_outline</span>
                     </a>
-                    <a href="" class="image-main text-center p-1"
+                    <a href="#" class="image-main text-center p-1"
                       :class="tempProduct.imageUrl === tempProduct.productImage[1] ? 'active' : ''" @click.prevent="mainImage(1)">
                       設為主圖片
                     </a>
@@ -126,11 +138,11 @@
                 <div class="col-4 image-box d-flex justify-content-center align-items-center">
                   <span v-if="tempProduct.productImage.length < 3" class="material-icons-outlined fs-6 text-gray">image</span>
                   <template v-else>
-                    <img :src="tempProduct.productImage[2]" alt="" class="image-product">
-                    <a href="" class="text-light" @click.prevent="delImage(2)">
+                    <img :src="tempProduct.productImage[2]" :alt="tempProduct.productImage[2]" class="image-product">
+                    <a href="#" class="text-light" @click.prevent="delImage(2)">
                       <span class="material-icons-outlined position-absolute top-0 start-100 translate-middle">remove_circle_outline</span>
                     </a>
-                    <a href="" class="image-main text-center p-1"
+                    <a href="#" class="image-main text-center p-1"
                       :class="tempProduct.imageUrl === tempProduct.productImage[2] ? 'active' : ''" @click.prevent="mainImage(2)">
                       設為主圖片
                     </a>
@@ -139,11 +151,11 @@
                 <div class="col-4 image-box d-flex justify-content-center align-items-center">
                   <span v-if="tempProduct.productImage.length < 4" class="material-icons-outlined fs-6 text-gray">image</span>
                   <template v-else>
-                    <img :src="tempProduct.productImage[3]" alt="" class="image-product">
-                    <a href="" class="text-light" @click.prevent="delImage(3)">
+                    <img :src="tempProduct.productImage[3]" :alt="tempProduct.productImage[3]" class="image-product">
+                    <a href="#" class="text-light" @click.prevent="delImage(3)">
                       <span class="material-icons-outlined position-absolute top-0 start-100 translate-middle">remove_circle_outline</span>
                     </a>
-                    <a href="" class="image-main text-center p-1"
+                    <a href="#" class="image-main text-center p-1"
                       :class="tempProduct.imageUrl === tempProduct.productImage[3] ? 'active' : ''" @click.prevent="mainImage(3)">
                       設為主圖片
                     </a>
@@ -194,7 +206,7 @@ export default {
   mixins: [modalMixin],
   methods: {
     updateProduct (productId) {
-      // Vue 在更新 DOM 的時候是非同步的，導致 ProductModal 拿到的 props 資料與父元件不一致
+      // 更新 DOM 的時候會有非同步，導致 ProductModal 拿到的 props 資料與父元件不一致
       // 使用 nextTick() 當 DOM 更新後才執行
       this.$nextTick(() => {
         let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/product/${productId}`
@@ -210,10 +222,9 @@ export default {
         this.$http[httpMethod](url, { data: this.tempProduct })
           .then((res) => {
             this.$httpMessageState(res, messageStatus)
-            // 關閉 Modal
             this.hideModal()
 
-            // 執行 取得產品列表，此方法在外層所以要用 emit
+            // 執行 父層取得產品列表
             this.$emit('get-products')
           })
           .catch((err) => {
@@ -222,14 +233,11 @@ export default {
       })
     },
     imageUpload (imageStatus) {
-      if (imageStatus === 'imageUrl') {
-        // 用網址新增圖片
+      if (imageStatus === 'imageUrl') { // 用網址新增圖片
         this.tempProduct.productImage.push(this.imageInput[0].value)
-        // 清空 input 欄位
         this.imageInput[0].value = ''
         this.addImageToTempProduct()
-      } else if (imageStatus === 'imageFile') {
-        // 用檔案新增圖片
+      } else if (imageStatus === 'imageFile') { // 用檔案新增圖片
         const file = this.imageInput[1].files[0]
 
         // 將格式傳換成 formData
@@ -242,8 +250,6 @@ export default {
           .then((res) => {
             this.tempProduct.productImage.push(res.data.imageUrl)
             this.$httpMessageState(res, '圖片上傳')
-
-            // 清空 input 欄位
             this.imageInput[1].value = ''
             this.addImageToTempProduct()
           })

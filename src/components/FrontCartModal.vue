@@ -3,31 +3,29 @@
   tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header border-bottom border-primary">
       <h5 class="text-primary" >購物車</h5>
-      <!-- id="offcanvasRightLabel" -->
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      <!--  -->
     </div>
     <template v-if="cartData.carts.length">
       <div class="offcanvas-body">
       <div class="card mb-3" v-for="cartItem in cartData.carts" :key="cartItem.id">
         <div class="row g-0">
           <div class="col-3">
-            <img class="card-img img-fluid rounded-start" alt="cartItem.product.title"
-            :src="cartItem.product.imageUrl">
+            <img class="card-img img-fluid rounded-start"
+            :src="cartItem.product.imageUrl" :alt="cartItem.product.title">
           </div>
           <div class="col-6 text-dark">
             <div class="card-body d-flex flex-column justify-content-between h-100 py-0">
               <h5 class="card-title text-primary fw-medium m-0">{{ cartItem.product.title }}</h5>
               <p class="card-text">NT$ {{ cartItem.product.price }}</p>
               <button type="button" class="btn border-0 text-start w-25 p-0" :disabled="isSpinner"
-              @click="deleteItemCart(cartItem.id)">
+                @click="deleteItemCart(cartItem.id)">
                 <span class="material-icons-outlined text-light align-bottom">delete_outline</span>
               </button>
             </div>
           </div>
           <div class="col-3 align-self-center">
             <input type="number" min="1" class="form-control border-1 border-light rounded-2 text-center" :readonly="isSpinner"
-            v-model="cartItem.qty" @change="updateCart(cartItem)">
+              v-model="cartItem.qty" @change="updateCart(cartItem)">
           </div>
         </div>
       </div>
@@ -51,7 +49,6 @@
     </div>
     </template>
 
-    <!-- 購物車沒有商品 -->
     <div v-else class="offcanvas-body text-light text-center p-6">
       <span class="material-icons-outlined fs-6">fmd_bad</span>
       <p class="fs-4 mb-4">購物車內沒有商品</p>
@@ -87,17 +84,17 @@ export default {
           this.total = res.data.data.total
           this.final_total = res.data.data.final_total
 
-          // 每當觸發 getCart 方法時，傳遞購物車數量到 FrontNavbar.vue (內傳外)
+          // 傳遞購物車數量到 FrontNavbar.vue (內傳外)
           this.$emit('cart-qty', this.cartData.carts.length)
 
-          // 每當觸發 getCart 方法時，傳遞 this.carData 資料到 Order.vue
+          // 跨元件傳遞 this.carData 資料到 Order.vue
           this.$emitter.emit('get-cart-data', this.cartData)
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
-    updateCart (cartItem) { // 要取的變數有多個，直接整包傳進來
+    updateCart (cartItem) {
       this.isSpinner = cartItem.id
 
       // 最少數量要為 1
@@ -113,11 +110,12 @@ export default {
       this.$http.put(url, { data })
         .then((res) => {
           this.isSpinner = false
+          this.$httpMessageState(res, '更新購物車')
 
           this.getCart()
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState('errMessage', err.response.data.message)
         })
     },
     deleteCarts () {
@@ -127,12 +125,13 @@ export default {
       this.$http
         .delete(url)
         .then((res) => {
-          this.getCart()
-
           this.isSpinner = false
+          this.$httpMessageState(res, '刪除全部購物車產品')
+
+          this.getCart()
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState('errMessage', err.response.data.message)
         })
     },
     deleteItemCart (cartId) {
@@ -142,12 +141,13 @@ export default {
       this.$http
         .delete(url)
         .then((res) => {
-          this.getCart()
-
           this.isSpinner = false
+          this.$httpMessageState(res, '刪除購物車產品')
+
+          this.getCart()
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState('errMessage', err.response.data.message)
         })
     },
     closeOffcanvas () {

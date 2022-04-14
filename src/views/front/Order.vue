@@ -1,23 +1,22 @@
 <template>
-    <!-- vue-loading-overlay -->
+    <!-- Loading -->
     <Loading v-model:active="isLoading"></Loading>
 
     <div class="order container py-6">
-        <!-- timeline -->
-        <Timeline></Timeline>
+        <!-- Timeline -->
+        <Timeline />
 
         <div class="row g-5">
-            <!-- 購物車詳情 -->
             <div class="col-md-6 mb-4">
               <div class="d-flex border-bottom pb-2 mb-5">
-                <h5 class=" text-primary fw-bold">購物車詳情</h5>
-                <!-- <button type="button" class="btn btn-outline-light py-0 px-2 ms-2">修改</button> -->
+                <h5 class="text-primary fw-bold">購物車詳情</h5>
               </div>
                 <div class="card mb-2" v-for="cartItem in cartData.carts" :key="cartItem.id">
                     <div class="row g-0">
                       <div class="col-3">
-                        <img class="card-img img-fluid rounded-start" alt="cartItem.product.title"
-                        :src="cartItem.product.imageUrl">
+                        <img class="card-img img-fluid rounded-start"
+                          :src="cartItem.product.imageUrl" :alt="cartItem.product.title"
+                          >
                       </div>
                       <div class="col-6 text-dark">
                         <div class="card-body d-flex flex-column justify-content-between h-100 py-0">
@@ -26,7 +25,7 @@
                         </div>
                       </div>
                       <div class="col-3 align-self-center">
-                        <p class="card-text ">NT$ {{ cartItem.total }}</p>
+                        <p class="card-text">NT$ {{ cartItem.total }}</p>
                       </div>
                     </div>
                 </div>
@@ -66,7 +65,6 @@
                   </p>
                 </div>
             </div>
-            <!-- 訂購人資訊 -->
             <div class="col-md-6">
                 <h5 class="border-bottom text-primary fw-bold pb-2 mb-2">訂購人資訊</h5>
                 <Form class="py-3" v-slot="{ errors }" @submit="addOrder">
@@ -79,29 +77,29 @@
                     <div class="mb-3">
                         <label for="name" class="form-label"><span class="text-danger">*</span> 收件人</label>
                         <Field type="text" class="form-control" id="name" name="收件人" placeholder="請輸入姓名"
-                        v-model="formData.user.name" :class="{ 'is-invalid': errors['收件人'] }" rules="required"></Field>
+                          v-model="formData.user.name" :class="{ 'is-invalid': errors['收件人'] }" rules="required"></Field>
                         <error-message name="收件人" class="invalid-feedback"></error-message>
                     </div>
                     <div class="mb-3">
                         <label for="tel" class="form-label"><span class="text-danger">*</span> 電話</label>
                         <Field type="tel" class="form-control" id="tel" name="電話" placeholder="請輸入電話"
-                        v-model="formData.user.tel" :class="{ 'is-invalid': errors['電話'] }" :rules="isPhone"></Field>
+                          v-model="formData.user.tel" :class="{ 'is-invalid': errors['電話'] }" :rules="isPhone"></Field>
                         <error-message name="電話" class="invalid-feedback"></error-message>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label"><span class="text-danger">*</span> 收件地址</label>
                         <Field type="text" class="form-control" id="address" name="收件地址" placeholder="請輸入收件地址"
-                        v-model="formData.user.address" :class="{ 'is-invalid': errors['收件地址'] }" rules="required"></Field>
+                          v-model="formData.user.address" :class="{ 'is-invalid': errors['收件地址'] }" rules="required"></Field>
                         <error-message name="收件地址" class="invalid-feedback"></error-message>
                     </div>
                     <div class="mb-4">
                         <label for="message" class="form-label">留言</label>
                         <Field type="text" class="form-control" id="message" name="留言" cols="30" rows="10"
-                        v-model="formData.message" as="textarea"></Field>
+                          v-model="formData.message" as="textarea"></Field>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary w-100 w-lg-25 p-2"
-                        :disabled="isSpinner">送出訂單</button>
+                          :disabled="isSpinner">送出訂單</button>
                     </div>
                 </Form>
             </div>
@@ -111,7 +109,6 @@
 
 <script>
 import Timeline from '@/components/Timeline.vue'
-// import offcanvasToggle from '@/mixins/offcanvasToggle.js'
 
 export default {
   data () {
@@ -134,7 +131,6 @@ export default {
   components: {
     Timeline
   },
-  // mixins: [offcanvasToggle],
   methods: {
     addCoupon (couponCode) {
       this.isSpinner = true
@@ -150,10 +146,12 @@ export default {
           this.is_Discount = true
           this.couponCode = ''
 
+          this.$httpMessageState(res, '使用優惠券')
           this.isSpinner = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState('errMessage', err.response.data.message)
+          this.isSpinner = false
         })
     },
     addOrder () {
@@ -165,17 +163,17 @@ export default {
           this.is_Discount = true
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
-          // 清空列表
+
           this.formData = {
             user: {}
           }
 
-          // 換頁
+          this.$httpMessageState(res, '訂單建立')
           const orderId = res.data.orderId
           this.$router.push(`/pay/${orderId}`)
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState('errMessage', err.response.data.message)
         })
     },
     isPhone (value) {

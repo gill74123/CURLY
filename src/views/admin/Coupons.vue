@@ -1,10 +1,11 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
+        type="button"
         class="btn btn-primary d-flex align-items-center px-3 py-2"
         @click="openModal('new')"
       >
@@ -39,8 +40,7 @@
                 v-model="coupon.is_enabled"
                 :true-value="1"
                 :false-value="0"
-                @change="updateProduct(coupon)"
-              />
+                @change="updateProduct(coupon)">
               <label
                 class="form-check-label"
                 for="coupon.id"
@@ -48,8 +48,8 @@
                   'text-success': coupon.is_enabled,
                   'text-danger': !coupon.is_enabled,
                 }"
-                >{{ coupon.is_enabled ? "啟用" : "關閉" }}</label
-              >
+                >{{ coupon.is_enabled ? "啟用" : "關閉" }}
+              </label>
             </div>
           </td>
           <td>
@@ -64,10 +64,10 @@
 
     <!-- AdminCouponModal -->
     <AdminCouponModal ref="couponModal" :temp-coupon="tempCoupon" :is_new="isNew"
-    @get-coupons="getCoupons"></AdminCouponModal>
+      @get-coupons="getCoupons"></AdminCouponModal>
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-coupon="tempCoupon"
-    @get-coupons="getCoupons"></AdminDelModal>
+      @get-coupons="getCoupons"></AdminDelModal>
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getCoupons"></Pagination>
   </div>
@@ -98,7 +98,6 @@ export default {
     getCoupons (category, page = 1) {
       this.isLoading = true
 
-      // query 參數用?帶入網址
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`
       this.$http
         .get(url)
@@ -118,20 +117,17 @@ export default {
       this.$refs.couponModal.updateCoupon(item.id)
     },
     openModal (modalStatus, item) {
-      if (modalStatus === 'new') {
-        // 新增 - 清空選取產品內資料
+      if (modalStatus === 'new') { // 新增 - 清空選取產品內資料
         this.tempCoupon = {
           is_enabled: 0
         }
         this.isNew = true
         this.$refs.couponModal.openModal()
-      } else if (modalStatus === 'edit') {
-        // 編輯 - 拷貝點選的優惠券
+      } else if (modalStatus === 'edit') { // 編輯 - 拷貝點選的優惠券
         this.tempCoupon = { ...item }
         this.isNew = false
         this.$refs.couponModal.openModal()
-      } else if (modalStatus === 'couponDelete') {
-        // 刪除
+      } else if (modalStatus === 'couponDelete') { // 刪除
         this.tempCoupon = { ...item }
         this.delModalStatus = modalStatus
         this.$refs.delModal.openModal()

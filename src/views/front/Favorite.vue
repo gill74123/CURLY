@@ -1,8 +1,7 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <!-- banner -->
   <section class="favorite bg-banner position-relative">
     <h2
       class="
@@ -13,15 +12,13 @@
         start-50
         translate-middle
         p-3
-        px-4
-      "
+        px-4"
     >
       <p>滿足你的味蕾，重拾你的好心情</p>
     </h2>
   </section>
 
   <div class="container py-6">
-    <!-- 產品列表 -->
     <section class="mb-6 py-3">
       <div v-if="favoriteProducts.length !== 0" class="row">
         <div
@@ -35,8 +32,8 @@
                 class="card-tag"
                 >On Sale</span
               >
-              <a href="" class="img-hover-scale">
-                <img :src="product.imageUrl" class="card-img" alt="" />
+              <a href="#" class="img-hover-scale">
+                <img :src="product.imageUrl" class="card-img" :alt="product.title" />
               </a>
             </div>
             <div class="card-body text-center">
@@ -46,8 +43,7 @@
                   d-flex
                   justify-content-center
                   align-items-center
-                  text-primary
-                "
+                  text-primary"
               >
                 <span
                   v-if="product.is_recommend"
@@ -67,8 +63,7 @@
                 >
               </p>
               <div class="btn-group d-flex justify-content-center">
-                <!-- 收藏按鈕 -->
-                <button class="btn btn-outline-danger px-1" :disabled="isSpinner"
+                <button type="button" class="btn btn-outline-danger px-1" :disabled="isSpinner"
                   @click="toggleFavorite(product.id)">
                   <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
                   <span v-else class="material-icons-outlined align-middle">favorite_border</span>
@@ -97,7 +92,6 @@
       </div>
     </section>
 
-    <!-- 推薦商品 -->
     <section class="mb-6 py-3">
       <div class="d-flex justify-content-center align-items-center mb-6">
         <div class="bg-primary" style="width: 100px; height: 2px"></div>
@@ -143,7 +137,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     filterFavoriteProducts () {
@@ -165,27 +159,25 @@ export default {
         .post(url, { data })
         .then((res) => {
           this.isSpinner = false
+          this.$httpMessageState(res, '加入購物車')
 
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '加入購物車')
         })
     },
     seeProduct (productId) {
       this.$router.push(`/product/${productId}`)
     },
     filterRecommendProducts () {
-      this.recommendProducts = this.products.filter((item) => {
-        return item.is_recommend === 1
-      })
+      this.recommendProducts = this.products.filter(item => item.is_recommend === 1)
     }
   },
   watch: {
-    // 給 Favorite 頁面即時更新
+    // this.favorite 一有變動就重新篩選
     // 因 this.favorite 為陣列，所以要做深層的監聽
-    // this.favorite 一有變動舊重新篩選
     favorite: {
       handler () {
         this.favoriteProducts = []

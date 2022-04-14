@@ -1,10 +1,11 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
+        type="button"
         class="btn btn-primary d-flex align-items-center px-3 py-2"
         @click="openModal('new')"
       >
@@ -33,8 +34,8 @@
               v-for="(tag, index) in article.tag"
               :key="`tag+${index}`"
               class="border border-light rounded-2 p-1 me-2"
-              ># {{ tag }}</span
-            >
+              ># {{ tag }}
+            </span>
           </td>
           <td>
             <div class="form-check form-switch p-0">
@@ -46,8 +47,7 @@
                 v-model="article.isPublic"
                 :true-value="true"
                 :false-value="false"
-                @change="updateArticle(article, 'editPublic')"
-              />
+                @change="updateArticle(article, 'editPublic')">
               <label
                 class="form-check-label"
                 for="article.id"
@@ -84,10 +84,10 @@
 
     <!-- AdminArticleModal -->
     <AdminArticleModal ref="articleModal" :temp-article="tempArticle" :is_new="isNew"
-    @get-articles="getArticles"></AdminArticleModal>
+      @get-articles="getArticles"></AdminArticleModal>
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-article="tempArticle"
-    @get-articles="getArticles"></AdminDelModal>
+      @get-articles="getArticles"></AdminDelModal>
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getArticles"></Pagination>
   </div>
@@ -121,7 +121,6 @@ export default {
     getArticles (category, page = 1) {
       this.isLoading = true
 
-      // query 參數用?帶入網址
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`
       this.$http
         .get(url)
@@ -136,13 +135,14 @@ export default {
         })
     },
     getItemArticle (articleId, editPublic) {
+      // 取得貼文內容打此 API
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/article/${articleId}`
       this.$http
         .get(url)
         .then((res) => {
           this.tempArticle = res.data.article
 
-          // 設定一個 'editPublic' 字樣，讓它與點編輯按鈕做區分
+          // 設定 'editPublic' 字樣，區分開關與點編輯按鈕
           if (editPublic === 'editPublic') {
             this.$refs.articleModal.updateArticle(articleId)
           }
@@ -156,23 +156,20 @@ export default {
       this.isNew = editPublic
     },
     openModal (modalStatus, item) {
-      if (modalStatus === 'new') {
-        // 新增 - 清空選取產品內資料
+      if (modalStatus === 'new') { // 新增 - 清空選取產品內資料
         this.tempArticle = {
-          // 因 tempArticle 一有變動就會做時間轉換，所以新增時先賦予當下的時間
+          // 因 tempArticle 一有變動就會做時間轉換，所以先賦予當下的時間
           create_at: new Date().getTime() / 1000,
           isPublic: true,
           tag: []
         }
         this.isNew = true
         this.$refs.articleModal.openModal()
-      } else if (modalStatus === 'edit') {
-        // 編輯 - 要打另一個 API
+      } else if (modalStatus === 'edit') { // 編輯
         this.getItemArticle(item.id)
         this.isNew = false
         this.$refs.articleModal.openModal()
-      } else if (modalStatus === 'articleDelete') {
-        // 刪除
+      } else if (modalStatus === 'articleDelete') { // 刪除
         this.tempArticle = { ...item }
         this.delModalStatus = modalStatus
         this.$refs.delModal.openModal()

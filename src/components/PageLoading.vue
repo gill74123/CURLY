@@ -1,6 +1,6 @@
 <template>
   <Loading>
-    <img class="loading-img" :src="require('@/assets/images/cinnamon.png')" alt="">
+    <img class="loading-img" src="@/assets/images/cinnamon.png" alt="pageLoadingIcon">
     <span class="text-light fs-4 fw-bold mt-3">—— L O D I N G ——</span>
   </Loading>
 </template>

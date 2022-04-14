@@ -1,8 +1,13 @@
-export default function (response, title) {
-  if (response.data.success) {
+export default function (response, title, content) {
+  if (response?.data?.success || response) {
     this.$emitter.emit('push-message', {
-      style: 'primary',
+      style: 'success',
       title: `${title}成功`
+    })
+  } else if (response === 'errMessage') {
+    this.$emitter.emit('push-message', {
+      style: 'danger',
+      title: title
     })
   } else {
     // 有些訊息是字串，有些則是陣列，在此統一格式

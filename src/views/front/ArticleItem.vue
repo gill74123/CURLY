@@ -1,5 +1,5 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
   <div class="article container my-6">
@@ -7,24 +7,25 @@
       <div class="text-center text-light mb-5">
         <p>{{ article.create_at }}</p>
         <h2 class="text-primary fw-bold my-3">{{ article.title }}</h2>
-        <p>By {{ article.author }}</p><br>
+        <p>By {{ article.author }}</p>
+        <br />
         <template v-for="tag in article.tag" :key="tag + 1">
           <span class="me-2"># {{tag}}</span>
         </template>
       </div>
       <div class="px-6">
         <img class="card-img w-100 mb-3"
-        :src="article.image" alt="article.image">
+          :src="article.image" :alt="article.image">
         <div v-html="article.content"></div>
       </div>
     </div>
     <div class="d-flex justify-content-between">
-      <a href="" v-if="paginationData.has_pre" class="btn d-flex align-items-center text-primary px-0"
+      <a href="#" v-if="paginationData.has_pre" class="btn d-flex align-items-center text-primary px-0"
         @click.prevent="changeArticlePage(paginationData.pre_info.id)">
         <span class="material-icons-outlined fs-5">chevron_left</span>
         上一篇：{{ paginationData.pre_info?.title }}
       </a>
-      <a href="" v-if="paginationData.has_next" class="btn d-flex align-items-center text-primary px-0 ms-auto"
+      <a href="#" v-if="paginationData.has_next" class="btn d-flex align-items-center text-primary px-0 ms-auto"
         @click.prevent="changeArticlePage(paginationData.next_info.id)">
         下一篇：{{ paginationData.next_info?.title }}
         <span class="material-icons-outlined fs-5">chevron_right</span>
@@ -58,7 +59,6 @@ export default {
       if (this.articleId) {
         id = this.articleId
       }
-
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/article/${id}`
       this.$http
         .get(url)
@@ -70,7 +70,10 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState('errMessage', err.response.data.message)
+          setTimeout(() => {
+            this.$router.push('/articles')
+          }, 3000)
         })
     },
     getArticles () {
@@ -86,7 +89,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     articlePagination () {

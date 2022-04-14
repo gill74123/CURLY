@@ -1,8 +1,7 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <!-- banner -->
   <section class="articles bg-banner position-relative">
     <h2
       class="
@@ -13,43 +12,41 @@
         start-50
         translate-middle
         p-3
-        px-4
-      "
+        px-4"
     >
       <p>多的是你不知道的事</p>
     </h2>
   </section>
 
-  <!-- 文章列表 -->
   <section class="articles container py-6">
     <div class="row">
       <div class="col-md-3">
         <ul class="category list-unstyled d-flex flex-row flex-md-column justify-content-between
             scrollbar sticky-top">
           <li>
-            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === 'all'}"
-            @click.prevent="filterArticles('all')">
+            <a href="#" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === 'all'}"
+              @click.prevent="filterArticles('all')">
               <span class="material-icons-outlined me-2">campaign</span>
               所有消息
             </a>
           </li>
           <li>
-            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '公告'}"
-            @click.prevent="filterArticles('公告')">
+            <a href="#" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '公告'}"
+              @click.prevent="filterArticles('公告')">
               <span class="material-icons-outlined me-2">campaign</span>
               公告
             </a>
           </li>
           <li>
-            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '活動'}"
-            @click.prevent="filterArticles('活動')">
+            <a href="#" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '活動'}"
+              @click.prevent="filterArticles('活動')">
               <span class="material-icons-outlined me-2">local_florist</span>
               活動
             </a>
           </li>
           <li>
-            <a href="" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '小知識'}"
-            @click.prevent="filterArticles('小知識')">
+            <a href="#" class="d-flex align-items-center border-bottom border-primary p-2" :class="{active: categoryType === '小知識'}"
+              @click.prevent="filterArticles('小知識')">
               <span class="material-icons-outlined me-2">school</span>
               小知識
             </a>
@@ -59,7 +56,7 @@
       <div class="col-md-9">
         <ul class="list-unstyled text-light">
           <li class="card border-0" v-for="article in categoryArticles" :key="article.id"
-            @click.prevent="seeArticle(article.id)">
+            @click="seeArticle(article.id)">
             <div class="card-body p-0">
               <template v-for="tag in article.tag" :key="tag + 1">
                 <span class="text-muted me-2">#{{ tag }}</span>
@@ -68,9 +65,9 @@
                 <h3 class="text-primary fw-bold fs-5 w-75">{{ article.title }}</h3>
                 <p>{{ article.create_at }}</p>
               </div>
-              <img :src="article.image" class="card-img mb-3" alt="article.image">
+              <img :src="article.image" class="card-img mb-3" :alt="article.image">
               <p class="mb-3">{{ article.description }}</p>
-                <a href="" class="card-more d-block stretched-link text-end fs-4 fw-medium">MORE</a>
+                <a href="#" class="card-more d-block stretched-link text-end fs-4 fw-medium">MORE</a>
             </div>
             <hr>
           </li>
@@ -120,7 +117,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     filterArticles (category) {

@@ -1,9 +1,9 @@
 <template>
   <div class="admin min-vh-100 position-relative">
-    <AdminNavbar></AdminNavbar>
-    <router-view v-if="checkSuccess"></router-view>
+    <AdminNavbar />
+    <RouterView v-if="checkSuccess"></RouterView>
   </div>
-  <AdminFooter></AdminFooter>
+  <AdminFooter />
 </template>
 
 <script>
@@ -38,14 +38,11 @@ export default {
             this.checkSuccess = true
           })
           .catch((err) => {
-            this.$httpMessageState(err.response, '錯誤訊息')
-
-            // 頁面跳轉
+            this.$httpMessageState(err.response, '登入')
             this.$router.push('/login')
           })
       } else {
-        this.$httpMessageState(false, '錯誤訊息')
-        // 頁面跳轉
+        this.$httpMessageState(false, '登入')
         this.$router.push('/login')
       }
     }

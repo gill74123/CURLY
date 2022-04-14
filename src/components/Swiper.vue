@@ -9,9 +9,9 @@
   >
     <template v-for="product in filterProducts" :key="product.id">
       <swiper-slide>
-        <a href="" class="swiper-img d-block d-flex justify-content-center align-items-center
+        <a href="#" class="swiper-img d-block d-flex justify-content-center align-items-center
             rounded-3 mb-4" :style="{ backgroundImage: `url(${product.imageUrl})`}"
-          @click.prevent="seeProduct(product.id)">
+            @click.prevent="seeProduct(product.id)">
           <div class="bg-light bg-opacity-25 text-center p-2">
             <span class="text-white fs-4 fw-medium">{{ product.title }}</span>
           </div>
@@ -51,6 +51,7 @@ export default {
     seeProduct (productId) {
       this.$router.push(`/product/${productId}`)
 
+      // 執行 父層取得單一產品
       this.$emit('get-product', productId)
     }
   }

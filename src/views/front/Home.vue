@@ -1,8 +1,8 @@
 <template>
   <div class="front min-vh-100">
-    <FrontNavbar></FrontNavbar>
-    <router-view></router-view>
-    <FrontFooter></FrontFooter>
+    <FrontNavbar />
+    <RouterView />
+    <FrontFooter />
   </div>
 </template>
 

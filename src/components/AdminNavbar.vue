@@ -22,14 +22,13 @@
             <router-link to="/admin/articles" class="nav-link text-center mx-2" @click="closeCollapse">貼文管理</router-link>
           </li>
           <li class="nav-item d-lg-none">
-            <router-link to="/login" class="nav-link text-center mx-2">
+            <router-link to="/login" class="nav-link text-center mx-2" @click="logout">
               <span class="material-icons-outlined align-middle">logout</span>
               登出
             </router-link>
           </li>
         </ul>
 
-        <!-- 登出 -->
         <button class="d-none d-lg-block btn d-flex align-items-center btn-outline-secondary order-2 order-lg-3" type="button" @click="logout">
           <span class="material-icons-outlined align-middle me-1">logout</span>
           登出
@@ -50,11 +49,10 @@ export default {
       const url = `${process.env.VUE_APP_URL}/logout`
       this.$http.post(url)
         .then((res) => {
-          // 頁面跳轉
           this.$router.push('/login')
         })
         .catch((err) => {
-          console.log(err.response)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     }
   }

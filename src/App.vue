@@ -1,6 +1,6 @@
 <template>
-  <ToastMessages></ToastMessages>
-  <router-view/>
+  <ToastMessages />
+  <RouterView />
 </template>
 
 <style lang="scss">

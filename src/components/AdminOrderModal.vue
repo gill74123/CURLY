@@ -16,8 +16,8 @@
             type="button"
             class="btn-close btn-close-white"
             data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+            aria-label="Close">
+          </button>
         </div>
         <div class="modal-body">
           <div class="d-flex justify-content-between align-items-baseline bg-secondary p-2 mb-3">
@@ -40,28 +40,28 @@
                     <input type="text" class="form-control w-75 py-1" readonly v-model="tempOrder.create_at">
                   </li>
                   <li class="d-flex justify-content-between align-items-center mb-2">
-                      姓名：
-                      <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.name">
+                    姓名：
+                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.name">
                   </li>
                   <li class="d-flex justify-content-between align-items-center mb-2">
-                      信箱：
-                      <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.email">
-                  </li>
-                   <li class="d-flex justify-content-between align-items-center mb-2">
-                      電話：
-                      <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.tel">
+                    信箱：
+                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.email">
                   </li>
                   <li class="d-flex justify-content-between align-items-center mb-2">
-                      地址：
-                      <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.address">
+                    電話：
+                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.tel">
+                  </li>
+                  <li class="d-flex justify-content-between align-items-center mb-2">
+                    地址：
+                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.address">
                   </li>
                   <li class="d-flex justify-content-between align-items-start mb-2">
-                      備註：
-                      <textarea type="text" class="form-control w-75" id="message" name="留言" v-model="tempOrder.message">
-                      </textarea>
+                    備註：
+                    <textarea type="text" class="form-control w-75" id="message" name="留言" v-model="tempOrder.message"></textarea>
                   </li>
                 </ul>
             </div>
+
             <div class="col-md-7">
               <h3 class="mb-2">購買商品</h3>
               <table class="table">
@@ -79,13 +79,13 @@
                     <th scope="row">{{ index + 1 }}</th>
                     <td>{{ product.product.title}}</td>
                     <td>
-                        <input type="number" class="form-control text-center" v-model="product.qty" @change="updateTotal">
+                      <input type="number" class="form-control text-center" v-model="product.qty" @change="updateTotal">
                     </td>
                     <td>NT$ {{ product.final_total }}</td>
                     <td>
-                        <button type="button" class="btn py-0">
-                            <span class="material-icons align-middle">delete_outline</span>
-                        </button>
+                      <button type="button" class="btn py-0">
+                        <span class="material-icons align-middle">delete_outline</span>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -102,15 +102,13 @@
           <button
             type="button"
             class="btn btn-outline-light"
-            data-bs-dismiss="modal"
-          >
+            data-bs-dismiss="modal">
             取消
           </button>
           <button
             type="button"
             class="btn btn-primary"
-            @click="updateOrder(tempOrder.id)"
-          >
+            @click="updateOrder(tempOrder.id)">
             確認
           </button>
         </div>
@@ -132,11 +130,10 @@ export default {
   mixins: [modalMixin],
   methods: {
     updateOrder (orderId) {
-      // Vue 在更新 DOM 的時候是非同步的，導致 OrderModal 拿到的 props 資料與父元件不一致
+      // 更新 DOM 的時候會有非同步，導致 OrderModal 拿到的 props 資料與父元件不一致
       // 使用 nextTick() 當 DOM 更新後才執行
       this.$nextTick(() => {
-        // 將時間格式從 YYYY-MM-DD 轉換成 Unix 格式
-        // Math.floor() 取小於數值的最大整數
+        // 將時間格式從 YYYY-MM-DD 轉換成 Unix 格式，Math.floor() 取小於數值的最大整數
         this.tempOrder.create_at = Math.floor(new Date(this.tempOrder.create_at) / 1000)
 
         // 最後更新時間
@@ -148,10 +145,9 @@ export default {
           .put(url, { data: this.tempOrder })
           .then((res) => {
             this.$httpMessageState(res, '更新訂單')
-            // 關閉 Modal
             this.hideModal()
 
-            // 執行 取得產品列表，此方法在外層所以要用 emit
+            // 執行 父層取得訂單列表
             this.$emit('get-orders')
           })
           .catch((err) => {
@@ -180,11 +176,8 @@ export default {
           this.coupon = ''
         }
       })
-    }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      if (this.tempOrder.paid_date) {
+
+      if (this.tempOrder.is_paid) {
         // 拼出日期 & 時間 YYYY-MM-DD hh:mm:ss
         const date = new Date(this.tempOrder.paid_date * 1000)
         const year = date.getFullYear()
@@ -195,7 +188,7 @@ export default {
         const seconds = date.getSeconds()
         this.tempOrder.paidDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
       }
-    })
+    }
   }
 }
 </script>

@@ -1,10 +1,11 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
+        type="button"
         class="btn btn-primary d-flex align-items-center px-3 py-2"
         @click="openModal('new')"
       >
@@ -40,8 +41,7 @@
                 v-model="product.is_recommend"
                 :true-value="1"
                 :false-value="0"
-                @change="updateProduct(product)"
-              />
+                @change="updateProduct(product)">
               <label
                 class="form-check-label"
                 for="product.id"
@@ -63,8 +63,7 @@
                 v-model="product.is_enabled"
                 :true-value="1"
                 :false-value="0"
-                @change="updateProduct(product)"
-              />
+                @change="updateProduct(product)">
               <label
                 class="form-check-label"
                 for="product.id"
@@ -88,10 +87,10 @@
 
     <!-- AdminProductModal -->
     <AdminProductModal ref="productModal" :temp-product="tempProduct" :is_new="isNew"
-    @get-products="getProducts"></AdminProductModal>
+      @get-products="getProducts"></AdminProductModal>
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-product="tempProduct"
-    @get-products="getProducts"></AdminDelModal>
+      @get-products="getProducts"></AdminDelModal>
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
   </div>
@@ -141,15 +140,15 @@ export default {
     updateProduct (item) {
       this.isNew = false
       this.tempProduct = { ...item }
-      // 判斷是否有 imagesUrl 陣列，沒有得先加上
+
+      // 判斷是否有 imagesUrl 陣列，沒有先加上
       if (this.tempProduct.imagesUrl === undefined) {
         this.tempProduct.imagesUrl = []
       }
       this.$refs.productModal.updateProduct(item.id)
     },
     openModal (modalStatus, item) {
-      if (modalStatus === 'new') {
-        // 新增 - 清空選取產品內資料
+      if (modalStatus === 'new') { // 新增 - 清空選取產品內資料
         this.tempProduct = {
           imagesUrl: [],
           productImage: []
@@ -157,11 +156,10 @@ export default {
 
         this.$refs.productModal.openModal()
         this.isNew = true
-      } else if (modalStatus === 'edit') {
-        // 編輯 - 拷貝點選的產品
+      } else if (modalStatus === 'edit') { // 編輯 - 拷貝點選的產品
         this.tempProduct = { ...item }
 
-        // 先判斷是否有 imagesUrl, productImage 陣列，沒有得先加上
+        // 先判斷是否有 imagesUrl, productImage 陣列，沒有先加上
         if (this.tempProduct.imagesUrl === undefined) {
           this.tempProduct.imagesUrl = []
         }
@@ -171,11 +169,10 @@ export default {
 
         this.$refs.productModal.openModal()
         this.isNew = false
-      } else if (modalStatus === 'productDelete') {
-        // 刪除 - 拷貝點選的產品
+      } else if (modalStatus === 'productDelete') { // 刪除 - 拷貝點選的產品
         this.tempProduct = { ...item }
 
-        // 先判斷是否有 imagesUrl, productImage 陣列，沒有得先加上
+        // 先判斷是否有 imagesUrl, productImage 陣列，沒有先加上
         if (this.tempProduct.imagesUrl === undefined) {
           this.tempProduct.imagesUrl = []
         }

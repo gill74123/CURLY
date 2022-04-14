@@ -1,8 +1,7 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <!-- banner -->
   <section class="products bg-banner position-relative">
     <h2
       class="
@@ -13,22 +12,20 @@
         start-50
         translate-middle
         p-3
-        px-4
-      "
+        px-4"
     >
       <p>暖胃又暖心的好味道</p>
     </h2>
   </section>
 
-  <!-- 產品列表 -->
   <section class="container py-6">
     <div class="input-group w-100 w-md-50 w-lg-25 ms-auto mb-4">
       <input type="search" class="form-control border-primary p-2" placeholder="請輸入商品名稱"
-        v-model.trim="this.searchValue"/>
+        v-model.trim="this.searchValue">
       <button type="button" class="btn btn-primary" @click="searchProduct">搜尋</button>
     </div>
     <div class="row mb-4">
-      <div class="col-md-3 ">
+      <div class="col-md-3">
         <ul
           class="
             category
@@ -37,8 +34,7 @@
             flex-row flex-md-column
             justify-content-between
             scrollbar
-            sticky-top
-          "
+            sticky-top"
         >
           <li>
             <a
@@ -87,6 +83,7 @@
           </li>
         </ul>
       </div>
+
       <div class="col-md-9">
         <div class="row g-3 g-md-2">
           <div
@@ -101,8 +98,8 @@
                   class="card-tag"
                   >On Sale</span
                 >
-                <a href="" class="img-hover-scale">
-                  <img :src="product.imageUrl" class="card-img" alt="" />
+                <a href="#" class="img-hover-scale">
+                  <img class="card-img" :src="product.imageUrl" :alt="product.title">
                 </a>
               </div>
               <div class="card-body text-center">
@@ -112,8 +109,7 @@
                     d-flex
                     justify-content-center
                     align-items-center
-                    text-primary
-                  "
+                    text-primary"
                 >
                   <span
                     v-if="product.is_recommend"
@@ -129,12 +125,11 @@
                   <del
                     v-if="product.origin_price !== product.price"
                     class="text-light ms-2"
-                    >$ {{ product.origin_price }} 元</del
-                  >
+                    >$ {{ product.origin_price }} 元
+                  </del>
                 </p>
                 <div class="btn-group d-flex justify-content-center">
-                  <!-- 收藏按鈕 -->
-                  <button class="btn btn-outline-danger px-1" :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                  <button type="button" class="btn btn-outline-danger px-1" :disabled="isSpinner" @click="toggleFavorite(product.id)">
                     <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
                     <span v-else class="material-icons-outlined align-middle">favorite_border</span>
                   </button>
@@ -152,14 +147,14 @@
             </div>
           </div>
         </div>
-        <!-- 查無此商品 -->
+
         <div v-if="products.length === 0" class="text-light text-center p-6">
           <span class="material-icons-outlined fs-6">fmd_bad</span>
           <p class="fs-4">查無此商品！</p>
         </div>
       </div>
-      <div class="box"></div>
     </div>
+
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
   </section>
@@ -185,10 +180,9 @@ export default {
   },
   mixins: [localStorageFavorite],
   methods: {
-    getProducts (category = '', page = 1) {
+    getProducts (category = '', page = 1) { // category 傳入空字串代表 所有商品
       this.isLoading = true
 
-      // category 傳入空字串代表 所有商品
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}&category=${category}`
       this.$http
         .get(url)
@@ -199,7 +193,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     },
     addCart (productId, qty = 1) {
@@ -213,12 +207,13 @@ export default {
         .post(url, { data })
         .then((res) => {
           this.isSpinner = false
+          this.$httpMessageState(res, '加入購物車')
 
           // 跨元件去呼叫 getCart
           this.$emitter.emit('get-cart')
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '加入購物車')
         })
     },
     seeProduct (productId) {
@@ -227,7 +222,7 @@ export default {
     searchProduct () {
       this.isLoading = true
 
-      // 先取得全部產品
+      // 取得全部產品
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products/all`
       this.$http
         .get(url)
@@ -235,15 +230,13 @@ export default {
           this.products = res.data.products
 
           // 關鍵字搜尋
-          this.products = this.products.filter((item) => {
-            return item.title.trim().match(this.searchValue)
-          })
+          this.products = this.products.filter(item => item.title.trim().match(this.searchValue))
           this.searchValue = ''
 
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     }
   },

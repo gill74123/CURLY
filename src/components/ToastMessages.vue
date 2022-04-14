@@ -1,10 +1,10 @@
 <template>
-  <div class="toast-container position-fixed pe-3 top-25 end-0"
-    style="z-index: 1500">
+  <div class="toast-container position-fixed end-0 p-2">
     <div v-for="(msg, index) in messages" :key="index"
-      class="toast show" :class="`toast${index}`" role="alert">
-      <div class="toast-body d-flex align-items-center text-white rounded bg-opacity-75" :class="`bg-${msg.style}`">
-        <span v-if="msg.style === 'primary'" class="material-icons-outlined me-3">check_circle_outline</span>
+      class="toast show" role="alert">
+      <div class="toast-body d-flex align-items-center text-white rounded bg-opacity-75"
+        :class="`bg-${msg.style}`">
+        <span v-if="msg.style === 'success'" class="material-icons-outlined me-3">check_circle_outline</span>
         <span v-else class="material-icons-outlined me-2">error_outline</span>
         <p class="fs-3 me-auto">{{ msg.title }}</p>
         <button
@@ -29,7 +29,7 @@ export default {
     showToast () {
       setTimeout(() => {
         this.messages.shift()
-      }, 5000)
+      }, 3000)
     },
     removeToast (index) {
       this.messages.splice(index, 1)
@@ -45,3 +45,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.toast-container{
+  z-index: 10000;
+  top: 64px;
+}
+</style>

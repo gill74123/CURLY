@@ -1,8 +1,7 @@
 <template>
-  <!-- vue-loading-overlay -->
+  <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <!-- banner -->
   <section class="orderTrack bg-banner position-relative">
     <h2
       class="
@@ -13,8 +12,7 @@
         start-50
         translate-middle
         p-3
-        px-4
-      "
+        px-4"
     >
       <p>看看你的捲捲訂單</p>
     </h2>
@@ -29,7 +27,7 @@
             <span class="material-icons-outlined text-white">search</span>
           </span>
           <input type="search" class="form-control border-primary p-2" placeholder="搜尋訂單編號"
-            v-model.trim="orderId"/>
+            v-model.trim="orderId">
           <button type="button" class="btn btn-primary" @click="getOrder(orderId)">搜尋</button>
         </div>
       </div>
@@ -71,7 +69,9 @@
               <tr>
                 <td class="fw-medium fs-3" width="150">訂單金額：</td>
                 <td class="fw-bold" :class="{'text-danger': !order.is_paid, 'text-success': order.is_paid}">
-                  $NT {{ order?.total }} ({{ order.is_paid ? '已付款' : '未付款'}})
+                  <template v-if="order.total < 1000">$NT {{ order?.total + 60 }}</template>
+                  <template v-else>$NT {{ order?.total }}</template>
+                  ({{ order.is_paid ? '已付款' : '未付款'}})
                 </td>
               </tr>
             </tbody>
@@ -112,7 +112,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err.response, '錯誤訊息')
         })
     }
   }

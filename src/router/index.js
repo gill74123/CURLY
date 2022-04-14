@@ -2,11 +2,11 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
+    path: '',
     component: () => import('../views/front/Home.vue'),
     children: [
       {
-        path: '/',
+        path: '',
         component: () => import('../views/front/Index.vue')
       },
       {
@@ -74,6 +74,11 @@ const routes = [
   {
     path: '/login',
     component: () => import('../views/front/Login.vue')
+  },
+  // 404
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/NotFound.vue')
   }
 ]
 

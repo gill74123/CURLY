@@ -20,13 +20,13 @@
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+            aria-label="Close">
+          </button>
         </div>
         <!-- 產品 -->
         <div class="modal-body text-start" v-if="delModalStatus === 'productDelete'">
           是否刪除
-          <strong class="text-danger">{{ tempProduct.title }}</strong> 商品(刪除後將無法恢復)。
+          <strong class="text-danger">{{ tempProduct.title }}</strong> 產品(刪除後將無法恢復)。
         </div>
         <!-- 單一訂單 -->
         <div class="modal-body text-start" v-else-if="delModalStatus === 'orderDelete'">
@@ -48,44 +48,40 @@
           是否刪除
           <strong class="text-danger">{{ tempArticle.title }}</strong> 貼文(刪除後將無法恢復)。
         </div>
+
         <div class="modal-footer">
           <button
             type="button"
             class="btn btn-outline-light"
-            data-bs-dismiss="modal"
-          >
+            data-bs-dismiss="modal">
             取消
           </button>
           <button
             type="button"
             class="btn btn-danger"
             v-if="delModalStatus === 'productDelete'"
-            @click="delProduct(tempProduct.id)"
-          >
+            @click="delProduct(tempProduct.id)">
             刪除產品
           </button>
           <button
             type="button"
             class="btn btn-danger"
             v-if="delModalStatus === 'orderDelete' || delModalStatus === 'orderAllDelete'"
-            @click="delOrder(delModalStatus, tempOrder.id)"
-          >
+            @click="delOrder(delModalStatus, tempOrder.id)">
             刪除訂單
           </button>
           <button
             type="button"
             class="btn btn-danger"
             v-if="delModalStatus === 'couponDelete'"
-            @click="delCoupon(tempCoupon.id)"
-          >
+            @click="delCoupon(tempCoupon.id)">
             刪除優惠券
           </button>
           <button
             type="button"
             class="btn btn-danger"
             v-if="delModalStatus === 'articleDelete'"
-            @click="delArticle(tempArticle.id)"
-          >
+            @click="delArticle(tempArticle.id)">
             刪除貼文
           </button>
         </div>
@@ -114,10 +110,9 @@ export default {
         .delete(url)
         .then((res) => {
           this.$httpMessageState(res, '刪除產品')
-          // 關閉 Modal
           this.hideModal()
 
-          // 執行 取得產品列表，此方法在外層所以要用 emit
+          // 執行 父層取得產品列表
           this.$emit('get-products')
         })
         .catch((err) => {
@@ -126,7 +121,6 @@ export default {
     },
     delOrder (modalStatus, orderId) {
       let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/order/${orderId}`
-      // 刪除全部訂單的 URL
       if (modalStatus === 'orderAllDelete') {
         url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/orders/all`
       }
@@ -135,11 +129,10 @@ export default {
         .delete(url)
         .then((res) => {
           this.$httpMessageState(res, '刪除訂單')
-          // 關閉 Modal
           this.hideModal()
 
-          // 執行 取得產品列表
-          this.$emit('get-orders') // 此方法在外層所以要用 emit
+          // 執行 父層取得訂單列表
+          this.$emit('get-orders')
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '刪除訂單')
@@ -152,11 +145,10 @@ export default {
         .delete(url)
         .then((res) => {
           this.$httpMessageState(res, '刪除優惠券')
-          // 關閉 Modal
           this.hideModal()
 
-          // 執行 取得產品列表
-          this.$emit('get-coupons') // 此方法在外層所以要用 emit
+          // 執行 父層取得優惠券列表
+          this.$emit('get-coupons')
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '刪除優惠券')
@@ -168,11 +160,10 @@ export default {
       this.$http.delete(url)
         .then((res) => {
           this.$httpMessageState(res, '刪除貼文')
-          // 關閉 Modal
           this.hideModal()
 
-          // 執行 取得產品列表
-          this.$emit('get-articles') // 此方法在外層所以要用 emit
+          // 執行 父層取得貼文列表
+          this.$emit('get-articles')
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '刪除貼文')
