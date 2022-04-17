@@ -44,31 +44,31 @@
           <table class="table table-borderless text-dark w-100">
             <tbody>
               <tr>
-                <td class="fw-medium fs-3" width="150">訂購時間：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">訂購時間：</td>
                 <td>{{ order?.create_at }}</td>
               </tr>
               <tr>
-                <td class="fw-medium fs-3" width="150">姓名：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">姓名：</td>
                 <td>{{ order?.user?.name }}</td>
               </tr>
               <tr>
-                <td class="fw-medium fs-3" width="150">手機：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">手機：</td>
                 <td>{{ order?.user?.tel }}</td>
               </tr>
               <tr>
-                <td class="fw-medium fs-3" width="150">Email：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">Email：</td>
                 <td>{{ order?.user?.email }}</td>
               </tr>
               <tr>
-                <td class="fw-medium fs-3" width="150">收件地址：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">收件地址：</td>
                 <td>{{ order?.user?.address }}</td>
               </tr>
               <tr>
-                <td class="fw-medium fs-3" width="150">備註：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">備註：</td>
                 <td>{{ order?.message }}</td>
               </tr>
               <tr>
-                <td class="fw-medium fs-3" width="150">訂單金額：</td>
+                <td class="fw-medium fs-3 text-align-justify" width="150">訂單金額：</td>
                 <td class="fw-bold" :class="{'text-danger': !order.is_paid, 'text-success': order.is_paid}">
                   <template v-if="order.total < 1000">$NT {{ order?.total + 60 }}</template>
                   <template v-else>$NT {{ order?.total }}</template>
