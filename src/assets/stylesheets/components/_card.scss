@@ -1,70 +1,78 @@
-// Products
-.card{
-    background-color: transparent;
-    .card-img-box{
-        position: relative;
-        overflow: hidden;
-    }
-    .card-img{
-        height: 250px;
-        object-fit: cover;
-        transition-duration: .4s;
-    }
-    .card-tag{
-        position: absolute;
-        top: 100;
-        right: 0;
-        padding: 0.35rem;
-        font-weight: $font-weight-medium;
-        color: $white;
-        background-color: $danger;
-        z-index: 20;
-    }
-    .img-hover-scale{
-        &::before{
-            content: "";
-            position: absolute;
-            background-color: rgb(87, 86, 86);
-            opacity: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 10;
+// Products, Favorite
+.products, .favorite{
+    .card{
+        background-color: transparent;
+        .card-img-box{
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img{
+            height: 250px;
+            object-fit: cover;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
             transition-duration: .4s;
         }
-        &::after{
-            content: "查看內容";
+        .card-tag{
             position: absolute;
-            padding: 1rem * .5;
-            font-size: 1rem;
-            text-align: center;
-            color: $white;
-            background-color: $primary;
-            opacity: 0;
+            top: 100;
             right: 0;
-            bottom: 0;
-            left: 0;
+            padding: 0.35rem;
+            font-weight: $font-weight-medium;
+            color: $white;
+            background-color: $danger;
             z-index: 15;
-            transition-duration: .4s;
+        }
+        .card-img-box{
+            &::before{
+                content: "";
+                position: absolute;
+                background-color: rgb(87, 86, 86);
+                opacity: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 15;
+                transition-duration: .4s;
+            }
+            &::after{
+                content: "查看內容";
+                position: absolute;
+                padding: 1rem * .5;
+                font-size: 1rem;
+                text-align: center;
+                color: $white;
+                background-color: $primary;
+                opacity: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 15;
+                transition-duration: .4s;
+            }
         }
         &:hover{
             .card-img{
                 transform: scale(1.1);
             }
-            &::before{
-                opacity: 0.3;
-            }
-            &::after{
-                opacity: 1;
+            .card-img-box{
+                &::before{
+                    opacity: 0.3;
+                }
+                &::after{
+                    opacity: 1;
+                }
             }
         }
     }
 }
 
+
 // Cart
-.offcanvas{
+.offcanvas-body{
     .card{
+        background-color: transparent;
         border: 0px;
         .card-img{
             height: 100px;
@@ -76,6 +84,7 @@
 // Order
 .order{
     .card{
+        background-color: transparent;
         border: 0px;
         .card-img{
             height: 100px;
@@ -136,13 +145,15 @@
     .card-img-box{
         position: relative;
         overflow: hidden;
+        border-radius: 50%;
     }
     .card-img{
         width: 100%;
-        height: 250px;
+        height: 200px;
         background-size: cover;
         background-position: center center;
         border-radius: 50%;
+        transition-duration: .4s;
         &::after{
             content: "";
             position: absolute;
@@ -157,16 +168,34 @@
             z-index: 10;
             transition-duration: .4s;
         }
+        &::before{
+            content: "Let's Go";
+            position: absolute;
+            color: white;
+            font-size: 2rem;
+            font-weight: 500;
+            opacity: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 15;
+            transition-duration: .4s;
+        }
         &:hover{
+            transform: scale(1.1);
             &::after{
                 opacity: 0.3;
+                transform: scale(1.1);
             }
-            .card-tag{
+            &::before{
                 opacity: 1;
             }
+            .card-tag{
+                opacity: 0;
+            }
         }
-        @media (min-width: 768px) and (max-width: 990.98px){
-            height: 200px;
+        @media (min-width: 1200px){
+            height: 250px;
         }
     }
     .card-tag{
@@ -174,7 +203,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        opacity: 0;
+        opacity: 1;
         z-index: 15;
         transition-duration: .4s;
     }

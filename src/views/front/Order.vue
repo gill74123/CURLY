@@ -2,11 +2,11 @@
     <!-- Loading -->
     <Loading v-model:active="isLoading"></Loading>
 
-    <div class="order container py-6">
+    <div class="order container py-6 py-md-7">
         <!-- Timeline -->
         <Timeline />
 
-        <div class="row g-5">
+        <div class="row g-5 py-6 py-md-7">
             <div class="col-md-6 mb-4">
               <div class="d-flex border-bottom pb-2 mb-5">
                 <h5 class="text-primary fw-bold">購物車詳情</h5>

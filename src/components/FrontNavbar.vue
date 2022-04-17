@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light sticky-top top-0 border-bottom">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top top-0 border-bottom">
     <div class="container justify-content-end align-items-center">
       <router-link to="/" class="navbar-brand order-1 me-auto pe-4">
         <h1 class="d-flex  align-items-center text-primary">
@@ -29,17 +29,16 @@
       </div>
 
       <div class="order-2 order-lg-3">
-        <router-link to="/favorite" class="btn position-relative">
-          <span class="material-icons-outlined align-middle text-primary fs-5">favorite</span>
-          <span v-if="favoriteQty" class="position-absolute top-40 start-50 badge rounded-pill bg-danger text-white">
+        <router-link to="/favorite" class="btn position-relative p-0">
+          <span class="material-icons-outlined text-primary fs-5 py-2 me-3">favorite</span>
+          <span v-if="favoriteQty" class="position-absolute start-50 badge rounded-pill bg-danger text-white">
             {{ favoriteQty }}
           </span>
         </router-link >
 
-        <button class="btn position-relative border-0 p-0" type="button"
-          data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        <button class="btn position-relative border-0 p-0" type="button" @click="openModal">
           <span class="material-icons-outlined text-primary fs-5 py-2">shopping_bag</span>
-          <span v-if="cartQty" class="position-absolute top-40 start-50 badge rounded-pill bg-danger text-white">
+          <span v-if="cartQty" class="position-absolute start-50 badge rounded-pill bg-danger text-white">
             {{ cartQty }}
           </span>
         </button>
@@ -48,7 +47,8 @@
   </nav>
 
   <!-- FrontCartModal -->
-  <FrontCartModal @cart-qty="getCartQty"></FrontCartModal>
+  <!-- <FrontCartModal @cart-qty="getCartQty"></FrontCartModal> -->
+  <FrontCartModal ref="cartOffcanvas"></FrontCartModal>
 </template>
 
 <script>
@@ -67,9 +67,8 @@ export default {
   },
   mixins: [collapseToggle],
   methods: {
-    // 接收 FrontCartModal.vue 傳來的購物車數量
-    getCartQty (qty) {
-      this.cartQty = qty
+    openModal () {
+      this.$refs.cartOffcanvas.showOffcanvas()
     }
   },
   mounted () {
@@ -83,6 +82,11 @@ export default {
     // 跨元件監聽收藏事件
     this.$emitter.on('toggle-favorite', (favoriteData) => {
       this.favoriteQty = favoriteData.length
+    })
+
+    // 跨元件監聽購物車數量事件
+    this.$emitter.on('cart-qty', (qty) => {
+      this.cartQty = qty
     })
   }
 }

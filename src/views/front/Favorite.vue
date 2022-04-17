@@ -14,28 +14,27 @@
         p-3
         px-4"
     >
-      <p>滿足你的味蕾，重拾你的好心情</p>
+      <p>快把「收藏」帶回家，重拾你的好心情</p>
     </h2>
   </section>
 
-  <div class="container py-6">
-    <section class="mb-6 py-3">
+  <div class="favorite container">
+    <section class="py-6 py-md-7">
       <div v-if="favoriteProducts.length !== 0" class="row">
         <div
           class="col-lg-3 col-sm-6"
           v-for="product in favoriteProducts"
           :key="product.id">
           <div class="card">
-            <div class="card-img-box" @click.prevent="seeProduct(product.id)">
-              <span
-                v-if="product.origin_price !== product.price"
-                class="card-tag"
-                >On Sale</span
-              >
-              <a href="#" class="img-hover-scale">
-                <img :src="product.imageUrl" class="card-img" :alt="product.title" />
-              </a>
-            </div>
+            <a href="#" class="stretched-link" @click.prevent="seeProduct(product.id)">
+              <div class="card-img-box">
+                <span
+                  v-if="product.origin_price !== product.price"
+                  class="card-tag"
+                  >On Sale</span>
+                  <img class="card-img" :src="product.imageUrl" :alt="product.title">
+              </div>
+            </a>
             <div class="card-body text-center">
               <div
                 class="
@@ -63,14 +62,14 @@
                 >
               </p>
               <div class="btn-group d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-danger px-1" :disabled="isSpinner"
+                <button type="button" class="btn btn-outline-danger px-1 z-20" :disabled="isSpinner"
                   @click="toggleFavorite(product.id)">
                   <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
                   <span v-else class="material-icons-outlined align-middle">favorite_border</span>
                 </button>
                 <button
                   type="button" :disabled="isSpinner"
-                  class="btn btn-primary px-5"
+                  class="btn btn-primary px-5 z-20"
                   @click="addCart(product.id)"
                 >
                   <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
@@ -91,12 +90,12 @@
         >
       </div>
     </section>
-
-    <section class="mb-6 py-3">
-      <div class="d-flex justify-content-center align-items-center mb-6">
-        <div class="bg-primary" style="width: 100px; height: 2px"></div>
-        <h3 class="text-primary mx-4">捲捲 店長推薦</h3>
-        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+    <section class="py-6 py-md-7">
+      <div class="d-flex justify-content-center align-items-center mb-5 mb-md-6">
+        <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
+        <h3 class="d-none d-md-block text-primary mx-4">捲捲 店長推薦</h3>
+        <h3 class="d-md-none text-primary border-bottom border-primary border-2 px-2 pb-2">捲捲 店長推薦</h3>
+        <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <!-- Swiper -->
       <Swiper :filter-products='recommendProducts'></Swiper>

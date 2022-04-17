@@ -2,21 +2,21 @@
   <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <div class="pay container py-6">
+  <div class="pay container py-6 py-md-7">
     <!-- Timeline -->
     <Timeline :order="order"></Timeline>
 
-    <div class="row justify-content-center">
-      <div class="col-9 bg-white p-6">
+    <div class="row justify-content-center py-6 py-md-7">
+      <div class="col-8 bg-white py-6">
         <template v-if="!order.is_paid">
           <h2 class="border-bottom text-center pb-3 mb-4">訂單資訊</h2>
-          <div  class="d-flex flex-column align-items-center">
-            <button class="d-flex justify-content-between btn btn-primary rounded-0 text-start fw-medium w-100 w-lg-75" type="button"
+          <div  class="d-flex flex-column align-items-center px-3">
+            <button class="d-flex justify-content-between btn btn-primary rounded-0 text-start fw-medium w-100" type="button"
               @click="toggleCollapse">
               商品資訊
               <span class="material-icons-outlined">expand_more</span>
             </button>
-            <div class="collapse show w-100 w-lg-75" ref="collapse">
+            <div class="collapse show w-100" ref="collapse">
             <div class="card rounded-0" v-for="productItem in order.products" :key="productItem">
               <div class="row gx-3 align-items-center">
                 <div class="col-3">
@@ -36,10 +36,10 @@
             </div>
             </div>
 
-            <table class="table table-hover text-dark w-100 w-lg-75 my-5">
+            <table class="table table-hover text-dark w-100 my-5">
               <tbody>
                 <tr>
-                  <td width="150">訂單編號</td>
+                  <td width="150" class="text-align-justify">訂單編號：</td>
                   <td>
                     <span id="orderId">{{ order.id }}</span>
                     <a href="#" @click.prevent="copyToClipBoard()">
@@ -48,33 +48,33 @@
                   </td>
                 </tr>
                 <tr>
-                  <td width="150">姓名</td>
+                  <td width="150" class="text-align-justify">姓名：</td>
                   <td>{{ order.user.name }}</td>
                 </tr>
                 <tr>
-                  <td width="150">手機</td>
+                  <td width="150" class="text-align-justify">手機：</td>
                   <td>{{ order.user.tel }}</td>
                 </tr>
                 <tr>
-                  <td width="150">Email</td>
+                  <td width="150" class="text-align-justify">Email：</td>
                   <td>{{ order.user.email }}</td>
                 </tr>
                 <tr>
-                  <td width="150">收件地址</td>
+                  <td width="150" class="text-align-justify">收件地址：</td>
                   <td>{{ order.user.address }}</td>
                 </tr>
                 <tr>
-                  <td width="150">備註</td>
+                  <td width="150" class="text-align-justify">備註：</td>
                   <td>{{ order.message }}</td>
                 </tr>
                 <tr>
-                  <td width="150">訂單金額</td>
+                  <td width="150" class="text-align-justify">訂單金額：</td>
                   <td v-if="order.total < 1000" class="text-danger fw-bold">NT$ {{ order.total }} ({{ order.is_paid ? '已付款' : '未付款'}})</td>
                   <td v-else class="text-danger fw-bold">NT$ {{ order.total }} ({{ order.is_paid ? '已付款' : '未付款'}})</td>
                 </tr>
               </tbody>
             </table>
-            <button type="button" class="btn btn-primary w-100 w-lg-75" @click="toPay">確認付款</button>
+            <button type="button" class="btn btn-primary w-100" @click="toPay">確認付款</button>
           </div>
         </template>
 

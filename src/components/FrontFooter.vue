@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-primary py-md-6">
-    <div class="container">
+  <div class="bg-primary">
+    <div class="container py-6 py-md-7">
       <ul class="row g-0 justify-content-center align-items-start align-items-lg-center list-unstyled text-secondary m-0">
         <li class="col-md-4 py-4 px-md-5">
           <div class="d-flex flex-md-column flex-lg-row justify-content-start justify-content-md-center align-items-center">

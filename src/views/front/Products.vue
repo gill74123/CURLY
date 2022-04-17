@@ -11,14 +11,15 @@
         top-50
         start-50
         translate-middle
-        p-3
-        px-4"
+        w-75
+        w-lg-50
+        p-3 py-4"
     >
-      <p>暖胃又暖心的好味道</p>
+      <p class="fs-4 fs-md-5 fw-bold">暖胃又暖心的好味道</p>
     </h2>
   </section>
 
-  <section class="container py-6">
+  <section class="products container py-6 py-md-7">
     <div class="input-group w-100 w-md-50 w-lg-25 ms-auto mb-4">
       <input type="search" class="form-control border-primary p-2" placeholder="請輸入商品名稱"
         v-model.trim="this.searchValue">
@@ -92,16 +93,15 @@
             :key="product.id"
           >
             <div class="card">
-              <div class="card-img-box" @click.prevent="seeProduct(product.id)">
-                <span
-                  v-if="product.origin_price !== product.price"
-                  class="card-tag"
-                  >On Sale</span
-                >
-                <a href="#" class="img-hover-scale">
-                  <img class="card-img" :src="product.imageUrl" :alt="product.title">
-                </a>
-              </div>
+              <a href="#" class="stretched-link" @click.prevent="seeProduct(product.id)">
+                <div class="card-img-box">
+                  <span
+                    v-if="product.origin_price !== product.price"
+                    class="card-tag"
+                    >On Sale</span>
+                    <img class="card-img" :src="product.imageUrl" :alt="product.title">
+                </div>
+              </a>
               <div class="card-body text-center">
                 <div
                   class="
@@ -128,16 +128,16 @@
                     >$ {{ product.origin_price }} 元
                   </del>
                 </p>
-                <div class="btn-group d-flex justify-content-center">
-                  <button type="button" class="btn btn-outline-danger px-1" :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                <div class="btn-group d-flex justify-content-center pt-0">
+                  <button type="button" class="btn btn-outline-danger px-1 z-20" :disabled="isSpinner" @click="toggleFavorite(product.id)">
                     <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
                     <span v-else class="material-icons-outlined align-middle">favorite_border</span>
                   </button>
                   <button
                     type="button"
-                    class="btn btn-primary px-5" :disabled="isSpinner"
+                    class="btn btn-primary px-5 z-20" :disabled="isSpinner"
                     @click="addCart(product.id)">
-                    <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
+                    <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm m-0" role="status">
                       <span class="visually-hidden">Loading...</span>
                     </div>
                     加入購物車

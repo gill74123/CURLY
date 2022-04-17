@@ -1,4 +1,5 @@
-// 背景圖片
+// banner 圖片
+
 // Index
 .index{
     &.bg{
@@ -86,5 +87,19 @@
             background-attachment: initial;
             background-attachment: fixed; // 讓它有視覺差的效果
         }
+    }
+}
+.index, .about, .products, .favorite, .articles, .orderTrack{
+    &.bg-banner{
+        margin-top: 61px;
+        @media (min-width: 992px){
+            margin-top: 64px;
+        }
+    }
+}
+.order, .pay{
+    margin-top: 61px;
+    @media (min-width: 992px){
+        margin-top: 64px;
     }
 }

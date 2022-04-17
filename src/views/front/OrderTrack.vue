@@ -11,14 +11,15 @@
         top-50
         start-50
         translate-middle
-        p-3
-        px-4"
+        w-75
+        w-lg-50
+        p-3 py-4"
     >
-      <p>看看你的捲捲訂單</p>
+      <p class="fs-4 fs-md-5 fw-bold">看看你的捲捲訂單</p>
     </h2>
   </section>
 
-  <section class="container p-6">
+  <section class="container py-6 py-md-7">
     <div class="row justify-content-center mb-5 py-3">
       <div class="col-md-6">
         <h3 class="text-center text-primary mb-3">請輸入您的訂單編號</h3>

@@ -15,6 +15,7 @@
             <span v-else-if="delModalStatus === 'orderDelete' || delModalStatus === 'orderAllDelete'">刪除訂單</span>
             <span v-if="delModalStatus === 'couponDelete'">刪除優惠券</span>
             <span v-if="delModalStatus === 'articleDelete'">刪除貼文</span>
+            <span v-if="delModalStatus === 'cartAllDelete'">刪除全部購物車</span>
           </h5>
           <button
             type="button"
@@ -47,6 +48,11 @@
         <div class="modal-body text-start" v-else-if="delModalStatus === 'articleDelete'">
           是否刪除
           <strong class="text-danger">{{ tempArticle.title }}</strong> 貼文(刪除後將無法恢復)。
+        </div>
+        <!-- 前台購物車 -->
+        <div class="modal-body text-start" v-else-if="delModalStatus === 'cartAllDelete'">
+          是否刪除
+          <strong class="text-danger">全部</strong> 購物車產品(刪除後將無法恢復)。
         </div>
 
         <div class="modal-footer">
@@ -83,6 +89,13 @@
             v-if="delModalStatus === 'articleDelete'"
             @click="delArticle(tempArticle.id)">
             刪除貼文
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            v-if="delModalStatus === 'cartAllDelete'"
+            @click="delCarts()">
+            刪除全部購物車
           </button>
         </div>
       </div>
@@ -121,21 +134,24 @@ export default {
     },
     delOrder (modalStatus, orderId) {
       let url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/order/${orderId}`
+      let messageStatus = '刪除訂單'
+
       if (modalStatus === 'orderAllDelete') {
         url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/orders/all`
+        messageStatus = '刪除全部訂單'
       }
 
       this.$http
         .delete(url)
         .then((res) => {
-          this.$httpMessageState(res, '刪除訂單')
+          this.$httpMessageState(res, messageStatus)
           this.hideModal()
 
           // 執行 父層取得訂單列表
           this.$emit('get-orders')
         })
         .catch((err) => {
-          this.$httpMessageState(err.response, '刪除訂單')
+          this.$httpMessageState(err.response, messageStatus)
         })
     },
     delCoupon (couponId) {
@@ -167,6 +183,22 @@ export default {
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '刪除貼文')
+        })
+    },
+    // 前台購物車 清空全部購物車
+    delCarts () {
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/carts`
+      this.$http
+        .delete(url)
+        .then((res) => {
+          this.$httpMessageState(res, '刪除全部購物車產品')
+          this.hideModal()
+
+          // 執行 父層取得產品列表
+          this.$emit('get-carts')
+        })
+        .catch((err) => {
+          this.$httpMessageState(err.response, '刪除全部購物車產品')
         })
     }
   }

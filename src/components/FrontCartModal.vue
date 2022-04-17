@@ -3,7 +3,7 @@
   tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header border-bottom border-primary">
       <h5 class="text-primary" >購物車</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close text-reset" @click="closeOffcanvas"></button>
     </div>
     <template v-if="cartData.carts.length">
       <div class="offcanvas-body">
@@ -33,7 +33,7 @@
     <div class="position-absolute bottom-0 position-sticky bg-secondary border-top border-primary p-3">
         <div class="d-flex justify-content-between mb-4">
           <button type="button" class="btn btn-sm btn-outline-light px-2" :disabled="isSpinner"
-            @click="deleteCarts">
+            @click="openModal('cartAllDelete')">
             <div v-if="isSpinner === true" class="spinner-border spinner-border-sm me-2" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -55,12 +55,15 @@
       <router-link to="/products" class="btn btn-primary px-5" @click="closeOffcanvas">前往選購</router-link>
     </div>
   </div>
+
+  <!-- AdminDelModal -->
+  <AdminDelModal ref="delModal" :del-modal-status="delModalStatus"
+    @get-carts="getCart"></AdminDelModal>
 </template>
 
 <script>
-// import Offcanvas from 'bootstrap/js/dist/offcanvas'
-import { Offcanvas } from 'bootstrap'
-// import offcanvasToggle from '@/mixins/offcanvasToggle.js'
+import offcanvasToggle from '@/mixins/offcanvasToggle'
+import AdminDelModal from '@/components/AdminDelModal.vue'
 
 export default {
   data () {
@@ -68,12 +71,16 @@ export default {
       cartData: {
         carts: []
       },
-      cartOffcanvas: '',
       total: '',
       final_total: '',
+      delModalStatus: '',
       isSpinner: false
     }
   },
+  components: {
+    AdminDelModal
+  },
+  mixins: [offcanvasToggle],
   methods: {
     getCart () {
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/cart`
@@ -84,8 +91,7 @@ export default {
           this.total = res.data.data.total
           this.final_total = res.data.data.final_total
 
-          // 傳遞購物車數量到 FrontNavbar.vue (內傳外)
-          this.$emit('cart-qty', this.cartData.carts.length)
+          this.$emitter.emit('cart-qty', this.cartData.carts.length)
 
           // 跨元件傳遞 this.carData 資料到 Order.vue
           this.$emitter.emit('get-cart-data', this.cartData)
@@ -118,21 +124,9 @@ export default {
           this.$httpMessageState('errMessage', err.response.data.message)
         })
     },
-    deleteCarts () {
-      this.isSpinner = true
-
-      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/carts`
-      this.$http
-        .delete(url)
-        .then((res) => {
-          this.isSpinner = false
-          this.$httpMessageState(res, '刪除全部購物車產品')
-
-          this.getCart()
-        })
-        .catch((err) => {
-          this.$httpMessageState('errMessage', err.response.data.message)
-        })
+    openModal (modalStatus) {
+      this.delModalStatus = modalStatus
+      this.$refs.delModal.openModal()
     },
     deleteItemCart (cartId) {
       this.isSpinner = cartId
@@ -149,9 +143,6 @@ export default {
         .catch((err) => {
           this.$httpMessageState('errMessage', err.response.data.message)
         })
-    },
-    closeOffcanvas () {
-      this.cartOffcanvas.hide()
     }
   },
   mounted () {
@@ -161,9 +152,6 @@ export default {
     this.$emitter.on('get-cart', () => {
       this.getCart()
     })
-
-    // 指向 DOM
-    this.cartOffcanvas = new Offcanvas(this.$refs.cartOffcanvas)
   }
 }
 </script>

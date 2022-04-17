@@ -2,7 +2,7 @@
   <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <section class="about bg-banner position-relative">
+  <section class="about bg-banner position-relative mt-6">
     <h2
       class="
         position-absolute
@@ -11,14 +11,15 @@
         top-50
         start-50
         translate-middle
-        p-3
-        px-4"
+        w-75
+        w-lg-50
+        p-3 py-4"
     >
-      <p>我們填滿的不是你的肚子，而是您的心情</p>
+      <p class="fs-4 fs-md-5 fw-bold">我們填滿的不是你的肚子，而是您的心情</p>
     </h2>
   </section>
 
-  <section class="container py-6">
+  <section class="container py-6 py-md-7">
     <div class="mb-3">
       <h4 class="text-primary">/ 關於 CURLY /</h4>
       <div class="text-light p-3">

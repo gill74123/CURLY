@@ -627,6 +627,13 @@ $utilities: map-merge(
         visible: visible,
         invisible: hidden,
       )
+    ),
+    "text-align-last": ( // NEW
+      property: text-align-last,
+      class: text-align,
+      values: (
+        justify
+      )
     )
     // scss-docs-end utils-visibility
   ),

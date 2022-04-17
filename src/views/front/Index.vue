@@ -11,54 +11,67 @@
         top-50
         start-50
         translate-middle
-        p-3
-        px-4"
+        w-75
+        w-lg-50
+        p-3 py-4"
     >
-      <p class="fs-5 fw-bold mb-2">— 溫度·美味·感動 —</p>
+      <p class="fw-bold mb-2">溫度·美味·感動</p>
       <p class="d-none d-md-block fs-4">品味你的無可取代，CURLY 隨時暖心相伴</p>
     </h2>
+    <div class="d-flex justify-content-between position-absolute top-75 start-50 translate-middle w-75 w-md-50 w-lg-25">
+      <router-link to="/products"
+        class="d-block btn btn-outline-secondary border-2 fw-bold py-2 me-3 w-50">
+        前往購物
+      </router-link>
+      <router-link to="/about"
+        class="d-block btn btn-outline-secondary border-2 fw-bold py-2 w-50">
+        關於我們
+      </router-link>
+    </div>
   </section>
 
-  <section class="index container py-6 mb-3">
-    <div class="d-flex justify-content-center align-items-center mb-6">
-      <div class="bg-primary" style="width: 100px; height: 2px"></div>
-      <h3 class="text-primary mx-4">捲捲 你愛哪一味</h3>
-      <div class="bg-primary" style="width: 100px; height: 2px"></div>
+  <section class="index container py-6 py-md-7">
+    <div class="d-flex justify-content-center align-items-center mb-5 mb-md-6">
+      <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
+      <h3 class="d-none d-md-block text-primary mx-4">捲捲 你愛哪一味</h3>
+      <h3 class="d-md-none text-primary border-bottom border-primary border-2 px-2 pb-2">捲捲 你愛哪一味</h3>
+      <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
     </div>
     <div class="row g-4 justify-content-center">
       <div class="col-6 col-md-3 card-img-box text-center">
         <router-link to="/products" class="d-block card-img image-category-1">
-          <span class="card-tag text-white fs-5 fw-medium fw-medium">不敗經典</span>
+          <span class="card-tag text-white fs-5 fw-medium">不敗<br />經典</span>
         </router-link>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
         <router-link to="/products" class="d-block card-img image-category-2">
-          <span class="card-tag text-white fs-5 fw-medium">就要醬吃</span>
+          <span class="card-tag text-white fs-5 fw-medium">就要<br />醬吃</span>
         </router-link>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
         <router-link to="/products" class="d-block card-img image-category-3">
-          <span class="card-tag text-white fs-5 fw-medium">加料萬歲</span>
+          <span class="card-tag text-white fs-5 fw-medium">加料<br />萬歲</span>
         </router-link>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
         <router-link to="/products" class="d-block card-img image-category-4">
-          <span class="card-tag text-white fs-5 fw-medium">微醺微醺</span>
+          <span class="card-tag text-white fs-5 fw-medium">微醺<br />微醺</span>
         </router-link>
       </div>
     </div>
   </section>
 
-  <div class="index bg-third mb-3">
-    <section class="container py-6">
-      <div class="d-flex justify-content-center align-items-center mb-6">
-        <div class="bg-primary" style="width: 100px; height: 2px"></div>
-        <h3 class="text-primary mx-4">捲捲 店長推薦</h3>
-        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+  <section class="index bg-third mb-3">
+    <div class="container py-6 py-md-7">
+      <div class="d-flex justify-content-center align-items-center mb-5 mb-md-6">
+        <div class="d-none d-md-block bg-primary bg-primary" style="width: 100px; height: 2px"></div>
+        <h3 class="d-none d-md-block text-primary mx-4">捲捲 店長推薦</h3>
+        <h3 class="d-md-none text-primary border-bottom border-primary border-2 px-2 pb-2">捲捲 店長推薦</h3>
+        <div class="d-none d-md-block bg-primary bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <div class="row">
         <div class="col-md-4 pt-md-6">
-          <h4 class="text-dark text-center text-md-start mb-3">猶豫不決嗎?
+          <h4 class="text-light text-center text-md-start fw-medium mb-3">猶豫不決嗎?
             <br />
             來看看店長推薦吧！</h4>
           <span class="d-none d-md-block text-light">想嘗試新口味卻不知從何下手？
@@ -70,15 +83,16 @@
           <Swiper :filter-products='filterProducts'></Swiper>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <!-- 最新消息 -->
-  <section class="index container py-6">
-    <div class="d-flex justify-content-center align-items-center mb-6">
-      <div class="bg-primary" style="width: 100px; height: 2px"></div>
-      <h3 class="text-primary mx-4">捲捲 新消息</h3>
-      <div class="bg-primary" style="width: 100px; height: 2px"></div>
+  <section class="index container py-6 py-md-7">
+    <div class="d-flex justify-content-center align-items-center mb-5 mb-md-6">
+      <div class="d-none d-md-block bg-primary bg-primary" style="width: 100px; height: 2px"></div>
+      <h3 class="d-none d-md-block text-primary mx-4">捲捲 新消息</h3>
+      <h3 class="d-md-none text-primary border-bottom border-primary border-2 px-2 pb-2">捲捲 新消息</h3>
+      <div class="d-none d-md-block bg-primary bg-primary" style="width: 100px; height: 2px"></div>
     </div>
     <div class="row">
       <div class="col-md-6 mb-3 mb-md-0" v-for="article in filterArticles" :key="article.id">

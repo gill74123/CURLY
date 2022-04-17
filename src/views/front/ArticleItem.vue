@@ -2,7 +2,7 @@
   <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <div class="article container my-6">
+  <div class="article container py-6 py-md-7">
     <div class="border py-4 mb-3">
       <div class="text-center text-light mb-5">
         <p>{{ article.create_at }}</p>

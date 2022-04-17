@@ -11,14 +11,15 @@
         top-50
         start-50
         translate-middle
-        p-3
-        px-4"
+        w-75
+        w-lg-50
+        p-3 py-4"
     >
-      <p>多的是你不知道的事</p>
+      <p class="fs-4 fs-md-5 fw-bold">多的是你不知道的事</p>
     </h2>
   </section>
 
-  <section class="articles container py-6">
+  <section class="articles container py-6 py-md-7">
     <div class="row">
       <div class="col-md-3">
         <ul class="category list-unstyled d-flex flex-row flex-md-column justify-content-between
@@ -67,7 +68,7 @@
               </div>
               <img :src="article.image" class="card-img mb-3" :alt="article.image">
               <p class="mb-3">{{ article.description }}</p>
-                <a href="#" class="card-more d-block stretched-link text-end fs-4 fw-medium">MORE</a>
+              <a href="#" class="card-more d-block stretched-link text-end fs-4 fw-medium">MORE</a>
             </div>
             <hr>
           </li>

@@ -7,8 +7,8 @@ export default {
     }
   },
   methods: {
-    toggleOffcanvas () {
-      this.offcanvas.toggle()
+    showOffcanvas () {
+      this.offcanvas.show()
     },
     closeOffcanvas () {
       this.offcanvas.hide()

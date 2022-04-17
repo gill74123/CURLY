@@ -2,7 +2,7 @@
   <!-- Loading -->
   <Loading v-model:active="isLoading"></Loading>
 
-  <div class="container py-6">
+  <div class="container py-6 py-md-7">
     <section class="mb-6 py-3">
       <div class="row g-5">
         <div class="col-md-6">
@@ -37,9 +37,14 @@
                 店長推薦
               </p>
             </div>
-            <p class="text-light mb-4">
+            <p class="d-flex align-items-center text-light mb-4">
               <span class="text-primary fw-bold fs-5">$ {{ product.price }}</span> / {{ product.unit }}
               <del v-if="product.price !== product.origin_price" class="fs-4 ms-3">$ {{ product.origin_price }}</del>
+              <button type="button" class="btn btn-outline-danger border-2 fs-2 fs-md-3 py-1 px-3 ms-auto" :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle fs-3 fs-md-4">favorite</span>
+                <span v-else class="material-icons-outlined align-middle fs-3 fs-md-4">favorite_border</span>
+                收藏
+              </button>
             </p>
             <div class="text-light mb-6">
               {{ product.description }}
@@ -66,45 +71,47 @@
       </div>
     </section>
 
-    <section class="mb-6 py-3">
+    <section class="py-6 py-md-7">
       <div class="mb-4">
         <h5 class="text-primary fw-medium">商品資訊</h5>
         <hr />
         <table class="table table-borderless text-light">
           <tbody>
             <tr>
-              <td width="120">單次購買</td>
+              <td width="120" class="text-align-justify">單次購買：</td>
               <td>單{{ product.unit }}</td>
             </tr>
             <tr>
-              <td width="120">內容量</td>
+              <td width="120" class="text-align-justify">內容量：</td>
               <td>{{ product.grams }} / {{ product.unit }}</td>
             </tr>
             <tr>
-              <td width="120">商品成分</td>
+              <td width="120" class="text-align-justify">商品成分：</td>
               <td>{{ product.content }}</td>
             </tr>
             <tr>
-              <td width="120">過敏原</td>
+              <td width="120" class="text-align-justify">過敏原：</td>
               <td>{{ product.notice }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div>
-        <h5 class="text-primary fw-medium">食用說明</h5>
+        <h5 class="text-primary fw-medium ">食用建議</h5>
         <hr />
         <table class="table table-borderless text-light">
           <tbody>
             <tr>
-              <td width="120">享用方式</td>
-              <td>於冷凍取出退冰半小時，噴灑些許開水，180 度烤 3-5 分鐘，或覆蓋濕紙巾微波 600w 一分鐘 (依照自己烤箱做調整)才可以吃到外酥內軟的口感唷！
-                <br />
-                P.S.冷凍請先退回常溫再烤
+              <td width="120" class="text-align-justify">享用方式：</td>
+              <td>
+                加熱前，先將肉桂捲先退冰。<br />
+                • 烤箱：預熱 170 度後肉桂捲噴灑少許水，放入烤箱加熱 3 分鐘。<br />
+                • 微波爐：肉桂捲表面噴點水，放進微波爐內加熱 30 秒至 1 分鐘。<br />
+                • 電鍋：加入少量水並放入肉桂捲，待電鍋跳起即可。
               </td>
             </tr>
             <tr>
-              <td width="120">賞味期限</td>
+              <td width="120" class="text-align-justify">賞味期限：</td>
               <td>常溫1日 / 冷藏5日 / 冷凍2週</td>
             </tr>
           </tbody>
@@ -112,11 +119,12 @@
       </div>
     </section>
 
-    <section class="mb-6 py-3">
-      <div class="d-flex justify-content-center align-items-center mb-6">
-        <div class="bg-primary" style="width: 100px; height: 2px"></div>
-        <h3 class="text-primary mx-4">你可能喜歡</h3>
-        <div class="bg-primary" style="width: 100px; height: 2px"></div>
+    <section class="py-6 py-md-7">
+      <div class="d-flex justify-content-center align-items-center mb-5 mb-md-6">
+        <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
+        <h3 class="d-none d-md-block text-primary mx-4">你可能喜歡</h3>
+        <h3 class="d-md-none text-primary border-bottom border-primary border-2 px-2 pb-2">你可能喜歡</h3>
+        <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <!-- Swiper -->
       <Swiper :filter-products='filterProducts' @get-product="getProduct"></Swiper>
@@ -126,6 +134,7 @@
 
 <script>
 import Swiper from '@/components/Swiper.vue'
+import localStorageFavorite from '@/mixins/localStorageFavorite.js'
 
 export default {
   data () {
@@ -136,6 +145,7 @@ export default {
       productCategory: '',
       filterProducts: [],
       enterImage: '',
+      favorite: JSON.parse(localStorage.getItem('favorite')) || [],
       isLoading: false,
       isSpinner: false
     }
@@ -143,6 +153,7 @@ export default {
   components: {
     Swiper
   },
+  mixins: [localStorageFavorite],
   methods: {
     getProduct (mayLikeProductId) { // mayLikeProductId 從 Swiper 元件傳來的
       this.isLoading = true
