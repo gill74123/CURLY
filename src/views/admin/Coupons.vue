@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
@@ -64,12 +64,12 @@
 
     <!-- AdminCouponModal -->
     <AdminCouponModal ref="couponModal" :temp-coupon="tempCoupon" :is_new="isNew"
-      @get-coupons="getCoupons"></AdminCouponModal>
+      @get-coupons="getCoupons" />
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-coupon="tempCoupon"
-      @get-coupons="getCoupons"></AdminDelModal>
+      @get-coupons="getCoupons" />
     <!-- Pagination -->
-    <Pagination :pages="pagination" @emit-pages="getCoupons"></Pagination>
+    <Pagination :pages="pagination" @emit-pages="getCoupons" />
   </div>
 </template>
 
@@ -95,7 +95,7 @@ export default {
     AdminDelModal
   },
   methods: {
-    getCoupons (category, page = 1) {
+    getCoupons (page = 1) {
       this.isLoading = true
 
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`

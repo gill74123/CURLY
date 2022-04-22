@@ -19,27 +19,27 @@
         </div>
         <div class="modal-body">
           <div class="row gy-3">
-              <div class="col-md-6">
-                <label for="title" class="form-label"><span class="text-danger me-1">*</span>優惠券名稱</label>
-                <input id="title" type="text" class="form-control" placeholder="輸入優惠券名稱"
-                  v-model="tempCoupon.title">
-              </div>
-              <div class="col-md-6">
-                <label for="code" class="form-label"><span class="text-danger me-1">*</span>優惠碼</label>
-                <input id="code" type="text" class="form-control" placeholder="輸入優惠碼"
-                  v-model="tempCoupon.code">
-              </div>
-              <div class="col-md-6">
-                <label for="percent" class="form-label"><span class="text-danger me-1">*</span>折扣（%）</label>
-                <input id="percent" type="number" max="100" min="1" class="form-control" placeholder="輸入折扣"
-                  v-model="tempCoupon.percent">
-              </div>
-              <div class="col-md-6">
-                <label for="dueDate" class="form-label"><span class="text-danger me-1">*</span>截止日</label>
-                <input id="dueDate" type="date" class="form-control"
-                  v-model="due_date">
-                <!--  出來的格式為 YYYY-MM-DD -->
-              </div>
+            <div class="col-md-6">
+              <label for="title" class="form-label"><span class="text-danger me-1">*</span>優惠券名稱</label>
+              <input id="title" type="text" class="form-control" placeholder="輸入優惠券名稱"
+                v-model="tempCoupon.title">
+            </div>
+            <div class="col-md-6">
+              <label for="code" class="form-label"><span class="text-danger me-1">*</span>優惠碼</label>
+              <input id="code" type="text" class="form-control" placeholder="輸入優惠碼"
+                v-model="tempCoupon.code">
+            </div>
+            <div class="col-md-6">
+              <label for="percent" class="form-label"><span class="text-danger me-1">*</span>折扣（%）</label>
+              <input id="percent" type="number" max="100" min="1" class="form-control" placeholder="輸入折扣"
+                v-model="tempCoupon.percent">
+            </div>
+            <div class="col-md-6">
+              <label for="dueDate" class="form-label"><span class="text-danger me-1">*</span>截止日</label>
+              <input id="dueDate" type="date" class="form-control"
+                v-model="due_date">
+              <!--  出來的格式為 YYYY-MM-DD -->
+            </div>
           </div>
           <hr>
           <div class="form-check me-3">

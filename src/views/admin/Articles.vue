@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
@@ -84,12 +84,12 @@
 
     <!-- AdminArticleModal -->
     <AdminArticleModal ref="articleModal" :temp-article="tempArticle" :is_new="isNew"
-      @get-articles="getArticles"></AdminArticleModal>
+      @get-articles="getArticles" />
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-article="tempArticle"
-      @get-articles="getArticles"></AdminDelModal>
+      @get-articles="getArticles" />
     <!-- Pagination -->
-    <Pagination :pages="pagination" @emit-pages="getArticles"></Pagination>
+    <Pagination :pages="pagination" @emit-pages="getArticles" />
   </div>
 </template>
 
@@ -118,7 +118,7 @@ export default {
     AdminDelModal
   },
   methods: {
-    getArticles (category, page = 1) {
+    getArticles (page = 1) {
       this.isLoading = true
 
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/articles?page=${page}`

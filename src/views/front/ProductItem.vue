@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="container py-6 py-md-7">
     <section class="mb-6 py-3">
@@ -32,19 +32,18 @@
         <div class="col-md-6 d-flex flex-column justify-content-between">
           <div>
             <div class="d-flex justify-content-between align-items-center mb-4">
-              <h2 class="text-dark fs-6 m-0">{{ product.title }}</h2>
-              <p v-if="product.is_recommend" class="text-primary border border-2 border-primary rounded-2 py-1 px-3">
-                店長推薦
-              </p>
+              <h2 class="d-flex align-items-center text-dark fs-6">{{ product.title }}
+                <span v-if="product.is_recommend" class="material-icons-outlined fs-6 text-primary ms-2">recommend</span>
+              </h2>
+              <button type="button" class="d-flex align-items-center btn btn-outline-danger border-2 p-2" :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                <span v-if="favorite.includes(product.id)" class="material-icons-outlined fs-5 fs-lg-4">favorite</span>
+                <span v-else class="material-icons-outlined fs-5 fs-lg-4">favorite_border</span>
+                <span class="d-none d-lg-block fw-medium ms-2">收藏</span>
+              </button>
             </div>
             <p class="d-flex align-items-center text-light mb-4">
               <span class="text-primary fw-bold fs-5">$ {{ product.price }}</span> / {{ product.unit }}
               <del v-if="product.price !== product.origin_price" class="fs-4 ms-3">$ {{ product.origin_price }}</del>
-              <button type="button" class="btn btn-outline-danger border-2 fs-2 fs-md-3 py-1 px-3 ms-auto" :disabled="isSpinner" @click="toggleFavorite(product.id)">
-                <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle fs-3 fs-md-4">favorite</span>
-                <span v-else class="material-icons-outlined align-middle fs-3 fs-md-4">favorite_border</span>
-                收藏
-              </button>
             </p>
             <div class="text-light mb-6">
               {{ product.description }}
@@ -55,11 +54,11 @@
             </div>
           </div>
           <hr />
-          <div class="d-flex justify-content-start mb-4">
+          <div class="d-flex justify-content-start">
             <input
-              type="number" min="1" class="form-control border-1 border-primary rounded-2 text-center w-25 p-3 me-3"
-                v-model="productQty" :readonly="isSpinner">
-            <button type="button" class="btn btn-primary text-white w-50 fw-4 py-3" :disabled="isSpinner"
+              type="number" min="1" class="form-control border-1 border-primary rounded-2 text-center w-25 py-2 me-3"
+                v-model="productQty" :readonly="isSpinner" @change="editProductQty">
+            <button type="button" class="btn btn-primary text-white w-50 fw-4 py-2" :disabled="isSpinner"
               @click="addCart(product.id)">
               <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -127,7 +126,7 @@
         <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <!-- Swiper -->
-      <Swiper :filter-products='filterProducts' @get-product="getProduct"></Swiper>
+      <Swiper :filter-products='filterProducts' @get-product="getProduct" />
     </section>
   </div>
 </template>
@@ -218,12 +217,10 @@ export default {
       this.filterProducts = allProducts.filter(item => item.category === product.category)
       const arrayIndex = this.filterProducts.findIndex(item => item.id === product.id)
       this.filterProducts.splice(arrayIndex, 1)
-    }
-  },
-  watch: {
-    // 監聽 最少數量要為 1
-    productQty () {
+    },
+    editProductQty () {
       if (this.productQty <= 0) {
+        this.$httpMessageState('errMessage', '數量最少為 1')
         this.productQty = 1
       }
     }

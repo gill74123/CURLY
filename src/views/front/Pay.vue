@@ -1,16 +1,16 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="pay container py-6 py-md-7">
     <!-- Timeline -->
     <Timeline :order="order"></Timeline>
 
     <div class="row justify-content-center py-6 py-md-7">
-      <div class="col-8 bg-white py-6">
+      <div class="col-lg-8 bg-white py-5 px-2 px-lg-3">
         <template v-if="!order.is_paid">
           <h2 class="border-bottom text-center pb-3 mb-4">訂單資訊</h2>
-          <div  class="d-flex flex-column align-items-center px-3">
+          <div  class="d-flex flex-column align-items-center">
             <button class="d-flex justify-content-between btn btn-primary rounded-0 text-start fw-medium w-100" type="button"
               @click="toggleCollapse">
               商品資訊
@@ -23,13 +23,13 @@
                   <img class="card-img img-fluid rounded-0"
                     :src="productItem.product.imageUrl" :alt="productItem.product.title">
                 </div>
-                <div class="col-5 text-dark">
+                <div class="col-6 text-dark">
                   <div class="card-body d-flex align-items-center p-0">
                     <h5 class="me-2">{{ productItem.product.title }}</h5>
                     <p class="card-text ">x {{ productItem.qty }}</p>
                   </div>
                 </div>
-                <div class="col-4 align-self-center">
+                <div class="col-3 align-self-center">
                   <p class="card-text fw-medium">NT$ {{ productItem.total }}</p>
                 </div>
               </div>
@@ -39,7 +39,7 @@
             <table class="table table-hover text-dark w-100 my-5">
               <tbody>
                 <tr>
-                  <td width="150" class="text-align-justify">訂單編號：</td>
+                  <td width="120" class="text-align-justify">訂單編號：</td>
                   <td>
                     <span id="orderId">{{ order.id }}</span>
                     <a href="#" @click.prevent="copyToClipBoard()">
@@ -48,33 +48,33 @@
                   </td>
                 </tr>
                 <tr>
-                  <td width="150" class="text-align-justify">姓名：</td>
+                  <td width="120" class="text-align-justify">姓名：</td>
                   <td>{{ order.user.name }}</td>
                 </tr>
                 <tr>
-                  <td width="150" class="text-align-justify">手機：</td>
+                  <td width="120" class="text-align-justify">手機：</td>
                   <td>{{ order.user.tel }}</td>
                 </tr>
                 <tr>
-                  <td width="150" class="text-align-justify">Email：</td>
+                  <td width="120" class="text-align-justify">Email：</td>
                   <td>{{ order.user.email }}</td>
                 </tr>
                 <tr>
-                  <td width="150" class="text-align-justify">收件地址：</td>
+                  <td width="120" class="text-align-justify">收件地址：</td>
                   <td>{{ order.user.address }}</td>
                 </tr>
                 <tr>
-                  <td width="150" class="text-align-justify">備註：</td>
+                  <td width="120" class="text-align-justify">備註：</td>
                   <td>{{ order.message }}</td>
                 </tr>
                 <tr>
-                  <td width="150" class="text-align-justify">訂單金額：</td>
+                  <td width="120" class="text-align-justify">訂單金額：</td>
                   <td v-if="order.total < 1000" class="text-danger fw-bold">NT$ {{ order.total }} ({{ order.is_paid ? '已付款' : '未付款'}})</td>
                   <td v-else class="text-danger fw-bold">NT$ {{ order.total }} ({{ order.is_paid ? '已付款' : '未付款'}})</td>
                 </tr>
               </tbody>
             </table>
-            <button type="button" class="btn btn-primary w-100" @click="toPay">確認付款</button>
+            <button type="button" class="btn btn-primary w-100 py-2" @click="toPay">確認付款</button>
           </div>
         </template>
 
@@ -91,7 +91,7 @@
               再請留意簡訊通知
             </p>
           </div>
-          <router-link to="/products" class="btn btn-primary px-5">繼續選購</router-link>
+          <RouterLink to="/products" class="btn btn-primary px-5 py-2">繼續選購</RouterLink>
         </div>
       </div>
     </div>

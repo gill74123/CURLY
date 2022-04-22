@@ -1,10 +1,10 @@
 // 圖片取代文字
 @mixin img-replace-text($width, $height) {
-    width: $width;
-    height: $height;
-    text-indent: 101%;
-    white-space: nowrap;
-    overflow: hidden;
-    background-size: cover;
-    @content
+  width: $width;
+  height: $height;
+  text-indent: 101%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-size: cover;
+  @content
 }

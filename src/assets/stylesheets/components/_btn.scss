@@ -1,46 +1,51 @@
 // 所有可以按的東西都放在這
 
-.btn{
-    &-primary{
-        color: $white !important; 
+.btn {
+  &-primary {
+    color: $white !important;
+  }
+
+  &-danger {
+    color: $white !important;
+  }
+
+  &-outline-primary {
+    &:hover {
+      color: $white;
     }
-    &-danger{
-        color: $white !important; 
+  }
+
+  &-outline-light {
+    &:hover {
+      color: $white;
     }
-    &-outline-primary{
-        &:hover{
-            color: $white;
-        }
+  }
+
+  &-outline-secondary {
+    &:hover {
+      color: $primary;
     }
-    &-outline-light{
-        &:hover{
-            color: $white;
-        }
+  }
+
+  &-outline-danger {
+    &:hover {
+      color: $white;
     }
-    &-outline-secondary{
-        &:hover{
-            color: $primary;
-        }
-    }
-    &-outline-danger{
-        &:hover{
-            color: $white;
-        }
-    }
+  }
 }
 
 // Products
-.z-20{
-    z-index: 20;
+.z-20 {
+  z-index: 20;
 }
 
 // Products, Articles
-.category{
-    a{
-        display: block;
-        &.active{
-            background-color: $primary;
-            color: $white;
-        }
+.category {
+  a {
+    display: block;
+    &.active {
+      background-color: $primary;
+      color: $white;
     }
+  }
 }

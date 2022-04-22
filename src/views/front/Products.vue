@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <section class="products bg-banner position-relative">
     <h2
@@ -23,7 +23,7 @@
     <div class="input-group w-100 w-md-50 w-lg-25 ms-auto mb-4">
       <input type="search" class="form-control border-primary p-2" placeholder="請輸入商品名稱"
         v-model.trim="this.searchValue">
-      <button type="button" class="btn btn-primary" @click="searchProduct">搜尋</button>
+      <button type="button" class="btn btn-primary px-5 px-lg-3" @click="searchProduct">搜尋</button>
     </div>
     <div class="row mb-4">
       <div class="col-md-3">
@@ -40,47 +40,52 @@
           <li>
             <a
               href="#"
-              class="border-bottom border-primary p-2"
+              class="d-flex align-items-center border-bottom border-primary p-2 mx-2"
               :class="{ active: pagination.category === '' }"
-              @click.prevent="getProducts('')"
-              >所有產品</a
-            >
+              @click.prevent="getProducts()">
+              <span class="material-icons-outlined me-2">menu_book</span>
+              所有產品
+            </a>
           </li>
           <li>
             <a
               href="#"
-              class="border-bottom border-primary p-2"
+              class="d-flex align-items-center border-bottom border-primary p-2 mx-2"
               :class="{ active: pagination.category === '不敗經典' }"
-              @click.prevent="getProducts('不敗經典')"
-              >不敗經典</a
-            >
+              @click.prevent="getProducts('', '不敗經典')">
+              <span class="material-icons-outlined me-2">military_tech</span>
+              不敗經典
+            </a>
           </li>
           <li>
             <a
               href="#"
-              class="border-bottom border-primary p-2"
+              class="d-flex align-items-center border-bottom border-primary p-2 mx-2"
               :class="{ active: pagination.category === '就要醬吃' }"
-              @click.prevent="getProducts('就要醬吃')"
-              >就要醬吃</a
-            >
+              @click.prevent="getProducts('', '就要醬吃')">
+              <span class="material-icons-outlined me-2">eco</span>
+              就要醬吃
+            </a>
           </li>
           <li>
             <a
               href="#"
-              class="border-bottom border-primary p-2"
+              class="d-flex align-items-center border-bottom border-primary p-2 mx-2"
               :class="{ active: pagination.category === '加料萬歲' }"
-              @click.prevent="getProducts('加料萬歲')"
-              >加料萬歲</a
-            >
+              @click.prevent="getProducts('', '加料萬歲')">
+              <span class="material-icons-outlined me-2">bubble_chart</span>
+              加料萬歲
+            </a>
           </li>
           <li>
             <a
               href="#"
-              class="border-bottom border-primary p-2"
+              class="d-flex align-items-center border-bottom border-primary p-2 mx-2"
               :class="{ active: pagination.category === '微醺微醺' }"
-              @click.prevent="getProducts('微醺微醺')"
-              >微醺微醺</a
-            >
+              @click.prevent="getProducts('', '微醺微醺')">
+              <span class="material-icons-outlined me-2">local_bar</span>
+              微醺微醺
+            </a>
           </li>
         </ul>
       </div>
@@ -128,14 +133,14 @@
                     >$ {{ product.origin_price }} 元
                   </del>
                 </p>
-                <div class="btn-group d-flex justify-content-center pt-0">
-                  <button type="button" class="btn btn-outline-danger px-1 z-20" :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                <div class="btn-group d-flex justify-content-center">
+                  <button type="button" class="btn btn-outline-danger py-2 px-1 z-20" :disabled="isSpinner" @click="toggleFavorite(product.id)">
                     <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
                     <span v-else class="material-icons-outlined align-middle">favorite_border</span>
                   </button>
                   <button
                     type="button"
-                    class="btn btn-primary px-5 z-20" :disabled="isSpinner"
+                    class="btn btn-primary py-2 px-5 z-20" :disabled="isSpinner"
                     @click="addCart(product.id)">
                     <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm m-0" role="status">
                       <span class="visually-hidden">Loading...</span>
@@ -156,7 +161,7 @@
     </div>
 
     <!-- Pagination -->
-    <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
+    <Pagination :pages="pagination" @emit-pages="getProducts" />
   </section>
 </template>
 
@@ -180,7 +185,7 @@ export default {
   },
   mixins: [localStorageFavorite],
   methods: {
-    getProducts (category = '', page = 1) { // category 傳入空字串代表 所有商品
+    getProducts (page = 1, category = '') { // category 傳入空字串代表 所有商品
       this.isLoading = true
 
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/products?page=${page}&category=${category}`

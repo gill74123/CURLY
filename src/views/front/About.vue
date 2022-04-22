@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <section class="about bg-banner position-relative mt-6">
     <h2

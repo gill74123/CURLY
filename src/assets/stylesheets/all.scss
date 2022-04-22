@@ -14,6 +14,7 @@
 
 // mixin
 @import "./mixin/images";
+@import "./mixin/breakpoints";
 
 // config
 @import "./config/base";
@@ -30,5 +31,5 @@
 @import "./components/pageLoading";
 @import "./components/swiper";
 
-
+// pages
 @import "./pages/frontProducts.scss";

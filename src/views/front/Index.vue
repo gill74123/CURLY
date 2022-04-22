@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <section class="index bg-banner position-relative">
     <h2
@@ -19,14 +19,14 @@
       <p class="d-none d-md-block fs-4">品味你的無可取代，CURLY 隨時暖心相伴</p>
     </h2>
     <div class="d-flex justify-content-between position-absolute top-75 start-50 translate-middle w-75 w-md-50 w-lg-25">
-      <router-link to="/products"
+      <RouterLink to="/products"
         class="d-block btn btn-outline-secondary border-2 fw-bold py-2 me-3 w-50">
         前往購物
-      </router-link>
-      <router-link to="/about"
+      </RouterLink>
+      <RouterLink to="/about"
         class="d-block btn btn-outline-secondary border-2 fw-bold py-2 w-50">
         關於我們
-      </router-link>
+      </RouterLink>
     </div>
   </section>
 
@@ -39,24 +39,24 @@
     </div>
     <div class="row g-4 justify-content-center">
       <div class="col-6 col-md-3 card-img-box text-center">
-        <router-link to="/products" class="d-block card-img image-category-1">
+        <RouterLink to="/products" class="d-block card-img image-category-1">
           <span class="card-tag text-white fs-5 fw-medium">不敗<br />經典</span>
-        </router-link>
+        </RouterLink>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
-        <router-link to="/products" class="d-block card-img image-category-2">
+        <RouterLink to="/products" class="d-block card-img image-category-2">
           <span class="card-tag text-white fs-5 fw-medium">就要<br />醬吃</span>
-        </router-link>
+        </RouterLink>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
-        <router-link to="/products" class="d-block card-img image-category-3">
+        <RouterLink to="/products" class="d-block card-img image-category-3">
           <span class="card-tag text-white fs-5 fw-medium">加料<br />萬歲</span>
-        </router-link>
+        </RouterLink>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
-        <router-link to="/products" class="d-block card-img image-category-4">
+        <RouterLink to="/products" class="d-block card-img image-category-4">
           <span class="card-tag text-white fs-5 fw-medium">微醺<br />微醺</span>
-        </router-link>
+        </RouterLink>
       </div>
     </div>
   </section>
@@ -73,14 +73,16 @@
         <div class="col-md-4 pt-md-6">
           <h4 class="text-light text-center text-md-start fw-medium mb-3">猶豫不決嗎?
             <br />
-            來看看店長推薦吧！</h4>
+            來看看店長推薦吧！
+          </h4>
           <span class="d-none d-md-block text-light">想嘗試新口味卻不知從何下手？
             <br />
-            快看捲捲店長在四種類別中分別推薦哪一款捲捲吧！</span>
+            快看捲捲店長在四種類別中分別推薦哪一款捲捲吧！
+          </span>
         </div>
         <div class="col-md-8">
           <!-- Swiper -->
-          <Swiper :filter-products='filterProducts'></Swiper>
+          <Swiper :filter-products="filterProducts"></Swiper>
         </div>
       </div>
     </div>

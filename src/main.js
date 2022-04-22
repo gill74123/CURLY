@@ -1,6 +1,4 @@
 import { createApp } from 'vue'
-// Bootstrap
-// import 'bootstrap'
 
 // material-icons
 import 'material-icons/iconfont/material-icons.css'

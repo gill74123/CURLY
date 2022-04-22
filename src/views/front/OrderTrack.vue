@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <section class="orderTrack bg-banner position-relative">
     <h2
@@ -24,23 +24,23 @@
       <div class="col-md-6">
         <h3 class="text-center text-primary mb-3">請輸入您的訂單編號</h3>
         <div class="input-group mb-3">
-          <span class="input-group-text bg-primary border-primary">
+          <span class="d-none d-lg-block input-group-text bg-primary border-primary">
             <span class="material-icons-outlined text-white">search</span>
           </span>
           <input type="search" class="form-control border-primary p-2" placeholder="搜尋訂單編號"
             v-model.trim="orderId">
-          <button type="button" class="btn btn-primary" @click="getOrder(orderId)">搜尋</button>
+          <button type="button" class="btn btn-primary px-5 px-lg-3" @click="getOrder(orderId)">搜尋</button>
         </div>
       </div>
     </div>
     <div v-show="isSearch" class="row justify-content-center">
       <div class="col-md-8">
-        <button class="btn btn-primary d-flex justify-content-between rounded-0 w-100" type="button"
+        <button class="btn btn-primary d-flex justify-content-between align-items-center rounded-0 w-100 px-2 px-md-5" type="button"
           @click="toggleCollapse">
-          <h5 class="fw-medium">訂單編號：{{ order.id }}</h5>
+          <h5 class="fw-bold fs-3">訂單編號：{{ order.id }}</h5>
           <span class="material-icons-outlined">expand_more</span>
         </button>
-        <div class="collapse show border border-primary py-2 px-5" ref="collapse">
+        <div class="collapse show border border-primary py-2 px-md-5" ref="collapse">
           <table class="table table-borderless text-dark w-100">
             <tbody>
               <tr>

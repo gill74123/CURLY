@@ -31,35 +31,35 @@
           </div>
           <div class="row">
             <div class="col-md-5">
-                <div class="mb-3">
-                    <h3>訂購資訊</h3>
-                </div>
-                <ul class="list-unstyled ms-2">
-                  <li class="d-flex justify-content-between align-items-center mb-2">
-                    建立時間：
-                    <input type="text" class="form-control w-75 py-1" readonly v-model="tempOrder.create_at">
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center mb-2">
-                    姓名：
-                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.name">
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center mb-2">
-                    信箱：
-                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.email">
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center mb-2">
-                    電話：
-                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.tel">
-                  </li>
-                  <li class="d-flex justify-content-between align-items-center mb-2">
-                    地址：
-                    <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.address">
-                  </li>
-                  <li class="d-flex justify-content-between align-items-start mb-2">
-                    備註：
-                    <textarea type="text" class="form-control w-75" id="message" name="留言" v-model="tempOrder.message"></textarea>
-                  </li>
-                </ul>
+              <div class="mb-3">
+                  <h3>訂購資訊</h3>
+              </div>
+              <ul class="list-unstyled ms-2">
+                <li class="d-flex justify-content-between align-items-center mb-2">
+                  建立時間：
+                  <input type="text" class="form-control w-75 py-1" readonly v-model="tempOrder.create_at">
+                </li>
+                <li class="d-flex justify-content-between align-items-center mb-2">
+                  姓名：
+                  <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.name">
+                </li>
+                <li class="d-flex justify-content-between align-items-center mb-2">
+                  信箱：
+                  <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.email">
+                </li>
+                <li class="d-flex justify-content-between align-items-center mb-2">
+                  電話：
+                  <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.tel">
+                </li>
+                <li class="d-flex justify-content-between align-items-center mb-2">
+                  地址：
+                  <input type="text" class="form-control w-75 py-1" v-model="tempOrder.user.address">
+                </li>
+                <li class="d-flex justify-content-between align-items-start mb-2">
+                  備註：
+                  <textarea type="text" class="form-control w-75" id="message" name="留言" v-model="tempOrder.message"></textarea>
+                </li>
+              </ul>
             </div>
 
             <div class="col-md-7">

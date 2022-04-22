@@ -1,105 +1,107 @@
 // banner 圖片
 
 // Index
-.index{
-    &.bg{
-        &-banner{
-            width: 100%;
-            height: 400px;
-            background-image: url('./assets/images/index-banner.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-attachment: initial;
-            background-attachment: fixed; // 讓它有視覺差的效果
-        }
+.index {
+  &.bg {
+    &-banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('./assets/images/index-banner.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed; // 讓它有視覺差的效果
     }
+  }
 }
 
 // About
-.about{
-    &.bg{
-        &-banner{
-            width: 100%;
-            height: 400px;
-            background-image: url('./assets/images/about-banner.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-attachment: initial;
-            background-attachment: fixed; // 讓它有視覺差的效果
-        }
+.about {
+  &.bg {
+    &-banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('./assets/images/about-banner.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
     }
+  }
 }
 
 // Products
-.products{
-    &.bg{
-        &-banner{
-            width: 100%;
-            height: 400px;
-            background-image: url('./assets/images/products-banner.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-attachment: initial;
-            background-attachment: fixed; // 讓它有視覺差的效果
-        }
+.products {
+  &.bg {
+    &-banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('./assets/images/products-banner.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
     }
+  }
 }
 
 // Favorite
-.favorite{
-    &.bg{
-        &-banner{
-            width: 100%;
-            height: 400px;
-            background-image: url('./assets/images/favorite-banner.jpg');
-            background-size: cover;
-            background-position: center bottom;
-            background-attachment: initial;
-            background-attachment: fixed; // 讓它有視覺差的效果
-        }
+.favorite {
+  &.bg {
+    &-banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('./assets/images/favorite-banner.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      background-attachment: fixed;
     }
+  }
 }
 
 // Article
-.articles{
-    &.bg{
-        &-banner{
-            width: 100%;
-            height: 400px;
-            background-image: url('./assets/images/articles-banner.jpg');
-            background-size: cover;
-            background-position: center bottom;
-            background-attachment: initial;
-            background-attachment: fixed; // 讓它有視覺差的效果
-        }
+.articles {
+  &.bg {
+    &-banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('./assets/images/articles-banner.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
     }
+  }
 }
 
 // OrderTrack
-.orderTrack{
-    &.bg{
-        &-banner{
-            width: 100%;
-            height: 400px;
-            background-image: url('./assets/images/orderTrack-banner.jpg');
-            background-size: cover;
-            background-position: center bottom;
-            background-attachment: initial;
-            background-attachment: fixed; // 讓它有視覺差的效果
-        }
+.orderTrack {
+  &.bg {
+    &-banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('./assets/images/orderTrack-banner.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
     }
+  }
 }
-.index, .about, .products, .favorite, .articles, .orderTrack{
-    &.bg-banner{
-        margin-top: 61px;
-        @media (min-width: 992px){
-            margin-top: 64px;
-        }
-    }
-}
-.order, .pay{
+
+.index,
+.about,
+.products,
+.favorite,
+.articles,
+.orderTrack {
+  &.bg-banner {
     margin-top: 61px;
-    @media (min-width: 992px){
-        margin-top: 64px;
+    @include pc() {
+      margin-top: 64px;
     }
+  }
+}
+
+.order,
+.pay {
+  margin-top: 61px;
+  @include pc() {
+    margin-top: 64px;
+  }
 }

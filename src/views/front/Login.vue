@@ -1,31 +1,31 @@
 <template>
-    <div class="login">
-      <div class="container h-100">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-md-6 text-center">
-            <h1>登入頁面</h1>
-          <form class="form-signin p-4">
-            <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="username" placeholder="name@example.com" required autofocus
-                v-model="user.username" @keyup.enter="login">
-              <label for="username">Email address</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="password" placeholder="Password" required
-                v-model="user.password" @keyup.enter="login">
-              <label for="password">Password</label>
-            </div>
-            <button class="btn btn-lg btn-primary w-100 mt-3" type="button" @click="login">
-              登入
-            </button>
-          </form>
+  <div class="login">
+    <div class="container h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-6 text-center border p-3">
+          <h1>登入頁面</h1>
+        <form class="form-signin p-4" @submit="login" @keyup.enter="login">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control border-2 border-light" id="username" placeholder="name@example.com" required autofocus
+              v-model="user.username">
+            <label for="username" class="fw-bold">Email address</label>
           </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control border-2 border-light" id="password" placeholder="Password" required
+              v-model="user.password">
+            <label for="password" class="fw-bold">Password</label>
+          </div>
+          <button class="btn btn-lg btn-primary w-100 mt-3" type="button">
+            登入
+          </button>
+        </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- AdminFooter -->
-    <AdminFooter />
+  <!-- AdminFooter -->
+  <AdminFooter />
 </template>
 
 <script>

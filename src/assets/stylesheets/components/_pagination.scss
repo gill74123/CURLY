@@ -1,17 +1,20 @@
-.page-item{
-    &.disabled{
-        .page-link{
-            color: $primary;
-            border: 1px solid $primary;
-            background-color: transparent;
-        }
+.page-item {
+  &.disabled {
+    .page-link {
+      color: $primary;
+      border: 1px solid $primary;
+      background-color: transparent;
     }
+  }
 }
-.page-link{
-    border: 1px solid $primary;
-    background-color: transparent;
-    &:hover{
-        color: $white;
-        background-color: $primary;
-    }
+
+.page-link {
+  padding: 8px 16px;
+  font-weight: $font-weight-medium;
+  border: 1px solid $primary;
+  background-color: transparent;
+  &:hover {
+    color: $white;
+    background-color: $primary;
+  }
 }

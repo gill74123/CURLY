@@ -1,14 +1,13 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
       <button
         type="button"
         class="btn btn-primary d-flex align-items-center px-3 py-2"
-        @click="openModal('new')"
-      >
+        @click="openModal('new')">
         <span class="material-icons-outlined me-2">add_circle_outline</span>
         <span>新增產品</span>
       </button>
@@ -87,12 +86,12 @@
 
     <!-- AdminProductModal -->
     <AdminProductModal ref="productModal" :temp-product="tempProduct" :is_new="isNew"
-      @get-products="getProducts"></AdminProductModal>
+      @get-products="getProducts" />
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-product="tempProduct"
-      @get-products="getProducts"></AdminDelModal>
+      @get-products="getProducts" />
     <!-- Pagination -->
-    <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
+    <Pagination :pages="pagination" @emit-pages="getProducts" />
   </div>
 </template>
 
@@ -121,10 +120,10 @@ export default {
     AdminDelModal
   },
   methods: {
-    getProducts (category = '', page = 1) {
+    getProducts (page = 1) {
       this.isLoading = true
 
-      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}&category=${category}`
+      const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
       this.$http
         .get(url)
         .then((res) => {

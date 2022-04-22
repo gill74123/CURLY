@@ -1,25 +1,32 @@
-body{
-    color: $dark;
-    background-color: $secondary;
+body {
+  color: $dark;
+  background-color: $secondary;
 }
+
 // 消除BS5元素margin & padding
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
-    margin: 0;
-    padding: 0;
-    line-height: 1.5;
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6,
+p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-.login{
-    background-image: url('./assets/images/login-background.jpg');
-    background-size: cover;
-    background-position: center center;
-    height: calc( 100vh - 40px );
+.text-logo {
+  font-family: 'Berkshire Swash', cursive;
 }
 
-.text-logo{
-    font-family: 'Berkshire Swash', cursive;
+.login {
+  background-image: url('./assets/images/login-background.jpg');
+  background-size: cover;
+  background-position: center center;
+  height: calc(100vh - 40px);
 }

@@ -21,35 +21,35 @@
         </div>
         <div class="modal-body">
           <div class="row g-2 mb-2">
-              <div class="col-12">
-                <label for="title" class="form-label">貼文標題</label>
-                <input id="title" type="text" class="form-control" placeholder="輸入標題"
-                v-model="tempArticle.title">
-              </div>
-              <div class="col-12">
-                <label for="subtitle" class="form-label">副標題</label>
-                <input id="subtitle" type="text" class="form-control" placeholder="輸入副標題"
-                v-model="tempArticle.description">
-              </div>
+            <div class="col-12">
+              <label for="title" class="form-label">貼文標題</label>
+              <input id="title" type="text" class="form-control" placeholder="輸入標題"
+              v-model="tempArticle.title">
+            </div>
+            <div class="col-12">
+              <label for="subtitle" class="form-label">副標題</label>
+              <input id="subtitle" type="text" class="form-control" placeholder="輸入副標題"
+              v-model="tempArticle.description">
+            </div>
           </div>
           <div class="row g-2">
             <div class="col-6">
               <div class="mb-3">
-                  <label for="imageUrl" class="form-label">封面圖</label>
-                  <div class="input-group mb-2">
-                    <input
-                      type="text"
-                      class="form-control imageInput"
-                      placeholder="可以透過外部圖片 URL 上傳"
-                      ref="imageUrl">
-                    <button
-                      type="button"
-                      class="btn btn-outline-light"
-                      @click="imageUpload('imageUrl')">
-                      上傳圖片
-                    </button>
-                  </div>
-                  <div class="input-group">
+                <label for="imageUrl" class="form-label">封面圖</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control imageInput"
+                    placeholder="可以透過外部圖片 URL 上傳"
+                    ref="imageUrl">
+                  <button
+                    type="button"
+                    class="btn btn-outline-light"
+                    @click="imageUpload('imageUrl')">
+                    上傳圖片
+                  </button>
+                </div>
+                <div class="input-group">
                   <input
                     class="form-control imageInput"
                     type="file"
@@ -63,8 +63,7 @@
                   </button>
                 </div>
               </div>
-              <div class="image-cover border rounded-2" :style="{backgroundImage: `url(${tempArticle.image})`}">
-              </div>
+              <div class="image-cover border rounded-2" :style="{backgroundImage: `url(${tempArticle.image})`}"></div>
             </div>
             <div class="col-6 d-flex flex-column justify-content-between">
               <div class="mb-2">
@@ -72,13 +71,13 @@
                 <input id="tag" type="text" class="form-control" placeholder="輸入標籤，用 [ ENTER ] 新增"
                   v-model="tagValue" @keyup.enter="addTag(tagValue)">
               </div>
-                <div class="d-flex flex-wrap mb-1">
-                  <button type="button" class="d-flex align-items-center btn btn-gray btn-sm rounded-3 me-1 mb-1"
-                    v-for="(tag, index) in tempArticle.tag" :key="tag">
-                    <span>{{ tag }}</span>
-                    <i class="material-icons-round fs-3 ms-1" @click="removeTag(index)">clear</i>
-                  </button>
-                </div>
+              <div class="d-flex flex-wrap mb-1">
+                <button type="button" class="d-flex align-items-center btn btn-gray btn-sm rounded-3 me-1 mb-1"
+                  v-for="(tag, index) in tempArticle.tag" :key="tag">
+                  <span>{{ tag }}</span>
+                  <i class="material-icons-round fs-3 ms-1" @click="removeTag(index)">clear</i>
+                </button>
+              </div>
               <div class="mb-2">
                 <label for="author" class="form-label">發佈者</label>
                 <input id="author" type="text" class="form-control" placeholder="輸入發佈者"

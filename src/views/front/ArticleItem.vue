@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="article container py-6 py-md-7">
     <div class="border py-4 mb-3">
@@ -23,11 +23,11 @@
       <a href="#" v-if="paginationData.has_pre" class="btn d-flex align-items-center text-primary px-0"
         @click.prevent="changeArticlePage(paginationData.pre_info.id)">
         <span class="material-icons-outlined fs-5">chevron_left</span>
-        上一篇：{{ paginationData.pre_info?.title }}
+        上一篇<span class="d-none d-md-inline-block">：{{ paginationData.pre_info?.title }}</span>
       </a>
       <a href="#" v-if="paginationData.has_next" class="btn d-flex align-items-center text-primary px-0 ms-auto"
         @click.prevent="changeArticlePage(paginationData.next_info.id)">
-        下一篇：{{ paginationData.next_info?.title }}
+        下一篇<span class="d-none d-md-inline-block">：{{ paginationData.next_info?.title }}</span>
         <span class="material-icons-outlined fs-5">chevron_right</span>
       </a>
     </div>

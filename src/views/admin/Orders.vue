@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <div class="px-6 py-3">
     <div class="d-flex justify-content-end align-items-center my-4">
@@ -79,12 +79,12 @@
 
     <!-- AdminOrderModal -->
     <AdminOrderModal ref="orderModal" :orders="orders" :temp-order="tempOrder"
-      @get-orders="getOrders"></AdminOrderModal>
+      @get-orders="getOrders" />
     <!-- AdminDelModal -->
     <AdminDelModal ref="delModal" :del-modal-status="delModalStatus" :temp-order="tempOrder"
-      @get-orders="getOrders"></AdminDelModal>
+      @get-orders="getOrders" />
     <!-- Pagination -->
-    <Pagination :pages="pagination" @emit-pages="getOrders"></Pagination>
+    <Pagination :pages="pagination" @emit-pages="getOrders" />
   </div>
 </template>
 
@@ -111,7 +111,8 @@ export default {
     AdminDelModal
   },
   methods: {
-    getOrders (category, page = 1) {
+    getOrders (page = 1) {
+      console.log(page)
       this.isLoading = true
 
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`

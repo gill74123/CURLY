@@ -1,6 +1,6 @@
 <template>
   <!-- Loading -->
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading" />
 
   <section class="favorite bg-banner position-relative">
     <h2
@@ -11,8 +11,9 @@
         top-50
         start-50
         translate-middle
-        p-3
-        px-4"
+        w-75
+        w-lg-50
+        p-3 py-4"
     >
       <p>快把「收藏」帶回家，重拾你的好心情</p>
     </h2>
@@ -47,29 +48,26 @@
                 <span
                   v-if="product.is_recommend"
                   class="material-icons-outlined me-2"
-                  >recommend</span
-                >
+                  >recommend</span>
                 <h5>{{ product.title }}</h5>
               </div>
               <p class="card-text mb-4">
-                <span class="text-danger fs-4 fw-bold"
-                  >$ {{ product.price }} 元</span
-                >
+                <span class="text-danger fs-4 fw-bold">$ {{ product.price }} 元</span>
                 <del
                   v-if="product.origin_price !== product.price"
                   class="text-light ms-2"
-                  >$ {{ product.origin_price }} 元</del
-                >
+                  >$ {{ product.origin_price }} 元
+                </del>
               </p>
               <div class="btn-group d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-danger px-1 z-20" :disabled="isSpinner"
+                <button type="button" class="btn btn-outline-danger py-2 px-1 z-20" :disabled="isSpinner"
                   @click="toggleFavorite(product.id)">
                   <span v-if="favorite.includes(product.id)" class="material-icons-outlined align-middle">favorite</span>
                   <span v-else class="material-icons-outlined align-middle">favorite_border</span>
                 </button>
                 <button
                   type="button" :disabled="isSpinner"
-                  class="btn btn-primary px-5 z-20"
+                  class="btn btn-primary py-2 px-5 z-20"
                   @click="addCart(product.id)"
                 >
                   <div v-if="product.id === isSpinner" class="spinner-border spinner-border-sm me-2" role="status">
@@ -85,11 +83,10 @@
       <div v-else class="text-center">
         <h3 class="mb-3">還沒有收藏紀錄</h3>
         <h4 class="text-light mb-3">快將喜歡的好味道加入到我的最愛吧！</h4>
-        <router-link to="/products" class="btn btn-primary px-5"
-          >前往選購</router-link
-        >
+        <RouterLink to="/products" class="btn btn-primary px-5 py-2">前往選購</RouterLink >
       </div>
     </section>
+
     <section class="py-6 py-md-7">
       <div class="d-flex justify-content-center align-items-center mb-5 mb-md-6">
         <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
@@ -98,7 +95,7 @@
         <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <!-- Swiper -->
-      <Swiper :filter-products='recommendProducts'></Swiper>
+      <Swiper :filter-products='recommendProducts' />
     </section>
   </div>
 </template>

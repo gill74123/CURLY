@@ -1,74 +1,83 @@
-.front{
-    .navbar{
-        z-index: 100;
+.front {
+  .navbar {
+    z-index: 100;
+  }
+
+  .navbar-light {
+    background-color: $secondary;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: $primary;
+    &:hover {
+      background-color: $primary;
+      color: $secondary;
+      font-weight: bold;
     }
-    .navbar-light{
+    &.active {
+      background-color: $primary;
+      color: $secondary;
+      font-weight: bold;
+    }
+    @include pc() {
+      border-bottom: 3px solid transparent;
+      &:hover {
         background-color: $secondary;
-    }
-    .navbar-light .navbar-nav .nav-link{
         color: $primary;
-        border-bottom: 3px solid transparent;
-        &:hover{
-            border-bottom: 2px solid $primary;
-            font-weight: bold;
-        }
-        &.active{
-            border-bottom: 2px solid $primary;
-            font-weight: bold;
-        }   
+        border-bottom: 3px solid $primary;
+        font-weight: bold;
+      }
+      &.active {
+        background-color: $secondary;
+        color: $primary;
+        border-bottom: 3px solid $primary;
+        font-weight: bold;
+      }
     }
-    @media (max-width: 991px){
-        .navbar-light .navbar-nav .nav-link{
-            &:hover{
-                background-color: $primary;
-                color: $secondary;
-                font-weight: bold;
-            }
-            &.active{
-                background-color: $primary;
-                color: $secondary;
-                font-weight: bold;
-            }   
-        }
-    }
-    .navbar-light .navbar-toggler{
-        color: transparent;
-        border: 0px transparent;
-    }
+  }
+
+  .navbar-light .navbar-toggler {
+    color: transparent;
+    border: 0px transparent;
+  }
 }
 
-.admin{
-    .navbar-light{
+.admin {
+  .navbar-light {
+    background-color: $primary;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: $secondary;
+    &:hover {
+      background-color: $secondary;
+      color: $primary;
+      font-weight: bold;
+    }
+    &.active {
+      background-color: $secondary;
+      color: $primary;
+      font-weight: bold;
+    }
+    @include pc() {
+      border-bottom: 3px solid transparent;
+      &:hover {
         background-color: $primary;
-    }
-    .navbar-light .navbar-nav .nav-link{
         color: $secondary;
-        border-bottom: 3px solid transparent;
-        &:hover{
-            border-bottom: 2px solid $secondary;
-            font-weight: 500;
-        }
-        &.active{
-            border-bottom: 2px solid $secondary;
-            font-weight: 500;
-        }   
+        border-bottom: 3px solid $secondary;
+        font-weight: bold;
+      }
+      &.active {
+        background-color: $primary;
+        color: $secondary;
+        border-bottom: 3px solid $secondary;
+        font-weight: bold;
+      }
     }
-    @media (max-width: 991px){
-        .navbar-light .navbar-nav .nav-link{
-            &:hover{
-                background-color: $secondary;
-                color: $primary;
-                font-weight: 500;
-            }
-            &.active{
-                background-color: $secondary;
-                color: $primary;
-                font-weight: 500;
-            }   
-        }
-    }
-    .navbar-light .navbar-toggler{
-        color: transparent;
-        border: 0px transparent;
-    }
+  }
+  
+  .navbar-light .navbar-toggler {
+    color: transparent;
+    border: 0px transparent;
+  }
 }

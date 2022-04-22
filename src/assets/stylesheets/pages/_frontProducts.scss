@@ -1,12 +1,13 @@
-.scrollbar{
-    justify-content: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y:hidden;
-    white-space: nowrap;
+.scrollbar {
+  padding: 12px 0;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 
-.category{
-    top: 80px;
-    z-index: 0;
+.category {
+  top: 80px;
+  z-index: 0;
 }

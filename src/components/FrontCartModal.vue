@@ -1,36 +1,36 @@
 <template>
   <div class="offcanvas offcanvas-end  bg-secondary" style="width: 450px" ref="cartOffcanvas"
-  tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header border-bottom border-primary">
       <h5 class="text-primary" >購物車</h5>
       <button type="button" class="btn-close text-reset" @click="closeOffcanvas"></button>
     </div>
     <template v-if="cartData.carts.length">
       <div class="offcanvas-body">
-      <div class="card mb-3" v-for="cartItem in cartData.carts" :key="cartItem.id">
-        <div class="row g-0">
-          <div class="col-3">
-            <img class="card-img img-fluid rounded-start"
-            :src="cartItem.product.imageUrl" :alt="cartItem.product.title">
-          </div>
-          <div class="col-6 text-dark">
-            <div class="card-body d-flex flex-column justify-content-between h-100 py-0">
-              <h5 class="card-title text-primary fw-medium m-0">{{ cartItem.product.title }}</h5>
-              <p class="card-text">NT$ {{ cartItem.product.price }}</p>
-              <button type="button" class="btn border-0 text-start w-25 p-0" :disabled="isSpinner"
-                @click="deleteItemCart(cartItem.id)">
-                <span class="material-icons-outlined text-light align-bottom">delete_outline</span>
-              </button>
+        <div class="card mb-3" v-for="cartItem in cartData.carts" :key="cartItem.id">
+          <div class="row g-0">
+            <div class="col-3">
+              <img class="card-img img-fluid rounded-start"
+                :src="cartItem.product.imageUrl" :alt="cartItem.product.title">
             </div>
-          </div>
-          <div class="col-3 align-self-center">
-            <input type="number" min="1" class="form-control border-1 border-light rounded-2 text-center" :readonly="isSpinner"
-              v-model="cartItem.qty" @change="updateCart(cartItem)">
+            <div class="col-6 text-dark">
+              <div class="card-body d-flex flex-column justify-content-between h-100 py-0">
+                <h5 class="card-title text-primary fw-medium m-0">{{ cartItem.product.title }}</h5>
+                <p class="card-text">NT$ {{ cartItem.product.price }}</p>
+                <button type="button" class="btn border-0 text-start w-25 p-0" :disabled="isSpinner"
+                  @click="deleteItemCart(cartItem.id)">
+                  <span class="material-icons-outlined text-light align-bottom">delete_outline</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-3 align-self-center">
+              <input type="number" min="1" class="form-control border-1 border-light rounded-2 text-center" :readonly="isSpinner"
+                v-model="cartItem.qty" @change="updateCart(cartItem)">
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="position-absolute bottom-0 position-sticky bg-secondary border-top border-primary p-3">
+      <div class="position-absolute bottom-0 position-sticky bg-secondary border-top border-primary p-3">
         <div class="d-flex justify-content-between mb-4">
           <button type="button" class="btn btn-sm btn-outline-light px-2" :disabled="isSpinner"
             @click="openModal('cartAllDelete')">
@@ -45,20 +45,20 @@
             <p>折價後金額：NT$ {{ final_total }} 元</p>
           </div>
         </div>
-        <router-link to="/order" class="btn btn-primary w-100" @click="closeOffcanvas">確認結帳</router-link>
-    </div>
+        <RouterLink to="/order" class="btn btn-primary w-100 py-2" @click="closeOffcanvas">確認結帳</RouterLink>
+      </div>
     </template>
 
     <div v-else class="offcanvas-body text-light text-center p-6">
       <span class="material-icons-outlined fs-6">fmd_bad</span>
       <p class="fs-4 mb-4">購物車內沒有商品</p>
-      <router-link to="/products" class="btn btn-primary px-5" @click="closeOffcanvas">前往選購</router-link>
+      <RouterLink to="/products" class="btn btn-primary px-5 py-2" @click="closeOffcanvas">前往選購</RouterLink>
     </div>
   </div>
 
   <!-- AdminDelModal -->
   <AdminDelModal ref="delModal" :del-modal-status="delModalStatus"
-    @get-carts="getCart"></AdminDelModal>
+    @get-carts="getCart" />
 </template>
 
 <script>
@@ -105,7 +105,10 @@ export default {
 
       // 最少數量要為 1
       if (cartItem.qty <= 0) {
+        this.$httpMessageState('errMessage', '數量最少為 1')
         cartItem.qty = 1
+        this.isSpinner = false
+        return
       }
 
       const url = `${process.env.VUE_APP_URL}/api/${process.env.VUE_APP_PATH}/cart/${cartItem.id}`
