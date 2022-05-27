@@ -13,7 +13,7 @@
         translate-middle
         w-75
         w-lg-50
-        p-3 py-4"
+        p-3 py-4" data-aos="fade-up" data-aos-offset="0"
     >
       <p class="fs-4 fs-md-5 fw-bold">暖胃又暖心的好味道</p>
     </h2>
@@ -219,6 +219,7 @@ export default {
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '加入購物車')
+          this.isSpinner = false
         })
     },
     seeProduct (productId) {
@@ -241,7 +242,8 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err.response, '錯誤訊息')
+          this.$httpMessageState(err.response, '搜尋')
+          this.isLoading = false
         })
     }
   },

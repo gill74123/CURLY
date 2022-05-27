@@ -3,8 +3,8 @@
   <Loading v-model:active="isLoading" />
 
   <div class="article container py-6 py-md-7">
-    <div class="border py-4 mb-3">
-      <div class="text-center text-light mb-5">
+    <div class="border py-5 my-5">
+      <div class="text-center text-light mb-5" data-aos="fade-up">
         <p>{{ article.create_at }}</p>
         <h2 class="text-primary fw-bold my-3">{{ article.title }}</h2>
         <p>By {{ article.author }}</p>
@@ -13,20 +13,20 @@
           <span class="me-2"># {{tag}}</span>
         </template>
       </div>
-      <div class="px-6">
+      <div class="px-md-3 px-lg-6" data-aos="fade-up" data-aos-offset="100">
         <img class="card-img w-100 mb-3"
           :src="article.image" :alt="article.image">
-        <div v-html="article.content"></div>
       </div>
+      <div class="px-3 px-lg-6" v-html="article.content" data-aos="fade-up"></div>
     </div>
     <div class="d-flex justify-content-between">
       <a href="#" v-if="paginationData.has_pre" class="btn d-flex align-items-center text-primary px-0"
-        @click.prevent="changeArticlePage(paginationData.pre_info.id)">
+        @click.prevent="changeArticlePage(paginationData.pre_info.id)" data-aos="fade-up">
         <span class="material-icons-outlined fs-5">chevron_left</span>
         上一篇<span class="d-none d-md-inline-block">：{{ paginationData.pre_info?.title }}</span>
       </a>
       <a href="#" v-if="paginationData.has_next" class="btn d-flex align-items-center text-primary px-0 ms-auto"
-        @click.prevent="changeArticlePage(paginationData.next_info.id)">
+        @click.prevent="changeArticlePage(paginationData.next_info.id)" data-aos="fade-up">
         下一篇<span class="d-none d-md-inline-block">：{{ paginationData.next_info?.title }}</span>
         <span class="material-icons-outlined fs-5">chevron_right</span>
       </a>

@@ -4,7 +4,7 @@
 
   <div class="pay container py-6 py-md-7">
     <!-- Timeline -->
-    <Timeline :order="order"></Timeline>
+    <Timeline :order="order" />
 
     <div class="row justify-content-center py-6 py-md-7">
       <div class="col-lg-8 bg-white py-5 px-2 px-lg-3">

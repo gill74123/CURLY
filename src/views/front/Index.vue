@@ -13,12 +13,13 @@
         translate-middle
         w-75
         w-lg-50
-        p-3 py-4"
+        p-3 py-4" data-aos="fade-up" data-aos-offset="0"
     >
       <p class="fw-bold mb-2">溫度·美味·感動</p>
       <p class="d-none d-md-block fs-4">品味你的無可取代，CURLY 隨時暖心相伴</p>
     </h2>
-    <div class="d-flex justify-content-between position-absolute top-75 start-50 translate-middle w-75 w-md-50 w-lg-25">
+    <div class="d-flex justify-content-between position-absolute top-75 start-50 translate-middle w-75 w-md-50 w-lg-25"
+      data-aos="fade-up">
       <RouterLink to="/products"
         class="d-block btn btn-outline-secondary border-2 fw-bold py-2 me-3 w-50">
         前往購物
@@ -37,24 +38,28 @@
       <h3 class="d-md-none text-primary border-bottom border-primary border-2 px-2 pb-2">捲捲 你愛哪一味</h3>
       <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
     </div>
-    <div class="row g-4 justify-content-center">
+    <div class="row g-4 justify-content-center" data-aos="fade-up">
       <div class="col-6 col-md-3 card-img-box text-center">
-        <RouterLink to="/products" class="d-block card-img image-category-1">
+        <RouterLink to="/products" class="d-block card-img image-category-1"
+          >
           <span class="card-tag text-white fs-5 fw-medium">不敗<br />經典</span>
         </RouterLink>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
-        <RouterLink to="/products" class="d-block card-img image-category-2">
+        <RouterLink to="/products" class="d-block card-img image-category-2"
+          >
           <span class="card-tag text-white fs-5 fw-medium">就要<br />醬吃</span>
         </RouterLink>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
-        <RouterLink to="/products" class="d-block card-img image-category-3">
+        <RouterLink to="/products" class="d-block card-img image-category-3"
+          >
           <span class="card-tag text-white fs-5 fw-medium">加料<br />萬歲</span>
         </RouterLink>
       </div>
       <div class="col-6 col-md-3 card-img-box text-center">
-        <RouterLink to="/products" class="d-block card-img image-category-4">
+        <RouterLink to="/products" class="d-block card-img image-category-4"
+          >
           <span class="card-tag text-white fs-5 fw-medium">微醺<br />微醺</span>
         </RouterLink>
       </div>
@@ -71,18 +76,18 @@
       </div>
       <div class="row">
         <div class="col-md-4 pt-md-6">
-          <h4 class="text-light text-center text-md-start fw-medium mb-3">猶豫不決嗎?
+          <h4 class="text-light text-center text-md-start fw-medium mb-3" data-aos="zoom-in-right">猶豫不決嗎?
             <br />
             來看看店長推薦吧！
           </h4>
-          <span class="d-none d-md-block text-light">想嘗試新口味卻不知從何下手？
+          <span class="d-none d-md-block text-light" data-aos="zoom-in-right" data-aos-delay="50">想嘗試新口味卻不知從何下手？
             <br />
             快看捲捲店長在四種類別中分別推薦哪一款捲捲吧！
           </span>
         </div>
         <div class="col-md-8">
           <!-- Swiper -->
-          <Swiper :filter-products="filterProducts"></Swiper>
+          <Swiper :filter-products="filterProducts" data-aos="zoom-in-left" />
         </div>
       </div>
     </div>
@@ -97,7 +102,7 @@
       <div class="d-none d-md-block bg-primary bg-primary" style="width: 100px; height: 2px"></div>
     </div>
     <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0" v-for="article in filterArticles" :key="article.id">
+      <div class="col-md-6 mb-3 mb-md-0" v-for="article in filterArticles" :key="article.id" data-aos="zoom-in-right">
         <a href="#" class="news-info-box d-block rounded-3" @click.prevent="seeArticle(article.id)"
           :style="{backgroundImage: `url(${article.image})`}">
           <div class="news-info d-flex flex-column justify-content-end align-items-start text-white h-100 p-3">
@@ -113,6 +118,7 @@
 
 <script>
 import Swiper from '@/components/Swiper.vue'
+import 'aos/dist/aos.css'
 
 export default {
   data () {

@@ -1,3 +1,8 @@
+// 消除AOS產生的X軸
+html, body{
+  overflow-x: hidden;
+}
+
 body {
   color: $dark;
   background-color: $secondary;

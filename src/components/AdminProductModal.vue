@@ -20,25 +20,22 @@
         <div class="modal-body">
           <nav class="mb-3">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button type="button" class="nav-link active" id="nav-productInfo-tab"
-                data-bs-toggle="tab" data-bs-target="#nav-productInfo" role="tab"
-                aria-controls="nav-productInfo" aria-selected="true">
+              <button type="button" class="nav-link active" data-info="productInfo"
+                 @click="changeTab">
                 商品資訊
               </button>
-              <button type="button" class="nav-link" id="nav-productContent-tab"
-                data-bs-toggle="tab" data-bs-target="#nav-productContent" role="tab"
-                aria-controls="nav-productContent" aria-selected="false">
+              <button type="button" class="nav-link" data-info="productContent"
+                @click="changeTab">
                 商品內容
               </button>
-              <button type="button" class="nav-link" id="nav-productImage-tab"
-                data-bs-toggle="tab" data-bs-target="#nav-productImage" role="tab"
-                aria-controls="nav-productImage" aria-selected="false">
+              <button type="button" class="nav-link" data-info="productImage"
+                @click="changeTab">
                 商品圖片
               </button>
             </div>
           </nav>
           <div class="tab-content px-2" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-productInfo" role="tabpanel" aria-labelledby="nav-productInfo-tab">
+            <div class="tab-pane fade show active" data-info="productInfo">
               <div class="row g-3">
                 <div class="col-12">
                   <label for="title" class="form-label"><span class="text-danger me-1">*</span>商品名稱</label>
@@ -85,7 +82,7 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="nav-productContent" role="tabpanel" aria-labelledby="nav-productContent-tab">
+            <div class="tab-pane fade" data-info="productContent">
               <div class="row g-3">
                 <div class="col-12">
                   <label for="description" class="form-label">商品描述</label>
@@ -107,7 +104,7 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="nav-productImage" role="tabpanel" aria-labelledby="nav-productImage-tab">
+            <div class="tab-pane fade" data-info="productImage">
               <div class="row g-2 justify-content-between mb-4">
                 <div class="col-4 image-box d-flex justify-content-center align-items-center">
                   <span v-if="tempProduct.productImage.length === 0" class="material-icons-outlined fs-6 text-gray">image</span>
@@ -273,6 +270,20 @@ export default {
     delImage (index) {
       this.tempProduct.productImage.splice(index, 1)
       this.addImageToTempProduct()
+    },
+    changeTab (e) {
+      const navTab = document.querySelectorAll('.nav-tabs .nav-link')
+      const navContent = document.querySelectorAll('.tab-content .tab-pane')
+      // 全部移除，再加入
+      navTab.forEach(item => item.classList.remove('active'))
+      e.target.classList.add('active')
+
+      navContent.forEach(item => {
+        item.classList.remove('active', 'show')
+        if (item.dataset.info === e.target.dataset.info) {
+          item.classList.add('active', 'show')
+        }
+      })
     }
   },
   mounted () {

@@ -13,7 +13,7 @@
         translate-middle
         w-75
         w-lg-50
-        p-3 py-4"
+        p-3 py-4" data-aos="fade-up" data-aos-offset="0"
     >
       <p>快把「收藏」帶回家，重拾你的好心情</p>
     </h2>
@@ -95,7 +95,7 @@
         <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <!-- Swiper -->
-      <Swiper :filter-products='recommendProducts' />
+      <Swiper :filter-products="recommendProducts" data-aos="zoom-in-left" />
     </section>
   </div>
 </template>
@@ -162,6 +162,7 @@ export default {
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '加入購物車')
+          this.isSpinner = false
         })
     },
     seeProduct (productId) {

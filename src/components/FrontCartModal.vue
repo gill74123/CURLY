@@ -125,6 +125,7 @@ export default {
         })
         .catch((err) => {
           this.$httpMessageState('errMessage', err.response.data.message)
+          this.isSpinner = false
         })
     },
     openModal (modalStatus) {
@@ -145,6 +146,7 @@ export default {
         })
         .catch((err) => {
           this.$httpMessageState('errMessage', err.response.data.message)
+          this.isSpinner = false
         })
     }
   },

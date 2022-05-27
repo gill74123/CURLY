@@ -3,9 +3,9 @@
   <Loading v-model:active="isLoading" />
 
   <div class="container py-6 py-md-7">
-    <section class="mb-6 py-3">
+    <section class="mb-4 py-3">
       <div class="row g-5">
-        <div class="col-md-6">
+        <div class="col-md-6" data-aos="fade-right">
           <div class="row g-2 image">
             <div class="col-9 col-md-12">
               <div class="mainImg" :style="{backgroundImage: `url(${enterImage})`}"></div>
@@ -29,20 +29,21 @@
           </div>
         </div>
 
-        <div class="col-md-6 d-flex flex-column justify-content-between">
+        <div class="col-md-6 d-flex flex-column justify-content-between" data-aos="fade-left">
           <div>
             <div class="d-flex justify-content-between align-items-center mb-4">
               <h2 class="d-flex align-items-center text-dark fs-6">{{ product.title }}
                 <span v-if="product.is_recommend" class="material-icons-outlined fs-6 text-primary ms-2">recommend</span>
               </h2>
-              <button type="button" class="d-flex align-items-center btn btn-outline-danger border-2 p-2" :disabled="isSpinner" @click="toggleFavorite(product.id)">
-                <span v-if="favorite.includes(product.id)" class="material-icons-outlined fs-5 fs-lg-4">favorite</span>
-                <span v-else class="material-icons-outlined fs-5 fs-lg-4">favorite_border</span>
-                <span class="d-none d-lg-block fw-medium ms-2">收藏</span>
+              <button type="button" class="d-flex align-items-center btn btn-outline-danger border-2 p-2"
+                :disabled="isSpinner" @click="toggleFavorite(product.id)">
+                <span v-if="favorite.includes(product.id)" class="material-icons-outlined d-none d-lg-block fs-5 fs-lg-4">favorite</span>
+                <span v-else class="material-icons-outlined d-none d-lg-block fs-5 fs-lg-4">favorite_border</span>
+                <span class="fw-medium ms-lg-2">收藏</span>
               </button>
             </div>
             <p class="d-flex align-items-center text-light mb-4">
-              <span class="text-primary fw-bold fs-5">$ {{ product.price }}</span> / {{ product.unit }}
+              <span class="text-primary fw-bold fs-5">{{ product.price }}</span>&ensp;/&ensp;{{ product.unit }}
               <del v-if="product.price !== product.origin_price" class="fs-4 ms-3">$ {{ product.origin_price }}</del>
             </p>
             <div class="text-light mb-6">
@@ -70,8 +71,8 @@
       </div>
     </section>
 
-    <section class="py-6 py-md-7">
-      <div class="mb-4">
+    <section class="py-3 py-md-7">
+      <div class="mb-4" data-aos="fade-up">
         <h5 class="text-primary fw-medium">商品資訊</h5>
         <hr />
         <table class="table table-borderless text-light">
@@ -95,8 +96,8 @@
           </tbody>
         </table>
       </div>
-      <div>
-        <h5 class="text-primary fw-medium ">食用建議</h5>
+      <div data-aos="fade-up">
+        <h5 class="text-primary fw-medium">食用建議</h5>
         <hr />
         <table class="table table-borderless text-light">
           <tbody>
@@ -126,7 +127,7 @@
         <div class="d-none d-md-block bg-primary" style="width: 100px; height: 2px"></div>
       </div>
       <!-- Swiper -->
-      <Swiper :filter-products='filterProducts' @get-product="getProduct" />
+      <Swiper :filter-products='filterProducts' @get-product="getProduct" data-aos="zoom-in-left" />
     </section>
   </div>
 </template>
@@ -195,6 +196,7 @@ export default {
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '加入購物車')
+          this.isSpinner = false
         })
     },
     changeEnterImage (secImage) {

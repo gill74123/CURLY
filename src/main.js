@@ -16,6 +16,10 @@ import CKEditor from '@ckeditor/ckeditor5-vue'
 // PageLoading
 import Loading from '@/components/PageLoading.vue'
 
+// AOS
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
 // ToastMessages, httpMessageState
 import ToastMessages from '@/components/ToastMessages.vue'
 import httpMessageState from '@/methods/pushMessageState'
@@ -45,6 +49,27 @@ const app = createApp(App)
 app.config.globalProperties.$emitter = emitter
 app.config.globalProperties.$httpMessageState = httpMessageState
 
+app.use({
+  install: () => {
+    AOS.init({
+      disable: false,
+      // startEvent: 'load',
+      // initClassName: 'aos-init',
+      // animatedClassName: 'aos-animate',
+      // useClassNames: false,
+      // disableMutationObserver: false,
+      // debounceDelay: 50,
+      // throttleDelay: 99,
+      offset: 200,
+      // delay: 1000,
+      duration: 1000,
+      easing: 'ease',
+      once: false,
+      mirror: false
+      // anchorPlacement: 'top-bottom'
+    })
+  }
+})
 app.use(VueAxios, axios)
 app.use(CKEditor)
 app.use(router)

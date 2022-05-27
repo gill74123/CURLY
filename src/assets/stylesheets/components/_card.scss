@@ -3,10 +3,12 @@
 .favorite {
   .card {
     background-color: transparent;
+
     .card-img-box {
       position: relative;
       overflow: hidden;
     }
+
     .card-img {
       height: 250px;
       object-fit: cover;
@@ -14,6 +16,7 @@
       border-bottom-right-radius: 0;
       transition-duration: .4s;
     }
+
     .card-tag {
       position: absolute;
       top: 100;
@@ -38,6 +41,7 @@
         z-index: 15;
         transition-duration: .4s;
       }
+
       &::after {
         content: "查看內容";
         position: absolute;
@@ -59,10 +63,12 @@
       .card-img {
         transform: scale(1.1);
       }
+
       .card-img-box {
         &::before {
           opacity: 0.3;
         }
+
         &::after {
           opacity: 1;
         }
@@ -77,6 +83,7 @@
   .card {
     background-color: transparent;
     border: 0px;
+
     .card-img {
       height: 100px;
       object-fit: cover;
@@ -89,6 +96,7 @@
   .card {
     background-color: transparent;
     border: 0px;
+
     .card-img {
       height: 100px;
       object-fit: cover;
@@ -110,15 +118,19 @@
 .articles {
   .card {
     background-color: transparent;
+
     .card-img {
+      width: 100%;
       height: 300px;
       object-fit: cover;
       border-radius: 0%;
     }
+
     .card-more {
+      padding: 8px;
+      border-radius: 10%;
       transition: .5s ease-in-out;
       &:hover {
-        padding: 8px;
         color: $secondary;
         background: $primary;
       }
@@ -126,12 +138,19 @@
   }
 }
 
-// Article
+// ArticleItem
 .article {
   .card-img {
-    height: 500px;
-    object-fit: cover;
+    height: 300px;
+    object-fit: contain;
     border-radius: 0%;
+    @include pad {
+      height: 400px;
+    }
+    @include lg {
+      height: 500px;
+      object-fit: cover;
+    }
   }
 }
 
@@ -142,6 +161,7 @@
     overflow: hidden;
     border-radius: 50%;
   }
+
   .card-img {
     width: 100%;
     height: 200px;
@@ -149,6 +169,7 @@
     background-position: center center;
     border-radius: 50%;
     transition-duration: .4s;
+
     &::after {
       content: "";
       position: absolute;
@@ -163,6 +184,7 @@
       z-index: 10;
       transition-duration: .4s;
     }
+
     &::before {
       content: "Let's Go";
       position: absolute;
@@ -176,19 +198,24 @@
       z-index: 15;
       transition-duration: .4s;
     }
+
     &:hover {
       transform: scale(1.1);
+
       &::after {
         opacity: 0.3;
         transform: scale(1.1);
       }
+
       &::before {
         opacity: 1;
       }
+
       .card-tag {
         opacity: 0;
       }
     }
+
     @include lg() {
       height: 250px;
     }
@@ -211,6 +238,7 @@
     height: 300px;
     background-size: cover;
     background-position: center center;
+
     &::after {
       content: "";
       position: absolute;
@@ -223,10 +251,12 @@
       z-index: 10;
       transition-duration: .4s;
     }
+
     &:hover {
       &::after {
         opacity: 0.3;
       }
+
       .news-description {
         height: 35%;
       }
@@ -242,6 +272,7 @@
     word-break: break-all; // 文字段行
     transition-duration: 10s;
     transition: height 1s;
+
     &::before {
       content: "";
       display: block;
@@ -257,4 +288,33 @@
   .news-description {
     z-index: 15;
   }
+}
+
+// about
+.aboutCartImg-1 {
+  width: 100%;
+  height: 300px;
+  background-image: url('./assets/images/about-1.jpg');
+  background-size: cover;
+  background-position: center center;
+  border-radius: 3%;
+  box-shadow: 5px 5px 5px #888888;
+}
+.aboutCartImg-2 {
+  width: 100%;
+  height: 300px;
+  background-image: url('./assets/images/about-2.jpg');
+  background-size: cover;
+  background-position: center center;
+  border-radius: 3%;
+  box-shadow: 5px 5px 5px #888888;
+}
+.aboutCartImg-3 {
+  width: 100%;
+  height: 300px;
+  background-image: url('./assets/images/about-3.jpg');
+  background-size: cover;
+  background-position: center center;
+  border-radius: 3%;
+  box-shadow: 5px 5px 5px #888888;
 }

@@ -38,6 +38,10 @@
   .secImg-box {
     width: 100%;
     height: 33%;
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 2px 2px 2px #888888;
+    }
     @include pad() {
       height: 100%;
     }

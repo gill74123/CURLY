@@ -13,7 +13,7 @@
         translate-middle
         w-75
         w-lg-50
-        p-3 py-4"
+        p-3 py-4" data-aos="fade-up" data-aos-offset="0"
     >
       <p class="fs-4 fs-md-5 fw-bold">多的是你不知道的事</p>
     </h2>
@@ -69,7 +69,7 @@
               <img :src="article.image" class="card-img mb-3" :alt="article.image">
               <p class="mb-3">{{ article.description }}</p>
             </div>
-            <a href="#" class="card-more stretched-link fs-4 fw-medium p-2 ms-auto">MORE</a>
+            <a href="#" class="card-more stretched-link fw-medium p-2 ms-auto">MORE</a>
             <hr>
           </li>
         </ul>
