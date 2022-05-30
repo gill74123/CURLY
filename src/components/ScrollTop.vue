@@ -1,7 +1,7 @@
 <template>
-  <a href="#" class="d-inline position-fixed top-80 end-0 bg-primary rounded-3 opacity-75 p-1 m-lg-2"
+  <a href="#" class="d-inline position-fixed top-80 end-0 bg-primary rounded-3 opacity-75 p-2 m-lg-3"
     :class="scrollYValue < 50 ? 'd-none' : ''" @click.prevent="scrollTop">
-    <span class="material-icons-outlined text-secondary fs-5 fw-medium align-middle">arrow_circle_up</span>
+    <span class="material-icons-outlined text-secondary fs-6 fw-medium align-middle">arrow_circle_up</span>
   </a>
 </template>
 

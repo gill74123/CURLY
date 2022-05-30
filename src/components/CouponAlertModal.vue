@@ -9,12 +9,6 @@
       <div class="modal-content bg-secondary border border-primary border-5">
         <div class="modal-header border-0 justify-content-center pb-0">
           <h5 class="modal-title fw-bold fs-4">— CURLY 全新開幕 —</h5>
-          <!-- <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close">
-          </button> -->
         </div>
         <div class="modal-body">
           <div class="img-couponAlert d-flex flex-column justify-content-center align-items-center text-white">
