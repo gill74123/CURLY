@@ -53,20 +53,11 @@ app.use({
   install: () => {
     AOS.init({
       disable: false,
-      // startEvent: 'load',
-      // initClassName: 'aos-init',
-      // animatedClassName: 'aos-animate',
-      // useClassNames: false,
-      // disableMutationObserver: false,
-      // debounceDelay: 50,
-      // throttleDelay: 99,
       offset: 200,
-      // delay: 1000,
       duration: 1000,
       easing: 'ease',
-      once: false,
+      once: true,
       mirror: false
-      // anchorPlacement: 'top-bottom'
     })
   }
 })

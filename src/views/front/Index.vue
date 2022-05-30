@@ -114,11 +114,19 @@
       </div>
     </div>
   </section>
+
+  <a href="#" class="getCouponBtn btn btn-primary position-fixed top-75 start-0 rounded-0 rounded-end opacity-75 p-1"
+    @click="openCouponAlertModal">
+    優惠碼
+  </a>
+
+  <!-- CouponAlertModal -->
+  <CouponAlertModal ref="couponAlertModal" />
 </template>
 
 <script>
 import Swiper from '@/components/Swiper.vue'
-import 'aos/dist/aos.css'
+import CouponAlertModal from '@/components/CouponAlertModal.vue'
 
 export default {
   data () {
@@ -131,7 +139,8 @@ export default {
     }
   },
   components: {
-    Swiper
+    Swiper,
+    CouponAlertModal
   },
   methods: {
     getProducts () {
@@ -176,11 +185,15 @@ export default {
     },
     seeArticle (articleId) {
       this.$router.push(`/article/${articleId}`)
+    },
+    openCouponAlertModal () {
+      this.$refs.couponAlertModal.openModal()
     }
   },
   mounted () {
     this.getProducts()
     this.getArticles()
+    this.openCouponAlertModal()
   }
 }
 </script>

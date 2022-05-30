@@ -1,7 +1,8 @@
 <template>
   <div class="bg-primary">
     <div class="container py-5" >
-      <ul class="row g-0 justify-content-center align-items-start align-items-lg-center list-unstyled text-secondary m-0" data-aos="zoom-in-up">
+      <ul class="row g-0 justify-content-center align-items-start align-items-lg-center list-unstyled text-secondary m-0"
+        data-aos="zoom-in-up">
         <li class="col-md-4 py-4 px-md-5">
           <div class="d-flex flex-md-column flex-lg-row justify-content-start justify-content-md-center align-items-center">
             <span class="material-icons-outlined fs-7 me-4 me-md-0 me-lg-4 mb-md-2 mb-lg-0">local_shipping </span>
